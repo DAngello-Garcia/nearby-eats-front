@@ -1,1 +1,11 @@
-<p>login works!</p>
+<form #f="ngForm" (ngSubmit)="login()">
+    <div>
+        <label>Email: </label>
+        <input type="email" name="email" [(ngModel)]="loginDTO.email" email required />
+    </div>
+    <div>
+        <label>Password: </label>
+        <input type="password" name="password" [(ngModel)]="loginDTO.password" required />
+    </div>
+    <button type="submit" [disabled]="f.invalid">Login</button>
+</form>
