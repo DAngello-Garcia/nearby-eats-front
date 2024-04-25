@@ -1,1 +1,44 @@
-<p>registro works!</p>
+<form #f="ngForm" (ngSubmit)="register()">
+    <div>
+        <label>Nombres: </label>
+        <input type="text" name="firstName" 
+        [(ngModel)]="registerClientDTO.firstName" required/>
+    </div>
+    <div>
+        <label>Apellidos: </label>
+        <input type="text" name="lastName" 
+        [(ngModel)]="registerClientDTO.lastName" />
+    </div>
+    <div>
+        <label>Foto: </label>
+        <input type="text" name="profilePicture"
+        [(ngModel)]="registerClientDTO.profilePicture" />
+    </div>
+    <div>
+        <label>Ciudad de Residensia: </label>
+        <input type="text" name="city" 
+        [(ngModel)]="registerClientDTO.city" required/>
+    </div>
+    <div>
+        <label>Username: </label>
+        <input type="text" name="nickname"
+        [(ngModel)]="registerClientDTO.nickname" required />
+    </div>
+    <div>
+        <label>Correo electrónico: </label>
+        <input type="email" name="email"
+        [(ngModel)]="registerClientDTO.email" required/>
+    </div>
+    <div>
+        <label>Contraseña: </label>
+        <input type="password" name="password"
+        [(ngModel)]="registerClientDTO.password" required/>
+    </div>
+    <div>
+        <label>Repetir Contraseña</label>
+        <input type="password" name="confirmPassword"
+        [(ngModel)]="registerClientDTO.confirmPassword" required>
+    </div>
+    @if (!theAreEqual()) { <p>Las contraseñas no coiciden</p>}
+    <button type="submit" [disabled]="f.invalid || !theAreEqual()">Registrarse</button>
+</form>
