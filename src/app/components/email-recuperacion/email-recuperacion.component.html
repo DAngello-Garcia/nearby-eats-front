@@ -1,1 +1,9 @@
-<p>email-recuperacion works!</p>
+<form #f="ngForm" (ngSubmit)="sendEmail()">
+    <h1>Busca tu dirección de correo electrónico</h1>
+    <p>Introduce tu dirección de correo electrónico de recuperación</p>
+    <div>
+        <label>Email: </label>
+        <input type="email" name="email" [(ngModel)]="email" required />
+    </div>
+    <button type="submit" [disabled]="f.invalid">Enviar Correo</button>
+</form>
