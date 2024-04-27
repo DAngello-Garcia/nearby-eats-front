@@ -1,0 +1,33 @@
+<form #f="ngForm" (ngSubmit)="updateAccount()">
+    <div>
+        <label>Nombres: </label>
+        <input type="text" name="firstName" 
+        [(ngModel)]="userUpdateDTO.firstName" required/>
+    </div>
+    <div>
+        <label>Apellidos: </label>
+        <input type="text" name="lastName" 
+        [(ngModel)]="userUpdateDTO.lastName" />
+    </div>
+    <div>
+        <label>Foto: </label>
+        <input type="file" name="profilePicture"
+        (change)="onFileChange($event)" required />
+    </div>
+    <div>
+        <label>Ciudad de Residensia: </label>
+        <select name="resideCity" 
+        required [(ngModel)]="userUpdateDTO.city">
+        <option value="0">Selecciones una Ciudad</option>
+        @for (item of citys; track $index) {
+            <option [value]="item">{{item}}</option>
+        }
+        </select>
+    </div>
+    <div>
+        <label>Correo electrónico: </label>
+        <input type="email" name="email"
+        [(ngModel)]="userUpdateDTO.email" required/>
+    </div>
+    <button type="submit" [disabled]="f.invalid">Actualizar Cuenta</button>
+</form>
