@@ -1,1 +1,16 @@
-<p>cambiar-contrasenia works!</p>
+<form #f="ngForm" (ngSubmit)="changePassword()">
+    <p>Por Favor Escriba Su Nueva Contraseña</p>
+    <div>
+        <label>Contraseña: </label>
+        <input type="password" name="newPassword"
+        [(ngModel)]="userChangePassword.newPassword">
+    </div>
+    <div>
+        <label>Repetir Contraseña: </label>
+        <input type="password" name="confirmPassword"
+        [(ngModel)]="userChangePassword.confirmPassword">
+    </div>
+    @if (!theAreEqual()) { <p>Las contraseñas no coiciden</p>}
+    <button type="submit" [disabled]="f.invalid || !theAreEqual()">Registrarse</button>
+    
+</form>
