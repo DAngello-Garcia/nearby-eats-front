@@ -11,19 +11,38 @@ import { FormsModule } from '@angular/forms';
 })
 export class RegistroComponent {
 
-  registerClientDTO: RegisterClientDTO
+  registerClientDTO: RegisterClientDTO;
+  citys: string[];
+  archivos!: FileList;
   
   constructor() {
     this.registerClientDTO = new RegisterClientDTO();
+    this.citys = [];
+    this.uploadCitys();
   }
 
   public register() {
-    console.log(this.registerClientDTO);
+    if (this.registerClientDTO.profilePicture != "") {
+      console.log(this.registerClientDTO);
+    } else {
+      console.log("Debe cargar una foto");
+    }
   }
 
   public theAreEqual(): boolean {
     return this.registerClientDTO.password == 
     this.registerClientDTO.confirmPassword;
+  }
+
+  private uploadCitys() {
+    this.citys = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena"];
+  }
+
+  public onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      this.archivos = event.target.files;
+      this.registerClientDTO.profilePicture = this.archivos[0].name;
+    }
   }
 
 }

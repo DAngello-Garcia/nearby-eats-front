@@ -11,13 +11,18 @@
     </div>
     <div>
         <label>Foto: </label>
-        <input type="text" name="profilePicture"
-        [(ngModel)]="registerClientDTO.profilePicture" />
+        <input type="file" name="profilePicture"
+        (change)="onFileChange($event)" required />
     </div>
     <div>
         <label>Ciudad de Residensia: </label>
-        <input type="text" name="city" 
-        [(ngModel)]="registerClientDTO.city" required/>
+        <select name="resideCity" 
+        required [(ngModel)]="registerClientDTO.city">
+        <option value="0">Selecciones una Ciudad</option>
+        @for (item of citys; track $index) {
+            <option [value]="item">{{item}}</option>
+        }
+        </select>
     </div>
     <div>
         <label>Username: </label>
