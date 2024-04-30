@@ -1,1 +1,32 @@
-<p>crear-lugar works!</p>
+<form #f="ngForm" (ngSubmit)="createPlace()">
+    <div>
+        <label>Nombre: </label>
+        <input type="text" name="firstName"
+        [(ngModel)]="placeCreateDTO.name" required/>
+    </div>
+    <div>
+        <label>Descripción: </label>
+        <input type="text" name="firstName"
+        [(ngModel)]="placeCreateDTO.description" required/>
+    </div>
+    <div>
+        <label>Location: </label>
+        <input type="text" name="location"
+        [(ngModel)]="placeCreateDTO.name" required/>
+    </div>
+    <div>
+        <label>Fotos: </label>
+        <input type="file" name="images"
+        [(ngModel)]="placeCreateDTO.name" required/>
+    </div>
+    <div>
+        <label>Horarios: </label>
+        <input type="text" name="schedule"
+        [(ngModel)]="placeCreateDTO.schedule" required/>
+    </div>
+    <div>
+        <label>Categoria: </label>
+        <input type="text" name="categories"
+        [(ngModel)]="placeCreateDTO.categories" required/>
+    </div>
+</form>
