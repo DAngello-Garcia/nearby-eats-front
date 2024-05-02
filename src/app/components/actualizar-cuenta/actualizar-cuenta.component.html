@@ -1,33 +1,46 @@
-<form #f="ngForm" (ngSubmit)="updateAccount()">
-    <div>
-        <label>Nombres: </label>
-        <input type="text" name="firstName" 
-        [(ngModel)]="userUpdateDTO.firstName" required/>
+<div class="card">
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Actualizar cuenta</h5>
     </div>
-    <div>
-        <label>Apellidos: </label>
-        <input type="text" name="lastName" 
-        [(ngModel)]="userUpdateDTO.lastName" />
+    <div class="card-body p-5">
+        <form #f="ngForm" (ngSubmit)="updateAccount()">
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Nombres: </label>
+                <div class="col-sm-10">
+                    <input #firstName="ngModel" class="form-control" [ngClass]="firstName.invalid && firstName.dirty
+                    ? 'is-invalid' : ''" type="text" name="firstName" [(ngModel)]="userUpdateDTO.firstName" required />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Apellidos: </label>
+                <div class="col-sm-10">
+                    <input #lastName="ngModel" class="form-control" [ngClass]="lastName.invalid && lastName.dirty
+                    ? 'is-invalid' : ''" type="text" name="lastName" [(ngModel)]="userUpdateDTO.lastName" required />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Foto: </label>
+                <input class="form-control" type="file" name="profilePicture" (change)="onFileChange($event)"
+                    required />
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Ciudad de Residencia: </label>
+                <select class="form-select" name="city" required [(ngModel)]="userUpdateDTO.city">
+                    <option value="" selected>Seleccione una ciudad</option>
+                    @for (item of citys; track $index) { <option [value]="item">{{item}}</option> }
+                </select>
+            </div>
+            <div class="col-sm-10">
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Correo electrónico: </label>
+                    <input #email="ngModel" class="form-control" [ngClass]="email.invalid &&
+                    email.dirty ? 'is-invalid' : ''" type="text" name="email" [(ngModel)]="userUpdateDTO.email"
+                        required />
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" [disabled]="f.invalid">
+                <i class="fa-solid fa-circle-plus me-1"></i>Actualizar cuenta
+            </button>
+        </form>
     </div>
-    <div>
-        <label>Foto: </label>
-        <input type="file" name="profilePicture"
-        (change)="onFileChange($event)" required />
-    </div>
-    <div>
-        <label>Ciudad de Residensia: </label>
-        <select name="resideCity" 
-        required [(ngModel)]="userUpdateDTO.city">
-        <option value="0">Selecciones una Ciudad</option>
-        @for (item of citys; track $index) {
-            <option [value]="item">{{item}}</option>
-        }
-        </select>
-    </div>
-    <div>
-        <label>Correo electrónico: </label>
-        <input type="email" name="email"
-        [(ngModel)]="userUpdateDTO.email" required/>
-    </div>
-    <button type="submit" [disabled]="f.invalid">Actualizar Cuenta</button>
-</form>
+</div>

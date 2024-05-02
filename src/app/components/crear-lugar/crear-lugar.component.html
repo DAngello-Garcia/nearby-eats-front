@@ -1,32 +1,55 @@
-<form #f="ngForm" (ngSubmit)="createPlace()">
-    <div>
-        <label>Nombre: </label>
-        <input type="text" name="firstName"
-        [(ngModel)]="placeCreateDTO.name" required/>
+<div class="card">
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-utensils me-3"></i>Crear un lugar</h5>
     </div>
-    <div>
-        <label>Descripción: </label>
-        <input type="text" name="firstName"
-        [(ngModel)]="placeCreateDTO.description" required/>
+    <div class="card-body p-5">
+        <form #f="ngForm" (ngSubmit)="createPlace()">
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Nombre: </label>
+                <div class="col-sm-10">
+                    <input #name="ngModel" class="form-control" [ngClass]="name.invalid && name.dirty
+                    ? 'is-invalid' : ''" type="text" name="name" [(ngModel)]="placeCreateDTO.name" required />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Descripción: </label>
+                <div class="col-sm-10">
+                    <input #description="ngModel" class="form-control" [ngClass]="description.invalid && description.dirty
+                    ? 'is-invalid' : ''" type="text" name="description" [(ngModel)]="placeCreateDTO.description"
+                        required />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Ubicación: </label>
+                <div class="col-sm-10">
+                    <input #location="ngModel" class="form-control" [ngClass]="location.invalid && location.dirty
+                    ? 'is-invalid' : ''" type="text" name="location" [(ngModel)]="placeCreateDTO.location" required />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Fotos: </label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="file" name="images" (change)="onFileChange($event)" required />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Horarios: </label>
+                <div class="col-sm-10">
+                    <input #schedule="ngModel" class="form-control" type="text" name="schedule"
+                        [(ngModel)]="placeCreateDTO.schedule" required />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Categoria: </label>
+                <div class="col-sm-10">
+                    <input #categories="ngModel" class="form-control" [ngClass]="categories.invalid && categories.dirty
+                    ? 'is-invalid' : ''" type="text" name="categories" [(ngModel)]="placeCreateDTO.categories"
+                        required />
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" [disabled]="f.invalid">
+                <i class="fa-solid fa-circle-plus me-1"></i>Crear lugar
+            </button>
+        </form>
     </div>
-    <div>
-        <label>Location: </label>
-        <input type="text" name="location"
-        [(ngModel)]="placeCreateDTO.name" required/>
-    </div>
-    <div>
-        <label>Fotos: </label>
-        <input type="file" name="images"
-        [(ngModel)]="placeCreateDTO.name" required/>
-    </div>
-    <div>
-        <label>Horarios: </label>
-        <input type="text" name="schedule"
-        [(ngModel)]="placeCreateDTO.schedule" required/>
-    </div>
-    <div>
-        <label>Categoria: </label>
-        <input type="text" name="categories"
-        [(ngModel)]="placeCreateDTO.categories" required/>
-    </div>
-</form>
+</div>

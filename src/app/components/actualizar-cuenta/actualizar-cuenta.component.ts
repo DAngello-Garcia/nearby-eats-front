@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserUpdateDTO } from '../../dto/user-update-dto';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-actualizar-cuenta',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './actualizar-cuenta.component.html',
   styleUrl: './actualizar-cuenta.component.css'
 })
