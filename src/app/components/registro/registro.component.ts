@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { RegisterClientDTO } from '../../dto/register-client-dto';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
@@ -14,7 +15,7 @@ export class RegistroComponent {
   registerClientDTO: RegisterClientDTO;
   citys: string[];
   archivos!: FileList;
-  
+
   constructor() {
     this.registerClientDTO = new RegisterClientDTO();
     this.citys = [];
@@ -29,9 +30,9 @@ export class RegistroComponent {
     }
   }
 
-  public theAreEqual(): boolean {
-    return this.registerClientDTO.password == 
-    this.registerClientDTO.confirmPassword;
+  public equalPassword(): boolean {
+    return this.registerClientDTO.password ==
+      this.registerClientDTO.confirmPassword;
   }
 
   private uploadCitys() {
