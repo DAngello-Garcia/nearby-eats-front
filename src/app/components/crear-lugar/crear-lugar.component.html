@@ -12,16 +12,16 @@
     <div>
         <label>Location: </label>
         <input type="text" name="location"
-        [(ngModel)]="placeCreateDTO.name" required/>
+        [(ngModel)]="placeCreateDTO.location" required/>
     </div>
     <div>
         <label>Fotos: </label>
         <input type="file" name="images"
-        [(ngModel)]="placeCreateDTO.name" required/>
+        [(ngModel)]="placeCreateDTO.images" required/>
     </div>
     <div>
         <label>Horarios: </label>
-        <input type="text" name="schedule"
+        <input type="date" name="schedule"
         [(ngModel)]="placeCreateDTO.schedule" required/>
     </div>
     <div>
@@ -29,4 +29,6 @@
         <input type="text" name="categories"
         [(ngModel)]="placeCreateDTO.categories" required/>
     </div>
+    <div>que tipos de servidores hay adicionales a tipo torre, tico rac blade y micro servidor</div>
+    <button type="submit" [disabled]="f.invalid">Crear Lugar</button>
 </form>
