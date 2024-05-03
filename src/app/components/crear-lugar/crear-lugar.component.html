@@ -23,7 +23,7 @@
                 <label class="col-sm-2 col-form-label">Ubicación: </label>
                 <div class="col-sm-10">
                     <input #location="ngModel" class="form-control" [ngClass]="location.invalid && location.dirty
-                    ? 'is-invalid' : ''" type="text" name="location" [(ngModel)]="placeCreateDTO.location" required />
+                    ? 'is-invalid' : ''" type="date" name="location" [(ngModel)]="placeCreateDTO.location" required />
                 </div>
             </div>
             <div class="mb-3 row">
