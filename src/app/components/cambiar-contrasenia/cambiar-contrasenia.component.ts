@@ -21,8 +21,8 @@ export class CambiarContraseniaComponent {
     console.log(this.userChangePassword);
   }
 
-  public theAreEqual(): boolean {
-    return this.userChangePassword.newPassword == 
-    this.userChangePassword.confirmPassword;
+  public equalPassword(): boolean {
+    return this.userChangePassword.newPassword ==
+      this.userChangePassword.confirmPassword;
   }
 }

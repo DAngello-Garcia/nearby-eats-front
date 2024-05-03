@@ -1,16 +1,23 @@
-<form #f="ngForm" (ngSubmit)="changePassword()">
-    <p>Por Favor Escriba Su Nueva Contraseña</p>
-    <div>
-        <label>Contraseña: </label>
-        <input type="password" name="newPassword"
-        [(ngModel)]="userChangePassword.newPassword">
+<div class="card">
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-lock me-3"></i>Cambiar contraseña</h5>
     </div>
-    <div>
-        <label>Repetir Contraseña: </label>
-        <input type="password" name="confirmPassword"
-        [(ngModel)]="userChangePassword.confirmPassword">
+    <div class="card-body p-5">
+        <form #f="ngForm" (ngSubmit)="changePassword()">
+            <p>Por Favor Escriba Su Nueva Contraseña</p>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Contraseña: </label>
+                <input type="password" name="password" [(ngModel)]="userChangePassword.newPassword" required />
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Repetir Contraseña</label>
+                <input type="password" name="confirmPassword" [(ngModel)]="userChangePassword.confirmPassword" required>
+            </div>
+            @if (!equalPassword()) { <div class="alert alert-danger" role="alert">Las contraseñas no
+                coinciden</div> }
+            <button class="btn btn-primary" type="submit" [disabled]="f.invalid || !equalPassword()">
+                <i class="fa-solid fa-circle-plus me-1"></i>Cambiar contraseña
+            </button>
+        </form>
     </div>
-    @if (!theAreEqual()) { <p>Las contraseñas no coiciden</p>}
-    <button type="submit" [disabled]="f.invalid || !theAreEqual()">Registrarse</button>
-    
-</form>
+</div>
