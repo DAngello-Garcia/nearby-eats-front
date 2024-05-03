@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import e from 'express';
@@ -5,7 +6,7 @@ import e from 'express';
 @Component({
   selector: 'app-email-recuperacion',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './email-recuperacion.component.html',
   styleUrl: './email-recuperacion.component.css'
 })
