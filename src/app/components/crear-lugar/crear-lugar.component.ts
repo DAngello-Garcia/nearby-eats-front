@@ -15,9 +15,12 @@ export class CrearLugarComponent {
 
   placeCreateDTO: PlaceCreateDTO;
   archivos!: FileList;
+  categories: string[];
 
   constructor() {
     this.placeCreateDTO = new PlaceCreateDTO();
+    this.categories = [];
+    this.uploadCategories();
   }
 
   public createPlace() {
@@ -30,4 +33,13 @@ export class CrearLugarComponent {
       this.placeCreateDTO.images = this.archivos[0].name;
     }
   }
+
+  private uploadCategories() {
+    this.categories = ["Supermercado", "Tienda", "Restaurante", "Comida Rápida",
+     "Hotel", "Museo", "Café", "Otros"];
+  }
+
+  //public agregarHorario() {
+    //this.hotatios.push(new Horario)
+  //}
 }

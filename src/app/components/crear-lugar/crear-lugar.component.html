@@ -42,11 +42,20 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Categoria: </label>
                 <div class="col-sm-10">
-                    <input #categories="ngModel" class="form-control" [ngClass]="categories.invalid && categories.dirty
-                    ? 'is-invalid' : ''" type="text" name="categories" [(ngModel)]="placeCreateDTO.categories"
-                        required />
+                    <select class="form-select" name="categories" required [(ngModel)]="placeCreateDTO.categories">
+                        <option value="" selected>Seleccione una Categoria</option>
+                        @for (item of categories; track $index) {<option [value]="item">{{item}}</option>}
+                        </select>
                 </div>
             </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Telefonos: </label>
+                <div class="col-sm-10">
+                    <input #phones="ngModel" class="form-control" [ngClass]="phones.invalid && phones.dirty
+                    ? 'is-invalid' : ''" type="text" name="categories" [(ngModel)]="placeCreateDTO.categories"
+                        required />
+            </div>
+        </div>
             <button class="btn btn-primary" type="submit" [disabled]="f.invalid">
                 <i class="fa-solid fa-circle-plus me-1"></i>Crear lugar
             </button>
