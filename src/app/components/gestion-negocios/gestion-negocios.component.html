@@ -1,0 +1,69 @@
+<div class="card">
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-location-dot me-3"></i></h5>
+    </div>
+
+    <div class="card-body p-5">
+        <div class="mb-3">
+            <button type="button" routerLink="/crear-lugar" class="btn btn-success me-2">
+                <i class="fa-solid fa-plus me-1"></i> Crear Nuevo Negocio
+            </button>
+            <button type="button" class="btn btn-danger anim-e" [disabled]="seleccionados.length == 0"
+                (click)="deletePlaces()"><i class="fa-solid fa-trash me-1"></i> Eliminar
+                {{textoBtnDelete}}
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Tipo de negocio</th>
+                        <th>Imagen destacada</th>
+                        <th>Calificación promedio</th>
+                        <th>Estado negocio</th>
+                        <th>Detalle</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    @for (item of negocios; track $index) {
+                    <tr><td><input #check class="form-check-input" type="checkbox" (change)="seleccionar(item,
+                        check.checked)" /></td>
+                        <td>
+                            <p>{{item.codigoNegocio}}</p>
+                        </td>
+                        <td>
+                            <p>{{item.nombre}}</p>
+                        </td>
+                        <td>
+                            <p>{{item.tipoNegocio}}</p>
+                        </td>
+                        <td>
+                            <img src="{{item.imagenDestacada}}" alt="{{item.nombre}}" class="img-fluid"
+                                style="max-width: 100px;">
+                        </td>
+
+                        <td>
+                            <p>{{item.calificacionPromedio}}</p>
+                        </td>
+                        <td>
+                            <span [ngClass]="{'text-bg-success': item.estadoNegocio ==
+                'APROBADO', 'text-bg-danger': item.estadoNegocio == 'RECHAZADO', 'text-bg-warning':
+                item.estadoNegocio == 'PENDIENTE' }" class="badge">{{item.estadoNegocio}}</span>
+
+                        </td>
+                        <td>
+                            <a routerLink="/detalle-negocio/{{item.codigoNegocio}}"><i
+                                    class="fa-solid fa-circle-info me-2"></i>Ver detalle</a>
+
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

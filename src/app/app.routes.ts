@@ -6,6 +6,7 @@ import { EmailRecuperacionComponent } from './components/email-recuperacion/emai
 import { CambiarContraseniaComponent } from './components/cambiar-contrasenia/cambiar-contrasenia.component';
 import { ActualizarCuentaComponent } from './components/actualizar-cuenta/actualizar-cuenta.component';
 import { CrearLugarComponent } from './components/crear-lugar/crear-lugar.component';
+import { GestionNegociosComponent } from './components/gestion-negocios/gestion-negocios.component';
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
@@ -15,5 +16,6 @@ export const routes: Routes = [
     { path: 'cambiar-contrasenia', component: CambiarContraseniaComponent},
     { path: 'actualizar-cuenta', component: ActualizarCuentaComponent},
     { path: 'crear-lugar', component: CrearLugarComponent},
+    { path: "gestion-negocios", component: GestionNegociosComponent},
     { path: "**", pathMatch: "full", redirectTo: "" }
 ];
