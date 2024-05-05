@@ -1,9 +1,13 @@
 <div class="card">
+
     <div class="card-header ps-5 pt-4 pb-4">
         <h5 class="mb-0"><i class="fa-solid fa-utensils me-3"></i>Crear un lugar</h5>
     </div>
+
     <div class="card-body p-5">
-        <form #f="ngForm" (ngSubmit)="createPlace()">
+
+        <form #f="ngForm">
+
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre: </label>
                 <div class="col-sm-10">
@@ -11,14 +15,16 @@
                     ? 'is-invalid' : ''" type="text" name="name" [(ngModel)]="registroNegocioDTO.nombre" required />
                 </div>
             </div>
+
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Descripción: </label>
                 <div class="col-sm-10">
-                    <input #description="ngModel" class="form-control" [ngClass]="description.invalid && description.dirty
+                    <textarea #description="ngModel" class="form-control" [ngClass]="description.invalid && description.dirty
                     ? 'is-invalid' : ''" type="text" name="description" [(ngModel)]="registroNegocioDTO.descripcion"
-                        required />
+                        required></textarea>
                 </div>
             </div>
+
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Ubicación: </label>
                 <div class="col-sm-10">
@@ -28,6 +34,7 @@
                     ? 'is-invalid' : ''" type="number" name="latitud"
                                 [(ngModel)]="registroNegocioDTO.ubicacion.coordinates" required />
                         </div>
+
                         <div class="col">
                             <input #longitud="ngModel" class="form-control" [ngClass]="longitud.invalid && longitud.dirty
                     ? 'is-invalid' : ''" type="number" name="longitud"
@@ -35,21 +42,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Fotos: </label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="file" name="images" (change)="onFileChange($event)"
-                            required />
-                    </div>
-                </div>
             </div>
+
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Horarios: </label>
+                <label class="col-sm-2 col-form-label">Fotos: </label>
                 <div class="col-sm-10">
-                    <input #schedule="ngModel" class="form-control" type="text" name="schedule"
-                        [(ngModel)]="placeCreateDTO.schedule" required />
+                    <input class="form-control" type="file" name="images" (change)="onFileChange($event)" multiple
+                        required />
                 </div>
             </div>
+
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Categoria: </label>
                 <div class="col-sm-10">
@@ -59,6 +61,36 @@
                     </select>
                 </div>
             </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Horarios: </label>
+                <div class="col-sm-10">
+                    @for (item of schedules; track $index) {
+
+                    <div class="row mb-2">
+                        <div class="col">
+                            <input class="form-control" placeholder="Día" type="text" name="dia-{{$index}}"
+                                [(ngModel)]="item.weekday" required />
+                        </div>
+
+                        <div class="col">
+                            <input class="form-control" placeholder="09:00 am" type="text" name="dia-{{$index}}"
+                                [(ngModel)]="item.openingTime" required />
+                        </div>
+
+                        <div class="col">
+                            <input class="form-control" placeholder="06:00 pm" type="text" name="dia-{{$index}}"
+                                [(ngModel)]="item.closingTime" required />
+                        </div>
+                        <div class="col-sm-2 text end">
+                            <button class="btn btn-primary" (click)="addSchedule()">
+                                <i class="fa-solid fa-circle-plus me-1"></i>Agregar Horario</button>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+            
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Telefonos: </label>
                 <div class="col-sm-10">
@@ -67,9 +99,11 @@
                         required />
                 </div>
             </div>
-            <button class="btn btn-primary" type="submit" [disabled]="f.invalid">
-                <i class="fa-solid fa-circle-plus me-1"></i>Crear lugar
+
+            <button class="btn btn-primary" (click)="createPlace()" [disabled]="f.invalid">
+                <i class="fa-solid fa-circle-plus me-1"></i>Crear Negocio
             </button>
+
         </form>
     </div>
 </div>

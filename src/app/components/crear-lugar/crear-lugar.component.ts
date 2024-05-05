@@ -19,26 +19,26 @@ export class CrearLugarComponent {
   registroNegocioDTO: RegistroNegocioDTO;
   placeCreateDTO: PlaceCreateDTO;
   archivos!: FileList;
-  schedule: Schedule[];
+  schedules: Schedule[];
   categories: string[];
 
   constructor(private negocioService: NegociosService) {
     this.registroNegocioDTO = new RegistroNegocioDTO();
     this.placeCreateDTO = new PlaceCreateDTO();
     this.categories = [];
-    this.schedule = [ new Schedule('', '', '') ];
+    this.schedules = [ new Schedule('', '', '') ];
     this.uploadCategories();
   }
 
   public createPlace() {
-    this.registroNegocioDTO.horarios = this.schedule;
+    this.registroNegocioDTO.horarios = this.schedules;
     this.negocioService.crear(this.registroNegocioDTO);
 
     console.log(this.registroNegocioDTO);
   }
 
   public addSchedule() {
-    this.schedule.push(new Schedule('', '', ''));
+    this.schedules.push(new Schedule('', '', ''));
   }
 
   public onFileChange(event: any) {
