@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { PlaceCreateDTO } from '../../dto/place-create-dto';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Schedule } from '../../dto/schedule';
+import { NegociosService } from '../../services/negocios.service';
+import { RegistroNegocioDTO } from '../../dto/registro-negocio-dto';
 
 @Component({
   selector: 'app-crear-lugar',
@@ -13,18 +16,29 @@ import { CommonModule } from '@angular/common';
 })
 export class CrearLugarComponent {
 
+  registroNegocioDTO: RegistroNegocioDTO;
   placeCreateDTO: PlaceCreateDTO;
   archivos!: FileList;
+  schedule: Schedule[];
   categories: string[];
 
-  constructor() {
+  constructor(private negocioService: NegociosService) {
+    this.registroNegocioDTO = new RegistroNegocioDTO();
     this.placeCreateDTO = new PlaceCreateDTO();
     this.categories = [];
+    this.schedule = [ new Schedule('', '', '') ];
     this.uploadCategories();
   }
 
   public createPlace() {
-    console.log(this.placeCreateDTO);
+    this.registroNegocioDTO.horarios = this.schedule;
+    this.negocioService.crear(this.registroNegocioDTO);
+
+    console.log(this.registroNegocioDTO);
+  }
+
+  public addSchedule() {
+    this.schedule.push(new Schedule('', '', ''));
   }
 
   public onFileChange(event: any) {
@@ -38,8 +52,4 @@ export class CrearLugarComponent {
     this.categories = ["Supermercado", "Tienda", "Restaurante", "Comida Rápida",
      "Hotel", "Museo", "Café", "Otros"];
   }
-
-  //public agregarHorario() {
-    //this.hotatios.push(new Horario)
-  //}
 }

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ItemNegocioDTO } from '../../dto/item-negocio-dto';
 import { NegociosService } from '../../services/negocios.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-gestion-negocios',
@@ -12,12 +13,16 @@ import { NegociosService } from '../../services/negocios.service';
   styleUrl: './gestion-negocios.component.css'
 })
 export class GestionNegociosComponent {
+  @ViewChild('confirmModal') confirmModal: any;
 
   negocios: ItemNegocioDTO[];
   seleccionados: ItemNegocioDTO[];
   textoBtnDelete: string;
 
-  constructor(private negocioService: NegociosService) {
+  constructor(
+    private negocioService: NegociosService,
+    private dialog: MatDialog
+  ) {
     this.negocios = [];
     this.seleccionados = [];
     this.textoBtnDelete = '';
@@ -61,5 +66,9 @@ export class GestionNegociosComponent {
 
     this.seleccionados = [];
     this.updateMessage();
+  }
+
+  public openModalDelete() {
+    this.confirmModal.show();
   }
 }

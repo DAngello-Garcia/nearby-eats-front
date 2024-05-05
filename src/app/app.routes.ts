@@ -7,6 +7,7 @@ import { CambiarContraseniaComponent } from './components/cambiar-contrasenia/ca
 import { ActualizarCuentaComponent } from './components/actualizar-cuenta/actualizar-cuenta.component';
 import { CrearLugarComponent } from './components/crear-lugar/crear-lugar.component';
 import { GestionNegociosComponent } from './components/gestion-negocios/gestion-negocios.component';
+import { DetalleNegocioComponent } from './components/detalle-negocio/detalle-negocio.component';
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: 'actualizar-cuenta', component: ActualizarCuentaComponent},
     { path: 'crear-lugar', component: CrearLugarComponent},
     { path: "gestion-negocios", component: GestionNegociosComponent},
+    { path: "detalle-negocio/:codigo", component: DetalleNegocioComponent},
     { path: "**", pathMatch: "full", redirectTo: "" }
 ];

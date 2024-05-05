@@ -13,7 +13,6 @@ export class NegociosService {
   constructor() { 
     this.negocios = [];
 
-
     this.negocios.push( new ItemNegocioDTO('1', 'Bar Armenia', 'https://picsum.photos/100',
     'BAR', new Location('Armenia', [4.531456060381842, -75.68035469963664]), 4.5, 'APROBADO') );
     this.negocios.push( new ItemNegocioDTO('2', 'Restaurante La Casona',

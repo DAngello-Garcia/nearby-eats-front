@@ -1,3 +1,5 @@
+import { Schedule } from "./schedule";
+
 export class PlaceCreateDTO {
 
     constructor(
@@ -5,7 +7,7 @@ export class PlaceCreateDTO {
         public description: string = '',
         public location: string = '',
         public images: string = '',
-        public schedule: string = '',
+        public schedule: Schedule[] = [] ,
         public phones: string = '',
         public categories: string = '',
         public clientId: string = ''
