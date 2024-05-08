@@ -29,17 +29,7 @@
                 <label class="col-sm-2 col-form-label">Ubicación: </label>
                 <div class="col-sm-10">
                     <div class="row">
-                        <div class="col">
-                            <input #latitud="ngModel" class="form-control" [ngClass]="latitud.invalid && latitud.dirty
-                    ? 'is-invalid' : ''" type="number" name="latitud"
-                                [(ngModel)]="registroNegocioDTO.ubicacion.coordinates" required />
-                        </div>
-
-                        <div class="col">
-                            <input #longitud="ngModel" class="form-control" [ngClass]="longitud.invalid && longitud.dirty
-                    ? 'is-invalid' : ''" type="number" name="longitud"
-                                [(ngModel)]="registroNegocioDTO.ubicacion.coordinates" required>
-                        </div>
+                        <div id="map" ></div>
                     </div>
                 </div>
             </div>

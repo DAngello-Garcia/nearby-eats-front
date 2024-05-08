@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PlaceCreateDTO } from '../../dto/place-create-dto';
 import { RouterLink } from '@angular/router';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Schedule } from '../../dto/schedule';
 import { NegociosService } from '../../services/negocios.service';
 import { RegistroNegocioDTO } from '../../dto/registro-negocio-dto';
+import { MapaService } from '../../services/mapa.service';
 
 @Component({
   selector: 'app-crear-lugar',
@@ -14,7 +15,7 @@ import { RegistroNegocioDTO } from '../../dto/registro-negocio-dto';
   templateUrl: './crear-lugar.component.html',
   styleUrl: './crear-lugar.component.css'
 })
-export class CrearLugarComponent {
+export class CrearLugarComponent implements OnInit {
 
   registroNegocioDTO: RegistroNegocioDTO;
   placeCreateDTO: PlaceCreateDTO;
@@ -22,12 +23,16 @@ export class CrearLugarComponent {
   schedules: Schedule[];
   categories: string[];
 
-  constructor(private negocioService: NegociosService) {
+  constructor(private negocioService: NegociosService, private mapService:MapaService) {
     this.registroNegocioDTO = new RegistroNegocioDTO();
     this.placeCreateDTO = new PlaceCreateDTO();
     this.categories = [];
     this.schedules = [ new Schedule('', '', '') ];
     this.uploadCategories();
+  }
+
+  ngOnInit(): void {
+    this.mapService.createMap();
   }
 
   public createPlace() {
