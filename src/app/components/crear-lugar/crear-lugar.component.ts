@@ -33,6 +33,11 @@ export class CrearLugarComponent implements OnInit {
 
   ngOnInit(): void {
     this.mapService.createMap();
+
+    this.mapService.addMarcador().subscribe((marcador) => {
+      this.registroNegocioDTO.ubicacion.coordinates[0] = marcador.lat;
+      this.registroNegocioDTO.ubicacion.coordinates[1] = marcador.lng;
+    })
   }
 
   public createPlace() {

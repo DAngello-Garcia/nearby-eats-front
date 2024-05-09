@@ -8,6 +8,7 @@ import { ActualizarCuentaComponent } from './components/actualizar-cuenta/actual
 import { CrearLugarComponent } from './components/crear-lugar/crear-lugar.component';
 import { GestionNegociosComponent } from './components/gestion-negocios/gestion-negocios.component';
 import { DetalleNegocioComponent } from './components/detalle-negocio/detalle-negocio.component';
+import { BusquedaComponent } from './components/busqueda/busqueda.component';
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
@@ -19,5 +20,6 @@ export const routes: Routes = [
     { path: 'crear-lugar', component: CrearLugarComponent},
     { path: "gestion-negocios", component: GestionNegociosComponent},
     { path: "detalle-negocio/:codigo", component: DetalleNegocioComponent},
+    { path: "busqueda/:texto", component: BusquedaComponent},
     { path: "**", pathMatch: "full", redirectTo: "" }
 ];

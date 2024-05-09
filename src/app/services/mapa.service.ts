@@ -58,6 +58,7 @@ export class MapaService {
   }
 
   public paintMarcador(negocios: ItemNegocioDTO[]) {
+
     negocios.forEach(negocio => {
       new mapboxgl.Marker()
         .setLngLat([negocio.ubicacion.coordinates[0], negocio.ubicacion.coordinates[1]])
@@ -65,5 +66,6 @@ export class MapaService {
         .addTo(this.map);
     });
   }
+  
 }
 

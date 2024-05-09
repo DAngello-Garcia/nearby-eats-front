@@ -11,7 +11,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre: </label>
                 <div class="col-sm-10">
-                    <input #name="ngModel" class="form-control" [ngClass]="name.invalid && name.dirty
+                    <input #name="ngModel" class="form-control" placeholder="Nombre del Negocio" [ngClass]="name.invalid && name.dirty
                     ? 'is-invalid' : ''" type="text" name="name" [(ngModel)]="registroNegocioDTO.nombre" required />
                 </div>
             </div>
@@ -19,8 +19,9 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Descripción: </label>
                 <div class="col-sm-10">
-                    <textarea #description="ngModel" class="form-control" [ngClass]="description.invalid && description.dirty
-                    ? 'is-invalid' : ''" type="text" name="description" [(ngModel)]="registroNegocioDTO.descripcion"
+                    <textarea #description="ngModel" class="form-control" placeholder="Descripción del Negocio, Datos importantes del Negocio"
+                     [ngClass]="description.invalid && description.dirty ? 'is-invalid' : ''" type="text" name="description" 
+                     [(ngModel)]="registroNegocioDTO.descripcion"
                         required></textarea>
                 </div>
             </div>
@@ -84,7 +85,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Telefonos: </label>
                 <div class="col-sm-10">
-                    <input #phones="ngModel" class="form-control" [ngClass]="phones.invalid && phones.dirty
+                    <input #phones="ngModel" class="form-control" placeholder="321 792 00 00" [ngClass]="phones.invalid && phones.dirty
                     ? 'is-invalid' : ''" type="text" name="categories" [(ngModel)]="placeCreateDTO.categories"
                         required />
                 </div>
