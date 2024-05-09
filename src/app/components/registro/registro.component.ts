@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RegisterClientDTO } from '../../dto/register-client-dto';
+import { RegisterClientDTO } from '../../dto/user/register-client-dto';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 

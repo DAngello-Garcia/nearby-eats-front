@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserUpdateDTO } from '../../dto/user-update-dto';
+import { UserUpdateDTO } from '../../dto/user/user-update-dto';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 

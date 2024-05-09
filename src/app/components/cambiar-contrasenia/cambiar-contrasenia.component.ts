@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserChangePasswordDTO } from '../../dto/user-change-password-dto';
+import { UserChangePasswordDTO } from '../../dto/user/user-change-password-dto';
 import { FormsModule } from '@angular/forms';
 
 @Component({
