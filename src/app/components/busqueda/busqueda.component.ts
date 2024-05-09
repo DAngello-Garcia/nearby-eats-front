@@ -26,7 +26,7 @@ export class BusquedaComponent implements OnInit{
 
       this.route.params.subscribe(params => {
         this.textoBusqueda = params['texto'];
-       // this.resultados = this.negocioService.buscar(this.textoBusqueda);
+        this.resultados = this.negocioService.buscar(this.textoBusqueda);
       });
   }
 

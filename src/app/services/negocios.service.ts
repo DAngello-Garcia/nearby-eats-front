@@ -42,4 +42,9 @@ export class NegociosService {
   public eliminar (codigo: string) {
     this.negocios = this.negocios.filter(n => n.codigoNegocio != codigo);
   }
+
+  public buscar (busqueda: string) {
+    return this.negocios.filter(negocios => 
+      negocios.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+  }
 }
