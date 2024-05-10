@@ -1,1 +1,5 @@
-<p>eliminar-lugar works!</p>
+<form #f="ngForm">
+    <button class="btn btn-danger" (click)="deletePlace()" [disabled]="f.invalid">
+        <i class="fa-solid fa-circle-plus me-1"></i>Eliminar Negocio
+    </button>
+</form>

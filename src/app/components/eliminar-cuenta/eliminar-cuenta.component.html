@@ -1,1 +1,5 @@
-<p>eliminar-cuenta works!</p>
+<form #f="ngForm">
+    <button class="btn btn-danger" (click)="deleteUser()" [disabled]="f.invalid">
+        <i class="fa-solid fa-circle-plus me-1"></i>Eliminar Cuenta
+    </button>
+</form>
