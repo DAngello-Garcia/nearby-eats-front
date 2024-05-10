@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserServiceService } from '../../services/user-service.service';
+import { UserServiceService } from '../../services/controllers/user-service.service';
 
 @Component({
   selector: 'app-eliminar-cuenta',

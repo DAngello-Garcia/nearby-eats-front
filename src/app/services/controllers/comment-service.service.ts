@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CommentDTO } from '../dto/comment/comment-dto';
+import { CommentDTO } from '../../dto/comment/comment-dto';
 import { Observable } from 'rxjs';
-import { MenssageDTO } from '../dto/menssage-dto';
-import { ReplyDTO } from '../dto/comment/reply-dto';
-import { DeleteCommentDTO } from '../dto/comment/delete-comment-dto';
+import { MenssageDTO } from '../../dto/menssage-dto';
+import { ReplyDTO } from '../../dto/comment/reply-dto';
+import { DeleteCommentDTO } from '../../dto/comment/delete-comment-dto';
 
 @Injectable({
   providedIn: 'root'

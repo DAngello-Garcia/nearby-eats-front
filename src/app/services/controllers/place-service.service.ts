@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { PlaceCreateDTO } from '../dto/place/place-create-dto';
+import { PlaceCreateDTO } from '../../dto/place/place-create-dto';
 import { Observable } from 'rxjs';
-import { MenssageDTO } from '../dto/menssage-dto';
+import { MenssageDTO } from '../../dto/menssage-dto';
 import { HttpClient } from '@angular/common/http';
-import { UpdatePlaceDTO } from '../dto/place/update-place-dto';
-import { DeletePlaceDTO } from '../dto/place/delete-place-dto';
-import { PlaceReviewDTO } from '../dto/place/place-review-dto';
-import { FavoritePlaceDTO } from '../dto/place/favorite-place-dto';
+import { UpdatePlaceDTO } from '../../dto/place/update-place-dto';
+import { DeletePlaceDTO } from '../../dto/place/delete-place-dto';
+import { PlaceReviewDTO } from '../../dto/place/place-review-dto';
+import { FavoritePlaceDTO } from '../../dto/place/favorite-place-dto';
 
 @Injectable({
   providedIn: 'root'
