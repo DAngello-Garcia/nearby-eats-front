@@ -1,4 +1,4 @@
-import { Schedule } from "../schedule";
+import { Schedule } from "../clases/schedule";
 
 export class PlaceCreateDTO {
 

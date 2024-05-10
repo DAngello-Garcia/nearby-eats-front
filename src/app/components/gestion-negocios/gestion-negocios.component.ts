@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ItemNegocioDTO } from '../../dto/item-negocio-dto';
+import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 import { NegociosService } from '../../services/negocios.service';
 import { MatDialog } from '@angular/material/dialog';
 

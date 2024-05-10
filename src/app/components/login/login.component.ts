@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginDTO } from '../../dto/login-dto';
+import { LoginDTO } from '../../dto/user/login-dto';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';

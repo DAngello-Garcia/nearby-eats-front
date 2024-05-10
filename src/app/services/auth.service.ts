@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { RegisterClientDTO } from '../dto/user/register-client-dto';
 import { Observable } from 'rxjs';
 import { MenssageDTO } from '../dto/menssage-dto';
-import { LoginDTO } from '../dto/login-dto';
+import { LoginDTO } from '../dto/user/login-dto';
 
 
 @Injectable({

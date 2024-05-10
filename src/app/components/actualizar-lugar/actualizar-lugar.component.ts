@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { UpdatePlaceDTO } from '../../dto/place/update-place-dto';
 import { NegociosService } from '../../services/negocios.service';
 import { MapaService } from '../../services/mapa.service';
-import { Schedule } from '../../dto/schedule';
+import { Schedule } from '../../dto/clases/schedule';
 
 @Component({
   selector: 'app-actualizar-lugar',

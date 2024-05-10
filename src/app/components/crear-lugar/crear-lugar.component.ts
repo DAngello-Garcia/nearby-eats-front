@@ -3,9 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { PlaceCreateDTO } from '../../dto/place/place-create-dto';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Schedule } from '../../dto/schedule';
+import { Schedule } from '../../dto/clases/schedule';
 import { NegociosService } from '../../services/negocios.service';
-import { RegistroNegocioDTO } from '../../dto/registro-negocio-dto';
+import { RegistroNegocioDTO } from '../../dto/place/registro-negocio-dto';
 import { MapaService } from '../../services/mapa.service';
 
 @Component({

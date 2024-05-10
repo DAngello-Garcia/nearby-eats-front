@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemNegocioDTO } from '../../dto/item-negocio-dto';
+import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 import { ActivatedRoute } from '@angular/router';
 import { NegociosService } from '../../services/negocios.service';
 import { MapaService } from '../../services/mapa.service';

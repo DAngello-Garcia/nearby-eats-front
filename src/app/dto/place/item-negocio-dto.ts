@@ -1,4 +1,4 @@
-import { Location } from "./location";
+import { Location } from "../clases/location";
 
 export class ItemNegocioDTO {
     constructor(

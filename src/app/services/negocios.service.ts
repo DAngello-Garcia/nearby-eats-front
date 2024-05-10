@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ItemNegocioDTO } from '../dto/item-negocio-dto';
-import { Location } from '../dto/location';
-import { RegistroNegocioDTO } from '../dto/registro-negocio-dto';
+import { ItemNegocioDTO } from '../dto/place/item-negocio-dto';
+import { Location } from '../dto/clases/location';
+import { RegistroNegocioDTO } from '../dto/place/registro-negocio-dto';
 import { UpdatePlaceDTO } from '../dto/place/update-place-dto';
 
 @Injectable({

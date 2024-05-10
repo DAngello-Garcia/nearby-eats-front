@@ -1,5 +1,5 @@
-import { Location } from "../location";
-import { Schedule } from "../schedule";
+import { Location } from "../clases/location";
+import { Schedule } from "../clases/schedule";
 
 export class UpdatePlaceDTO {
 
