@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PlaceCreateDTO } from '../../dto/place-create-dto';
+import { PlaceCreateDTO } from '../../dto/place/place-create-dto';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Schedule } from '../../dto/schedule';
