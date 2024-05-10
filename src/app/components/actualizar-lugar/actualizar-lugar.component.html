@@ -1,31 +1,25 @@
 <div class="card">
-
     <div class="card-header ps-5 pt-4 pb-4">
-        <h5 class="mb-0"><i class="fa-solid fa-utensils me-3"></i>Crear un lugar</h5>
+        <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Actualizar lugar</h5>
     </div>
-
     <div class="card-body p-5">
-
-        <form #f="ngForm">
-
+        <form #f="ngForm" (ngSubmit)="updatePlace()">
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre: </label>
                 <div class="col-sm-10">
                     <input #name="ngModel" class="form-control" placeholder="Nombre del Negocio" [ngClass]="name.invalid && name.dirty
-                    ? 'is-invalid' : ''" type="text" name="name" [(ngModel)]="registroNegocioDTO.nombre" required />
+                    ? 'is-invalid' : ''" type="text" name="name" [(ngModel)]="updatePlaceDTO.name" required />
                 </div>
             </div>
-
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Descripción: </label>
                 <div class="col-sm-10">
                     <textarea #description="ngModel" class="form-control"
                         placeholder="Descripción del Negocio, Datos importantes del Negocio"
                         [ngClass]="description.invalid && description.dirty ? 'is-invalid' : ''" type="text"
-                        name="description" [(ngModel)]="registroNegocioDTO.descripcion" required></textarea>
+                        name="description" [(ngModel)]="updatePlaceDTO.description" required></textarea>
                 </div>
             </div>
-
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Ubicación: </label>
                 <div class="col-sm-10">
@@ -34,7 +28,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Fotos: </label>
                 <div class="col-sm-10">
@@ -42,17 +35,15 @@
                         required />
                 </div>
             </div>
-
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Categoria: </label>
                 <div class="col-sm-10">
-                    <select class="form-select" name="categories" required [(ngModel)]="placeCreateDTO.categories">
+                    <select class="form-select" name="categories" required [(ngModel)]="updatePlaceDTO.categories">
                         <option value="" selected>Seleccione una Categoria</option>
                         @for (item of categories; track $index) {<option [value]="item">{{item}}</option>}
                     </select>
                 </div>
             </div>
-
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Horarios: </label>
                 <div class="col-sm-10">
@@ -81,19 +72,44 @@
                     }
                 </div>
             </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Horarios: </label>
+                <div class="col-sm-10">
+                    @for (item of schedules; track $index) {
 
+                    <div class="row mb-2">
+                        <div class="col">
+                            <input class="form-control" placeholder="Día" type="text" name="dia-{{$index}}"
+                                [(ngModel)]="item.weekday" required />
+                        </div>
+
+                        <div class="col">
+                            <input class="form-control" placeholder="09:00 am" type="text" name="dia-{{$index}}"
+                                [(ngModel)]="item.openingTime" required />
+                        </div>
+
+                        <div class="col">
+                            <input class="form-control" placeholder="06:00 pm" type="text" name="dia-{{$index}}"
+                                [(ngModel)]="item.closingTime" required />
+                        </div>
+                        <div class="col-sm-2 text end">
+                            <button class="btn btn-primary" (click)="addSchedule()">
+                                <i class="fa-solid fa-circle-plus me-1"></i>Agregar Horario</button>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Telefonos: </label>
                 <div class="col-sm-10">
                     <input #phones="ngModel" class="form-control" placeholder="321 792 00 00" [ngClass]="phones.invalid && phones.dirty
-                    ? 'is-invalid' : ''" type="text" name="categories" [(ngModel)]="placeCreateDTO.phones" required />
+                    ? 'is-invalid' : ''" type="text" name="categories" [(ngModel)]="updatePlaceDTO.phones" required />
                 </div>
             </div>
 
-            <button class="btn btn-primary" (click)="createPlace()" [disabled]="f.invalid">
-                <i class="fa-solid fa-circle-plus me-1"></i>Crear Negocio
+            <button class="btn btn-primary" type="submit" [disabled]="f.invalid">
+                <i class="fa-solid fa-circle-plus me-1"></i>Actualizar lugar
             </button>
-
         </form>
     </div>
-</div>
