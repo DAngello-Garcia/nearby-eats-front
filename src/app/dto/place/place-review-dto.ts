@@ -1,8 +1,8 @@
 export class PlaceReviewDTO {
 
     constructor(
-        action: string,
-        comentary: string,
-        placeId: string
-    ) {}
+        public action: string,
+        public commentary: string,
+        public placeId: string
+    ) { }
 }

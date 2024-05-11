@@ -1,1 +1,12 @@
-<p>revision works!</p>
+<form (ngSubmit)="review()">
+    <div class="form-group">
+        <label for="commentary">Motivo:</label>
+        <textarea class="form-control" #commentary="ngModel" name="commentary" [(ngModel)]="placeReviewDTO.commentary"
+            rows="5" required></textarea>
+        <select class="form-select" name="action" required [(ngModel)]="placeReviewDTO.action">
+            <option value="" selected>Seleccione una ciudad</option>
+            @for (item of placeStatus; track $index) { <option [value]="item">{{item}}</option> }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar revisión</button>
+</form>

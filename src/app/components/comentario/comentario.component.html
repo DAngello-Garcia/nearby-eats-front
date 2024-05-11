@@ -1,1 +1,9 @@
-<p>comentario works!</p>
+<form (ngSubmit)="comentar()">
+    <div class="form-group">
+        <label for="comment">Comentario:</label>
+        <textarea class="form-control" #comment="ngModel" name="comment" [(ngModel)]="commentDTO.comment" rows="5"
+            required></textarea>
+        <input type="number" class="form-control" #score="ngModel" name="score" [(ngModel)]="commentDTO.score" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Comentar</button>
+</form>

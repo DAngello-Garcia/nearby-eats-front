@@ -1,9 +1,7 @@
 export class CommentDTO {
-
     constructor(
-        placeId: string,
-        token: string,
-        comment: string,
-        score: number
-    ) {}
+        public placeId: string,
+        public comment: string,
+        public score: number
+    ) { }
 }

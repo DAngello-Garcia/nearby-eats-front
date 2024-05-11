@@ -22,11 +22,11 @@ export class UserServiceService {
   }
 
   public updateUserUSer(updateUserUSerDTO: UserUpdateDTO): Observable<MenssageDTO> {
-    return this.http.patch<MenssageDTO>(`${this.userURL}/update-account-user`, updateUserUSerDTO) 
+    return this.http.patch<MenssageDTO>(`${this.userURL}/update-account-user`, updateUserUSerDTO)
   }
 
-  public deleteUser(token: string): Observable<MenssageDTO> {
-    return this.http.delete<MenssageDTO>(`${this.userURL}/register-user/:token`)
+  public deleteUser(): Observable<MenssageDTO> {
+    return this.http.delete<MenssageDTO>(`${this.userURL}/register-user`)
   }
 
   public sendRecoveryEmail(email: string): Observable<MenssageDTO> {
@@ -38,7 +38,7 @@ export class UserServiceService {
   }
 
   public getAllUsers(): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.userURL}/get-all-users`); 
+    return this.http.get<MenssageDTO>(`${this.userURL}/get-all-users`);
   }
 
   public getUser(id: string): Observable<MenssageDTO> {

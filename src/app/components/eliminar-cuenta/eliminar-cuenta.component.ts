@@ -11,12 +11,10 @@ import { UserServiceService } from '../../services/controllers/user-service.serv
   styleUrl: './eliminar-cuenta.component.css'
 })
 export class EliminarCuentaComponent {
-  token: string;
   constructor(private userService: UserServiceService) {
-    this.token = ''
   }
 
   public deleteUser() {
-    this.userService.deleteUser(this.token)
+    this.userService.deleteUser()
   }
 }
