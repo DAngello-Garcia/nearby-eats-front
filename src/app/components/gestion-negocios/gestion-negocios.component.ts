@@ -34,7 +34,7 @@ export class GestionNegociosComponent {
   }
 
   public seleccionar(producto: ItemNegocioDTO, estado: boolean) {
-    if(estado) {
+    if (estado) {
       this.seleccionados.push(producto);
     } else {
       this.seleccionados.splice(this.seleccionados.indexOf(producto, 1))
@@ -45,8 +45,8 @@ export class GestionNegociosComponent {
   private updateMessage() {
     const size = this.seleccionados.length;
 
-    if(size != 0) {
-      if(size == 1) {
+    if (size != 0) {
+      if (size == 1) {
         this.textoBtnDelete = "1 Elemento";
       } else {
         this.textoBtnDelete = size + " Elementos";
@@ -57,11 +57,11 @@ export class GestionNegociosComponent {
   }
 
   public deletePlaces() {
-    
+
     this.seleccionados.forEach(n => {
-      this.negocioService.eliminar(n.codigoNegocio);
+      this.negocioService.eliminar(n.id);
       this.negocios = this.negocios.filter(negocio =>
-         negocio.codigoNegocio !== n.codigoNegocio);
+        negocio.id !== n.id);
     });
 
     this.seleccionados = [];

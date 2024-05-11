@@ -61,11 +61,11 @@ export class MapaService {
 
     negocios.forEach(negocio => {
       new mapboxgl.Marker()
-        .setLngLat([negocio.ubicacion.coordinates[0], negocio.ubicacion.coordinates[1]])
-        .setPopup(new mapboxgl.Popup().setHTML(negocio.nombre))
+        .setLngLat([negocio.location.coordinates[0], negocio.location.coordinates[1]])
+        .setPopup(new mapboxgl.Popup().setHTML(negocio.name))
         .addTo(this.map);
     });
   }
-  
+
 }
 

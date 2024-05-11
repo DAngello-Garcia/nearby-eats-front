@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 import { ActivatedRoute } from '@angular/router';
-import { NegociosService } from '../../services/negocios.service';
 import { FormsModule } from '@angular/forms';
+import { PlaceServiceService } from '../../services/controllers/place-service.service';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class DetalleNegocioComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private negocioService: NegociosService
+    private placeService: PlaceServiceService
   ) {
     this.route.params.subscribe((params) => {
       this.codePlace = params['codigo'];
@@ -29,7 +29,7 @@ export class DetalleNegocioComponent {
   }
 
   public getPlace() {
-    const placeConsulted = this.negocioService.obtener(this.codePlace);
+    const placeConsulted = this.placeService.getPlace(this.codePlace);
 
     if (placeConsulted != undefined) {
       this.negocio = placeConsulted;

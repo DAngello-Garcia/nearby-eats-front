@@ -31,7 +31,7 @@ export class NegociosService {
   }
 
   public obtener(codigo: string): ItemNegocioDTO | undefined {
-    return this.negocios.find(negocios => negocios.codigoNegocio == codigo);
+    return this.negocios.find(negocios => negocios.id == codigo);
   }
 
   public crear(negocioNuevo: RegistroNegocioDTO) {
@@ -48,11 +48,11 @@ export class NegociosService {
   }
 
   public eliminar(codigo: string) {
-    this.negocios = this.negocios.filter(n => n.codigoNegocio != codigo);
+    this.negocios = this.negocios.filter(n => n.id != codigo);
   }
 
   public buscar(busqueda: string) {
     return this.negocios.filter(negocios =>
-      negocios.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+      negocios.name.toLowerCase().includes(busqueda.toLowerCase()))
   }
 }

@@ -1,13 +1,17 @@
 import { Location } from "../clases/location";
+import { Schedule } from "../clases/schedule";
 
 export class ItemNegocioDTO {
     constructor(
-        public codigoNegocio: string = '',
-        public nombre: string = '',
-        public imagenDestacada: string = '',
-        public tipoNegocio: string = '',
-        public ubicacion: Location = new Location('', []),
+        public id: string = '',
+        public name: string = '',
+        public description: string = '',
+        public location: Location = new Location('', []),
+        public pictures: string[] = [],
+        public schedule: Schedule[] = [],
+        public phones: string[] = [],
+        public categories: string = '',
         public calificacionPromedio: number = 0,
-        public estadoNegocio:string = ''
-        ){}
+        public estadoNegocio: string = ''
+    ) { }
 }
