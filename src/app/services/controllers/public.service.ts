@@ -12,7 +12,7 @@ export class PublicServiceService {
 
   constructor(private http: HttpClient) { }
 
-  public getPlacesByCategory(category: string): Observable<MenssageDTO> {
+  public getPlacesByCategory(): Observable<MenssageDTO> {
     return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-category/:category`);
   }
 
@@ -20,7 +20,7 @@ export class PublicServiceService {
     return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-name/:name`);
   }
 
-  public getPlacesByLocation(location: string): Observable<MenssageDTO> {
+  public getPlacesByLocation(): Observable<MenssageDTO> {
     return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-location/:location`);
   }
 

@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { RegisterClientDTO } from '../../dto/user/register-client-dto';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PublicServiceService } from '../../services/controllers/public.service';
+import { error } from 'console';
+import { AuthService } from '../../services/controllers/auth.service';
+import { UserServiceService } from '../../services/controllers/user-service.service';
+import { AlertComponent } from '../alert/alert.component';
+import { Alert } from '../../dto/clases/alert';
 
 @Component({
   selector: 'app-registro',
@@ -15,8 +21,9 @@ export class RegistroComponent {
   registerClientDTO: RegisterClientDTO;
   citys: string[];
   archivos!: FileList;
+  alert!: Alert
 
-  constructor() {
+  constructor(private publicService: PublicServiceService, private userService: UserServiceService) {
     this.registerClientDTO = new RegisterClientDTO();
     this.citys = [];
     this.uploadCitys();
@@ -24,7 +31,16 @@ export class RegistroComponent {
 
   public register() {
     if (this.registerClientDTO.profilePicture != "") {
-      console.log(this.registerClientDTO);
+      
+      this.userService.registerUser(this.registerClientDTO).subscribe({
+        next: (data) => {
+          console.log("Cliente registrado");
+        },
+        error: (error) => {
+          console.log("Error al registrar el cliente");
+        }
+      });
+
     } else {
       console.log("Debe cargar una foto");
     }
@@ -36,7 +52,14 @@ export class RegistroComponent {
   }
 
   private uploadCitys() {
-    this.citys = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena"];
+    this.publicService.getPlacesByLocation().subscribe({
+      next: (data) => {
+        this.citys = data.response;
+      },
+      error: (error) => {
+        console.log("Error al cargar las ciudades");
+      }
+    })
   }
 
   public onFileChange(event: any) {

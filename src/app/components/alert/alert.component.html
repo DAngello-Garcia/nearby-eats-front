@@ -1,0 +1,6 @@
+@if (alert) {
+    <div class="alert alert-{{alert.type}} mt-3 alert-dismissible d-block">
+        {{alert.message}}
+        <button type="button" class="btn-close" aria-label="Close" (click)="disguise()"></button>
+    </div>
+}

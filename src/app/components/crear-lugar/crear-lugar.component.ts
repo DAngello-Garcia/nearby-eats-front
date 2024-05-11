@@ -7,6 +7,8 @@ import { Schedule } from '../../dto/clases/schedule';
 import { NegociosService } from '../../services/negocios.service';
 import { RegistroNegocioDTO } from '../../dto/place/registro-negocio-dto';
 import { MapaService } from '../../services/mapa.service';
+import { PublicServiceService } from '../../services/controllers/public.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-crear-lugar',
@@ -23,7 +25,10 @@ export class CrearLugarComponent implements OnInit {
   schedules: Schedule[];
   categories: string[];
 
-  constructor(private negocioService: NegociosService, private mapService:MapaService) {
+  constructor(
+      private negocioService: NegociosService, 
+      private mapService:MapaService,
+      private publicService: PublicServiceService) {
     this.registroNegocioDTO = new RegistroNegocioDTO();
     this.placeCreateDTO = new PlaceCreateDTO();
     this.categories = [];
@@ -59,7 +64,13 @@ export class CrearLugarComponent implements OnInit {
   }
 
   private uploadCategories() {
-    this.categories = ["Supermercado", "Tienda", "Restaurante", "Comida Rápida",
-     "Hotel", "Museo", "Café", "Otros"];
+      this.publicService.getPlacesByCategory().subscribe({
+        next: (data) => {
+          this.categories = data.response;
+        },
+        error: (error) => {
+          console.log("Error al carhar las categorias");
+        }
+      })
   }
 }
