@@ -64,7 +64,7 @@ export class CrearLugarComponent implements OnInit {
   }
 
   private uploadCategories() {
-      this.publicService.getPlacesByCategory().subscribe({
+      this.publicService.getPlacesByCategory(this.categories).subscribe({
         next: (data) => {
           this.categories = data.response;
         },

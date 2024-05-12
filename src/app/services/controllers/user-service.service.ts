@@ -30,7 +30,7 @@ export class UserServiceService {
   }
 
   public sendRecoveryEmail(email: string): Observable<MenssageDTO> {
-    return this.http.post<MenssageDTO>(`${this.userURL}/change-password/send-recovery-email/:email`, email)
+    return this.http.post<MenssageDTO>(`${this.userURL}/change-password/send-recovery-email/${email}`, email)
   }
 
   public changePassword(userChangePassworDTO: UserChangePasswordDTO): Observable<MenssageDTO> {
@@ -42,7 +42,7 @@ export class UserServiceService {
   }
 
   public getUser(id: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.userURL}/register-user/:id`)
+    return this.http.get<MenssageDTO>(`${this.userURL}/register-user/${id}`)
 
   }
 

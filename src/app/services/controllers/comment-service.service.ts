@@ -29,10 +29,10 @@ export class CommentServiceService {
   }
 
   public getCommetsByPlace(placeId: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.commentURL}/create-comment/:placeId`);
+    return this.http.get<MenssageDTO>(`${this.commentURL}/get-comments-by-place/${placeId}`);
   }
 
   public getAvarageScoreByPlace(placeId: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.commentURL}/create-comment/:placeId`);
+    return this.http.get<MenssageDTO>(`${this.commentURL}/get-average-score-by-place/${placeId}`);
   }
 }

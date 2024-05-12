@@ -30,23 +30,23 @@ export class PlaceServiceService {
   }
 
   public getPlace(placeId: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/:id`);
+    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/${placeId}`);
   }
 
   public getPlacesByCategory(category: string, token: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-category/:category/:token`);
+    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-category/${category}`);
   }
 
   public getPlacesByName(name: string, token: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-name/:name/:token`);
+    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-name/${name}`);
   }
 
   public getPlacesByClientId(clientId: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-user-id/:clientId`);
+    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-user-id/${clientId}`);
   }
 
   public getPlacesByLocation(location: string, token: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-location/:location/:token`);
+    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-location/${location}`);
   }
 
   public reviewPlace(placeReviewDTO: PlaceReviewDTO): Observable<MenssageDTO> {
@@ -54,7 +54,7 @@ export class PlaceServiceService {
   }
 
   public recommendPlaces(userId: string): Observable<MenssageDTO> {
-    return this.http.post<MenssageDTO>(`${this.placeURL}/recomend-places/:userId`, userId);
+    return this.http.post<MenssageDTO>(`${this.placeURL}/recomend-places/${userId}`, userId);
   }
 
   public saveFavoritePlace(favoritePlaceDTO: FavoritePlaceDTO): Observable<MenssageDTO> {

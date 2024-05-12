@@ -12,20 +12,20 @@ export class PublicServiceService {
 
   constructor(private http: HttpClient) { }
 
-  public getPlacesByCategory(): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-category/:category`);
+  public getPlacesByCategory(categorys: string[]): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-category/${categorys}`);
   }
 
   public getPlacesByName(name: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-name/:name`);
+    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-name/${name}`);
   }
 
-  public getPlacesByLocation(): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-location/:location`);
+  public getPlacesByLocation(location: string): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-location/${location}`);
   }
 
-  public getPlacesStatus(): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place-status`);
+  public getPlacesStatus(status: string): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place-status/${status}`);
   }
 
 }
