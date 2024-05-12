@@ -4,6 +4,7 @@ import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PlaceServiceService } from '../../services/controllers/place-service.service';
+import { MenssageDTO } from '../../dto/menssage-dto';
 
 
 @Component({
@@ -16,13 +17,12 @@ import { PlaceServiceService } from '../../services/controllers/place-service.se
 export class DetalleNegocioComponent {
 
   codePlace: string = '';
-  negocio: ItemNegocioDTO | undefined;
+  negocio: MenssageDTO | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private placeService: PlaceServiceService
   ) {
-    this.negocio = new ItemNegocioDTO()
     this.route.params.subscribe((params) => {
       this.codePlace = params['id'];
       this.getPlace();
