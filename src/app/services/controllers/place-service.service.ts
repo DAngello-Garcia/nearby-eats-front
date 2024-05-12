@@ -7,6 +7,7 @@ import { UpdatePlaceDTO } from '../../dto/place/update-place-dto';
 import { DeletePlaceDTO } from '../../dto/place/delete-place-dto';
 import { PlaceReviewDTO } from '../../dto/place/place-review-dto';
 import { FavoritePlaceDTO } from '../../dto/place/favorite-place-dto';
+import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +25,13 @@ export class PlaceServiceService {
   public updatePlace(updatePlaceDTO: UpdatePlaceDTO): Observable<MenssageDTO> {
     return this.http.patch<MenssageDTO>(`${this.placeURL}/update-place`, updatePlaceDTO);
   }
-  
+
   public deletePlace(deletePlaceDTO: DeletePlaceDTO): Observable<MenssageDTO> {
     return this.http.delete<MenssageDTO>(`${this.placeURL}/delete-place`);
   }
 
-  public getPlace(placeId: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/${placeId}`);
+  public getPlace(placeId: string): Observable<ItemNegocioDTO> {
+    return this.http.get<ItemNegocioDTO>(`${this.placeURL}/get-place/${placeId}`);
   }
 
   public getPlacesByCategory(category: string, token: string): Observable<MenssageDTO> {

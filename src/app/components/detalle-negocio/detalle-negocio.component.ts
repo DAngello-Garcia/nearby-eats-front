@@ -22,6 +22,7 @@ export class DetalleNegocioComponent {
     private route: ActivatedRoute,
     private placeService: PlaceServiceService
   ) {
+    this.negocio = new ItemNegocioDTO()
     this.route.params.subscribe((params) => {
       this.codePlace = params['id'];
       this.getPlace();
@@ -29,9 +30,8 @@ export class DetalleNegocioComponent {
   }
 
   public getPlace() {
-    const placeConsulted = this.placeService.getPlace(this.codePlace);
-
-    if (placeConsulted != undefined) {
-    }
+    this.placeService.getPlace(this.codePlace).subscribe(res => {
+      this.negocio = res
+    });
   }
 }
