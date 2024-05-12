@@ -23,7 +23,7 @@ export class DetalleNegocioComponent {
     private placeService: PlaceServiceService
   ) {
     this.route.params.subscribe((params) => {
-      this.codePlace = params['codigo'];
+      this.codePlace = params['id'];
       this.getPlace();
     });
   }
@@ -32,7 +32,6 @@ export class DetalleNegocioComponent {
     const placeConsulted = this.placeService.getPlace(this.codePlace);
 
     if (placeConsulted != undefined) {
-      this.negocio = placeConsulted;
     }
   }
 }

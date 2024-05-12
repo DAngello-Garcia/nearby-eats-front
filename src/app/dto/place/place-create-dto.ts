@@ -1,3 +1,4 @@
+import { Location } from "../clases/location";
 import { Schedule } from "../clases/schedule";
 
 export class PlaceCreateDTO {
@@ -5,11 +6,11 @@ export class PlaceCreateDTO {
     constructor(
         public name: string = '',
         public description: string = '',
-        public location: string = '',
-        public images: string = '',
+        public location: Location = new Location('', []),
+        public images: string[] = [],
         public schedule: Schedule[] = [] ,
-        public phones: string = '',
-        public categories: string = '',
+        public phones: string[] = [],
+        public categories: string[] = [],
         public clientId: string = ''
     ) {}
 }

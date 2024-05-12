@@ -3,11 +3,11 @@ import { RegisterClientDTO } from '../../dto/user/register-client-dto';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PublicServiceService } from '../../services/controllers/public.service';
-import { error } from 'console';
 import { AuthService } from '../../services/controllers/auth.service';
 import { UserServiceService } from '../../services/controllers/user-service.service';
 import { AlertComponent } from '../alert/alert.component';
 import { Alert } from '../../dto/clases/alert';
+import { Location } from '../../dto/clases/location';
 
 @Component({
   selector: 'app-registro',

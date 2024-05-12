@@ -3,6 +3,7 @@ import { ItemNegocioDTO } from '../dto/place/item-negocio-dto';
 import { Location } from '../dto/clases/location';
 import { RegistroNegocioDTO } from '../dto/place/registro-negocio-dto';
 import { UpdatePlaceDTO } from '../dto/place/update-place-dto';
+import { PlaceCreateDTO } from '../dto/place/place-create-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -34,10 +35,10 @@ export class NegociosService {
     return this.negocios.find(negocios => negocios.id == codigo);
   }
 
-  public crear(negocioNuevo: RegistroNegocioDTO) {
+  public crear(negocioNuevo: PlaceCreateDTO) {
     const codigo = (this.negocios.length + 1).toString();
-    this.negocios.push(new ItemNegocioDTO(codigo, negocioNuevo.nombre,
-      negocioNuevo.imagenes[0], negocioNuevo.tipoNegocio, negocioNuevo.ubicacion, 0, 'PENDIENTE'));
+    this.negocios.push(new ItemNegocioDTO(codigo, negocioNuevo.name,
+      negocioNuevo.images[0], negocioNuevo.categories[0], negocioNuevo.location, 0, 'PENDIENTE'));
   }
 
   public actualizar(negocio: UpdatePlaceDTO) {

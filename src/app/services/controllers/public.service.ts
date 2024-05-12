@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MenssageDTO } from '../../dto/menssage-dto';
 import { Observable } from 'rxjs';
+import { Location } from '../../dto/clases/location';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class PublicServiceService {
     return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-name/${name}`);
   }
 
-  public getPlacesByLocation(location: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-location/${location}`);
+  public getPlacesByLocation(): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-location}`);
   }
 
   public getPlacesStatus(status: string): Observable<MenssageDTO> {

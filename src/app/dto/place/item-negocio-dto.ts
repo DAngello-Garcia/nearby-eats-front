@@ -5,13 +5,10 @@ export class ItemNegocioDTO {
     constructor(
         public id: string = '',
         public name: string = '',
-        public description: string = '',
+        public outstandingImage: string = '',
+        public category: string = '',
         public location: Location = new Location('', []),
-        public pictures: string[] = [],
-        public schedule: Schedule[] = [],
-        public phones: string[] = [],
-        public categories: string = '',
-        public calificacionPromedio: number = 0,
-        public estadoNegocio: string = ''
-    ) { }
+        public scorePromedy: number = 0,
+        public status: string = '',
+        ) { }
 }

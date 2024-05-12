@@ -33,30 +33,30 @@
                     <tr><td><input #check class="form-check-input" type="checkbox" (change)="seleccionar(item,
                         check.checked)" /></td>
                         <td>
-                            <p>{{item.codigoNegocio}}</p>
+                            <p>{{item.id}}</p>
                         </td>
                         <td>
-                            <p>{{item.nombre}}</p>
+                            <p>{{item.name}}</p>
                         </td>
                         <td>
-                            <p>{{item.tipoNegocio}}</p>
+                            <p>{{item.category}}</p>
                         </td>
                         <td>
-                            <img src="{{item.imagenDestacada}}" alt="{{item.nombre}}" class="img-fluid"
+                            <img src="{{item.outstandingImage}}" alt="{{item.name}}" class="img-fluid"
                                 style="max-width: 100px;">
                         </td>
 
                         <td>
-                            <p>{{item.calificacionPromedio}}</p>
+                            <p>{{item.scorePromedy}}</p>
                         </td>
                         <td>
-                            <span [ngClass]="{'text-bg-success': item.estadoNegocio ==
-                'APROBADO', 'text-bg-danger': item.estadoNegocio == 'RECHAZADO', 'text-bg-warning':
-                item.estadoNegocio == 'PENDIENTE' }" class="badge">{{item.estadoNegocio}}</span>
+                            <span [ngClass]="{'text-bg-success': item.status ==
+                'APROBADO', 'text-bg-danger': item.status == 'RECHAZADO', 'text-bg-warning':
+                item.status == 'PENDIENTE' }" class="badge">{{item.status}}</span>
 
                         </td>
                         <td>
-                            <a routerLink="/detalle-negocio/{{item.codigoNegocio}}"><i
+                            <a routerLink="/detalle-negocio/{{item.id}}"><i
                                     class="fa-solid fa-circle-info me-2"></i>Ver detalle</a>
 
                         </td>
