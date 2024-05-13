@@ -24,7 +24,7 @@ export class DetalleNegocioComponent {
     private placeService: PlaceServiceService
   ) {
     this.route.params.subscribe((params) => {
-      this.codePlace = params['id'];
+      this.codePlace = params['codigo'];
       this.getPlace();
     });
   }

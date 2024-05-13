@@ -66,7 +66,7 @@ export class CrearLugarComponent implements OnInit {
         this.categories = data.response;
       },
       error: (error) => {
-        console.log("Error al carhar las categorias");
+        console.log("Error al cargar las categorias");
       }
     })
   }
