@@ -4,7 +4,7 @@
             cliente</h5>
     </div>
     <div class="card-body p-5">
-        <form #f="ngForm" (ngSubmit)="register()">
+        <form #f="ngForm">
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombres: </label>
                 <div class="col-sm-10">
@@ -69,7 +69,8 @@
             </div>
             @if (!equalPassword()) { <div class="alert alert-danger" role="alert">Las contraseñas no
                 coinciden</div> }
-            <button class="btn btn-primary" type="submit" [disabled]="f.invalid || !equalPassword()">
+            <button class="btn btn-primary" type="submit" [disabled]="f.invalid || !equalPassword()"
+                (ngSubmit)="register()">
                 <i class="fa-solid fa-circle-plus me-1"></i>Registrarse
             </button>
             <app-alert [alert]="alert"></app-alert>

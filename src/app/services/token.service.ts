@@ -44,5 +44,15 @@ export class TokenService {
     return values;
   }
 
+  public getId(): string {
+    const token = this.getToken();
+    
+    if (token) {
+      const values = this.decodePayload(token);
+      return values.id;
+    }
+    return "";
+  }
+
 
 }

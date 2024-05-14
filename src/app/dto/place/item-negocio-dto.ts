@@ -5,8 +5,8 @@ export class ItemNegocioDTO {
     constructor(
         public id: string = '',
         public name: string = '',
-        public outstandingImage: string = '',
-        public category: string = '',
+        public images: string = '',
+        public categories: string = '',
         public location: Location = new Location('', []),
         public scorePromedy: number = 0,
         public status: string = '',

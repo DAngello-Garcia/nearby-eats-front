@@ -35,7 +35,7 @@ export class LoginComponent {
   public login() {
     this.authService.loginClient(this.loginDTO).subscribe({
       next: data => {
-        this.tokenService.login(data.response.token);
+        this.tokenService.login(data.response);
       },
       error: error => {
         this.alert = new Alert(error.error.response, "danger");

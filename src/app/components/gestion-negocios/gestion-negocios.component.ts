@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 import { NegociosService } from '../../services/negocios.service';
 import { MatDialog } from '@angular/material/dialog';
+import { TokenService } from '../../services/token.service';
+import { PlaceServiceService } from '../../services/controllers/place-service.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-gestion-negocios',
@@ -21,7 +24,9 @@ export class GestionNegociosComponent {
 
   constructor(
     private negocioService: NegociosService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private tokenService: TokenService,
+    private placeService: PlaceServiceService
   ) {
     this.negocios = [];
     this.seleccionados = [];
@@ -30,7 +35,17 @@ export class GestionNegociosComponent {
   }
 
   public listarNegocios() {
-    this.negocios = this.negocioService.listar();
+    const idUser = this.tokenService.getId();
+
+    this.placeService.getPlacesByClientId(idUser).subscribe({
+      next: (data) => {
+        this.negocios = data.response;
+      },
+
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   public seleccionar(producto: ItemNegocioDTO, estado: boolean) {
