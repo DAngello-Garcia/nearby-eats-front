@@ -8,13 +8,16 @@ import { UserServiceService } from '../../services/controllers/user-service.serv
 import { AlertComponent } from '../alert/alert.component';
 import { Alert } from '../../dto/clases/alert';
 import { Location } from '../../dto/clases/location';
+import { TokenService } from '../../services/token.service';
+import { ImageServiceService } from '../../services/controllers/image-service.service';
+import { error } from 'console';
 
 @Component({
-  selector: 'app-registro',
-  standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css'
+    selector: 'app-registro',
+    standalone: true,
+    templateUrl: './registro.component.html',
+    styleUrl: './registro.component.css',
+    imports: [FormsModule, CommonModule, AlertComponent]
 })
 export class RegistroComponent {
 
@@ -23,7 +26,12 @@ export class RegistroComponent {
   archivos!: FileList;
   alert!: Alert
 
-  constructor(private publicService: PublicServiceService, private userService: UserServiceService) {
+  constructor(
+    private publicService: PublicServiceService, 
+    private userService: UserServiceService,
+    private tokenService: TokenService,
+    private imageService: ImageServiceService) {
+
     this.registerClientDTO = new RegisterClientDTO();
     this.citys = [];
     this.uploadCitys();
@@ -34,15 +42,15 @@ export class RegistroComponent {
       
       this.userService.registerUser(this.registerClientDTO).subscribe({
         next: (data) => {
-          console.log("Cliente registrado");
+          this.alert = new Alert(data.response, "success");
         },
         error: (error) => {
-          console.log("Error al registrar el cliente");
+          this.alert = new Alert(error.error.response, "danger")
         }
       });
 
     } else {
-      console.log("Debe cargar una foto");
+        this.alert = new Alert("Debe subir una imagen", "danger");
     }
   }
 
@@ -52,14 +60,17 @@ export class RegistroComponent {
   }
 
   private uploadCitys() {
-    this.publicService.getPlacesByLocation().subscribe({
-      next: (data) => {
-        this.citys = data.response;
-      },
-      error: (error) => {
-        console.log("Error al cargar las ciudades");
-      }
-    })
+
+    this.citys = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena"];
+
+    // this.publicService.getPlacesByLocation().subscribe({
+    //   next: (data) => {
+    //     this.citys = data.response;
+    //   },
+    //   error: (error) => {
+    //     console.log("Error al cargar las ciudades");
+    //   }
+    // })
   }
 
   public onFileChange(event: any) {
@@ -69,4 +80,25 @@ export class RegistroComponent {
     }
   }
 
+  public uploadImage() {
+  
+    if(this.archivos != null && this.archivos.length > 0) {
+
+      const formData = new FormData();
+      formData.append('file', this.archivos[0]);
+
+      this.imageService.uploadImage(formData).subscribe({
+        next: data => {
+          this.registerClientDTO.profilePicture = data.response.url;
+          this.alert = new Alert("Se ha subido la foto", "success");
+        },
+        error: error => {
+          this.alert = new Alert(error.error, "danger");
+        }
+      });
+      
+    } else {
+      this.alert = new Alert("Debe seleccionar una imagen y subirla", "danger");
+    }
+  }
 }

@@ -6,30 +6,40 @@ import { CommonModule } from '@angular/common';
 import { UserServiceService } from '../../services/controllers/user-service.service';
 import { AuthService } from '../../services/controllers/auth.service';
 import { MenssageDTO } from '../../dto/menssage-dto';
+import { TokenService } from '../../services/token.service';
+import e from 'express';
+import { Alert } from '../../dto/clases/alert';
+import { AlertComponent } from "../alert/alert.component";
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [FormsModule, RouterLink, CommonModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+    selector: 'app-login',
+    standalone: true,
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css',
+    imports: [FormsModule, RouterLink, CommonModule, AlertComponent]
 })
 export class LoginComponent {
 
   loginDTO: LoginDTO;
   negocio: MenssageDTO | undefined;
+  alert!: Alert
 
   constructor(
     private userService: UserServiceService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private tokenService: TokenService) {
     
       this.loginDTO = new LoginDTO();
   }
 
   public login() {
-    this.authService.loginClient(this.loginDTO).subscribe(res => {
-      this.negocio = res;
-    })
-    console.log(this.loginDTO);
+    this.authService.loginClient(this.loginDTO).subscribe({
+      next: data => {
+        this.tokenService.login(data.response.token);
+      },
+      error: error => {
+        this.alert = new Alert(error.error.response, "danger");
+      }
+    });
   }
 }

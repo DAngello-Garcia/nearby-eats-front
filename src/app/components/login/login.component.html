@@ -8,20 +8,20 @@
                 <label class="col-sm-2 col-form-label">Email: </label>
                 <div class="col-sm-10">
                     <input #email="ngModel" class="form-control" [ngClass]="email.invalid && email.dirty
-                    ? 'is-invalid' : ''" type="text" name="email" [(ngModel)]="loginDTO.email"
-                        required />
+                    ? 'is-invalid' : ''" type="text" name="email" [(ngModel)]="loginDTO.email" required />
                 </div>
-            </div>    
+            </div>
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Contraseña: </label>
                 <div class="col-sm-10">
-                <input #password="ngModel" class="form-control" [ngClass]="password.invalid && password.dirty
+                    <input #password="ngModel" class="form-control" [ngClass]="password.invalid && password.dirty
                 ? 'is-invalid' : ''" type="password" name="password" [(ngModel)]="loginDTO.password" required />
                 </div>
             </div>
 
             <button type="submit" [disabled]="f.invalid">Login</button>
             <a routerLink="/email-recuperacion">¿Olvidaste tu Contraseña?</a>
+            <app-alert [alert]="alert"></app-alert>
         </form>
     </div>
 </div>

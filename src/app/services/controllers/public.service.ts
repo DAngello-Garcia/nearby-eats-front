@@ -22,7 +22,7 @@ export class PublicServiceService {
   }
 
   public getPlacesByLocation(): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-location}`);
+    return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-location`);
   }
 
   public getPlacesStatus(status: string): Observable<MenssageDTO> {

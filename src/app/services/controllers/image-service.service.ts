@@ -14,11 +14,11 @@ export class ImageServiceService {
 
   constructor(private http: HttpClient) { }
 
-  public uploadImage(image: string): Observable<MenssageDTO> {
-    return this.http.post<MenssageDTO>(`${this.imageURL}/create-comment`, image);
+  public uploadImage(image: FormData): Observable<MenssageDTO> {
+    return this.http.post<MenssageDTO>(`${this.imageURL}/upload`, image);
   }
 
   public deleteImage(imageDTO: ImageDTO): Observable<MenssageDTO> {
-    return this.http.delete<MenssageDTO>(`${this.imageURL}/create-comment`);
+    return this.http.request<MenssageDTO>('delete', `${this.imageURL}/delete`, {body: imageDTO});
   }
 }
