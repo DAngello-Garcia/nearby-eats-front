@@ -49,7 +49,7 @@ export class ActualizarLugarComponent implements OnInit {
   public onFileChange(event: any) {
     if (event.target.files.length > 0) {
       this.archivos = event.target.files;
-      this.placeCreateDTO.images = this.archivos[0].name;
+      Array.from(this.archivos).forEach(file => { this.updatePlaceDTO.images.push(file.name) });
     }
   }
 

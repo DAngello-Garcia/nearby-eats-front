@@ -12,11 +12,11 @@ import { Alert } from '../../dto/clases/alert';
 import { AlertComponent } from "../alert/alert.component";
 
 @Component({
-    selector: 'app-login',
-    standalone: true,
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.css',
-    imports: [FormsModule, RouterLink, CommonModule, AlertComponent]
+  selector: 'app-login',
+  standalone: true,
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css',
+  imports: [FormsModule, RouterLink, CommonModule, AlertComponent]
 })
 export class LoginComponent {
 
@@ -25,11 +25,10 @@ export class LoginComponent {
   alert!: Alert
 
   constructor(
-    private userService: UserServiceService,
     private authService: AuthService,
     private tokenService: TokenService) {
-    
-      this.loginDTO = new LoginDTO();
+
+    this.loginDTO = new LoginDTO();
   }
 
   public login() {

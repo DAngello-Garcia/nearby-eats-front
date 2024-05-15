@@ -9,17 +9,30 @@ import { CrearLugarComponent } from './components/crear-lugar/crear-lugar.compon
 import { GestionNegociosComponent } from './components/gestion-negocios/gestion-negocios.component';
 import { DetalleNegocioComponent } from './components/detalle-negocio/detalle-negocio.component';
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
+import { LoginGuard } from './guards/permiso.service';
+import { RolesGuard } from './guards/roles.service';
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'registro', component: RegistroComponent },
-    { path: 'email-recuperacion', component: EmailRecuperacionComponent},
-    { path: 'cambiar-contrasenia', component: CambiarContraseniaComponent},
-    { path: 'actualizar-cuenta', component: ActualizarCuentaComponent},
-    { path: 'crear-lugar', component: CrearLugarComponent},
-    { path: "gestion-negocios", component: GestionNegociosComponent},
-    { path: "detalle-negocio/:codigo", component: DetalleNegocioComponent},
-    { path: "busqueda/:texto", component: BusquedaComponent},
+    { path: 'email-recuperacion', component: EmailRecuperacionComponent },
+    { path: 'cambiar-contrasenia', component: CambiarContraseniaComponent },
+    {
+        path: 'actualizar-cuenta', component: ActualizarCuentaComponent, canActivate: [RolesGuard], data: {
+            expectedRole: ["CLIENTE"]
+        }
+    },
+    {
+        path: 'crear-lugar', component: CrearLugarComponent, canActivate: [RolesGuard], data: {
+            expectedRole: ["CLIENTE"]
+        }
+    },
+    {
+        path: "gestion-negocios", component: GestionNegociosComponent, canActivate: [RolesGuard],
+        data: { expectedRole: ["CLIENTE"] }
+    },
+    { path: "detalle-negocio/:codigo", component: DetalleNegocioComponent },
+    { path: "busqueda/:texto", component: BusquedaComponent },
+    { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+    { path: 'registro', component: RegistroComponent, canActivate: [LoginGuard] },
     { path: "**", pathMatch: "full", redirectTo: "" }
 ];

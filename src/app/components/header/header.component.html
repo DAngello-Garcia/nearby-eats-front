@@ -13,9 +13,13 @@
             <li><a href="" routerLink="/actualizar-cuenta" class="nav-link px-2">Favoritos</a></li>
         </ul>
         <div class="col-md-3 text-end">
-            <button type="button" routerLink="/login" class="btn btn-outline-primary
-    me-2">Login</button>
+            <!-- @if (!isLogged) { -->
+            <button type="button" routerLink="/login" class="btn btn-outline-primary me-2">Login</button>
             <button type="button" routerLink="/registro" class="btn btn-primary">Registro</button>
+            <!-- }@else { -->
+            <!-- <label class="me-3">Hola {{email}}</label> -->
+            <!-- <button type="button" (click)="logout()" class="btn btn-primary ">Logout</button> -->
+            <!-- } -->
         </div>
     </header>
 </div>

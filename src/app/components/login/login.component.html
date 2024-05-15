@@ -18,9 +18,14 @@
                 ? 'is-invalid' : ''" type="password" name="password" [(ngModel)]="loginDTO.password" required />
                 </div>
             </div>
-
-            <button type="submit" [disabled]="f.invalid">Login</button>
-            <a routerLink="/email-recuperacion">¿Olvidaste tu Contraseña?</a>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary me-2" type="submit" [disabled]="f.invalid">Login</button>
+                </div>
+                <div class="col">
+                    <a class="btn btn-info me-2" routerLink="/email-recuperacion">¿Olvidaste tu Contraseña?</a>
+                </div>
+            </div>
             <app-alert [alert]="alert"></app-alert>
         </form>
     </div>
