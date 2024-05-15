@@ -29,4 +29,8 @@ export class PublicServiceService {
     return this.http.get<MenssageDTO>(`${this.publicURL}/get-place-status/${status}`);
   }
 
+  public getCities(): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(`${this.publicURL}/get-cities`);
+  }
+
 }

@@ -13,11 +13,11 @@ import { ImageServiceService } from '../../services/controllers/image-service.se
 import { error } from 'console';
 
 @Component({
-    selector: 'app-registro',
-    standalone: true,
-    templateUrl: './registro.component.html',
-    styleUrl: './registro.component.css',
-    imports: [FormsModule, CommonModule, AlertComponent]
+  selector: 'app-registro',
+  standalone: true,
+  templateUrl: './registro.component.html',
+  styleUrl: './registro.component.css',
+  imports: [FormsModule, CommonModule, AlertComponent]
 })
 export class RegistroComponent {
 
@@ -27,7 +27,7 @@ export class RegistroComponent {
   alert!: Alert
 
   constructor(
-    private publicService: PublicServiceService, 
+    private publicService: PublicServiceService,
     private userService: UserServiceService,
     private tokenService: TokenService,
     private imageService: ImageServiceService) {
@@ -39,7 +39,7 @@ export class RegistroComponent {
 
   public register() {
     if (this.registerClientDTO.profilePicture != "") {
-      
+
       this.userService.registerUser(this.registerClientDTO).subscribe({
         next: (data) => {
           this.alert = new Alert(data.response, "success");
@@ -50,7 +50,7 @@ export class RegistroComponent {
       });
 
     } else {
-        this.alert = new Alert("Debe subir una imagen", "danger");
+      this.alert = new Alert("Debe subir una imagen", "danger");
     }
   }
 
@@ -60,17 +60,14 @@ export class RegistroComponent {
   }
 
   private uploadCitys() {
-
-    this.citys = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena"];
-
-    // this.publicService.getPlacesByLocation().subscribe({
-    //   next: (data) => {
-    //     this.citys = data.response;
-    //   },
-    //   error: (error) => {
-    //     console.log("Error al cargar las ciudades");
-    //   }
-    // })
+    this.publicService.getCities().subscribe({
+      next: (data) => {
+        this.citys = data.response;
+      },
+      error: (error) => {
+        console.log("Error al cargar las ciudades");
+      }
+    })
   }
 
   public onFileChange(event: any) {
@@ -81,8 +78,8 @@ export class RegistroComponent {
   }
 
   public uploadImage() {
-  
-    if(this.archivos != null && this.archivos.length > 0) {
+
+    if (this.archivos != null && this.archivos.length > 0) {
 
       const formData = new FormData();
       formData.append('file', this.archivos[0]);
@@ -96,7 +93,7 @@ export class RegistroComponent {
           this.alert = new Alert(error.error, "danger");
         }
       });
-      
+
     } else {
       this.alert = new Alert("Debe seleccionar una imagen y subirla", "danger");
     }
