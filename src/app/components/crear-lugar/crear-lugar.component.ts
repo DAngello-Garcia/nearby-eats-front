@@ -8,11 +8,16 @@ import { MapaService } from '../../services/mapa.service';
 import { PublicServiceService } from '../../services/controllers/public.service';
 import { error } from 'console';
 import { PlaceServiceService } from '../../services/controllers/place-service.service';
+import { Alert } from '../../dto/clases/alert';
+import { ImageServiceService } from '../../services/controllers/image-service.service';
+import { AlertComponent } from '../alert/alert.component';
+import { response } from 'express';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-crear-lugar',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink],
+  imports: [FormsModule, CommonModule, RouterLink, AlertComponent],
   templateUrl: './crear-lugar.component.html',
   styleUrl: './crear-lugar.component.css'
 })
@@ -22,11 +27,15 @@ export class CrearLugarComponent implements OnInit {
   archivos!: FileList;
   schedules: Schedule[];
   categories: string[];
+  alert!: Alert;
 
   constructor(
     private placeService: PlaceServiceService,
     private mapService: MapaService,
-    private publicService: PublicServiceService) {
+    private publicService: PublicServiceService,
+    private imageService: ImageServiceService,
+    private tokenService: TokenService) {
+
     this.placeCreateDTO = new PlaceCreateDTO();
     this.categories = [];
     this.schedules = [new Schedule('', '', '')];
@@ -43,10 +52,15 @@ export class CrearLugarComponent implements OnInit {
   }
 
   public createPlace() {
-    this.placeCreateDTO.schedule = this.schedules;
-    this.placeService.createPlace(this.placeCreateDTO);
-
-    console.log(this.placeCreateDTO);
+    this.placeService.createPlace(this.placeCreateDTO).subscribe({
+      next: (data) => { 
+        this.placeCreateDTO.clientId = this.tokenService.getId();
+        this.alert = new Alert(data.response, "sucess");
+      },
+      error: (error) => {
+        this.alert = new Alert(error.error.response, "danger")
+      }
+    })
   }
 
   public addSchedule() {
@@ -61,13 +75,38 @@ export class CrearLugarComponent implements OnInit {
   }
 
   private uploadCategories() {
-    this.publicService.getPlacesByCategory(this.categories).subscribe({
+    this.publicService.getCategories().subscribe({
       next: (data) => {
         this.categories = data.response;
       },
       error: (error) => {
-        console.log("Error al cargar las categorias");
+        console.log("Error al cargar las categorias")
       }
-    })
+     })
+  }
+
+  public uploadImages() {
+
+    if (this.archivos != null && this.archivos.length > 0) {
+
+      const formData = new FormData();
+
+      for(let i = 0; i < this.archivos.length; i++) {
+        formData.append('files', this.archivos[i])
+      }
+
+      this.imageService.uploadImages(formData).subscribe({
+        next: data => {
+          this.placeCreateDTO.images = data.response.map((response: { url: any; }) => response.url);
+          this.alert = new Alert("Se ha subido la foto", "success");
+        },
+        error: error => {
+          this.alert = new Alert(error.error, "danger");
+        }
+      });
+
+    } else {
+      this.alert = new Alert("Debe seleccionar una imagen y subirla", "danger");
+    }
   }
 }

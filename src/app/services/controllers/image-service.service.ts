@@ -21,4 +21,9 @@ export class ImageServiceService {
   public deleteImage(imageDTO: ImageDTO): Observable<MenssageDTO> {
     return this.http.request<MenssageDTO>('delete', `${this.imageURL}/delete`, {body: imageDTO});
   }
+
+  public uploadImages(image: FormData): Observable<any> {
+    return this.http.post<MenssageDTO>(`${this.imageURL}/upload-images`, image);
+  }
+
 }

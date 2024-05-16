@@ -33,4 +33,8 @@ export class PublicServiceService {
     return this.http.get<MenssageDTO>(`${this.publicURL}/get-cities`);
   }
 
+  public getCategories(): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(`${this.publicURL}/get-categories`);
+  }
+
 }

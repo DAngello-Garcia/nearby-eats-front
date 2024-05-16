@@ -2,9 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UpdatePlaceDTO } from '../../dto/place/update-place-dto';
-import { NegociosService } from '../../services/negocios.service';
 import { MapaService } from '../../services/mapa.service';
 import { Schedule } from '../../dto/clases/schedule';
+import { PlaceServiceService } from '../../services/controllers/place-service.service';
+import { PublicServiceService } from '../../services/controllers/public.service';
+import e from 'express';
+import { error } from 'console';
 
 @Component({
   selector: 'app-actualizar-lugar',
@@ -19,7 +22,11 @@ export class ActualizarLugarComponent implements OnInit {
   schedules: Schedule[];
   categories: string[];
 
-  constructor(private negocioService: NegociosService, private mapService: MapaService) {
+  constructor(
+      private placeService: PlaceServiceService,
+      private mapService: MapaService,
+      private publicService: PublicServiceService) {
+
     this.updatePlaceDTO = new UpdatePlaceDTO();
     this.categories = [];
     this.schedules = [new Schedule('', '', '')];
@@ -30,14 +37,14 @@ export class ActualizarLugarComponent implements OnInit {
     this.mapService.createMap();
 
     this.mapService.addMarcador().subscribe((marcador) => {
-      this.updatePlaceDTO.location.coordinates[0] = marcador.lat;
-      this.updatePlaceDTO.location.coordinates[1] = marcador.lng;
+      this.updatePlaceDTO.location.coordinates[0] = marcador.lng;
+      this.updatePlaceDTO.location.coordinates[1] = marcador.lat;
     })
   }
 
   public updatePlace() {
     this.updatePlaceDTO.schedule = this.schedules;
-    this.negocioService.actualizar(this.updatePlaceDTO);
+    this.placeService.updatePlace(this.updatePlaceDTO);
 
     console.log(this.updatePlaceDTO);
   }
@@ -54,7 +61,13 @@ export class ActualizarLugarComponent implements OnInit {
   }
 
   private uploadCategories() {
-    this.categories = ["Supermercado", "Tienda", "Restaurante", "Comida Rápida",
-      "Hotel", "Museo", "Café", "Otros"];
+    this.publicService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data.response;
+      },
+      error: (error) => {
+        console.log("Error al cargar las categorias")
+      }
+     })
   }
 }

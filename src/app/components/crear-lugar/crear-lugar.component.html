@@ -41,6 +41,12 @@
                     <input class="form-control" type="file" name="images" (change)="onFileChange($event)" multiple
                         required />
                 </div>
+                <div class="col-sm-2">
+                    <button type="submit" [disabled]="archivos == null" class="btn btn-primary "
+                        (click)="uploadImages()">
+                        <i class="fa-solid fa-cloud-arrow-up me-2 "></i> Subir Fotos
+                    </button>
+                </div>
             </div>
 
             <div class="mb-3 row">
@@ -93,7 +99,7 @@
             <button class="btn btn-primary" (click)="createPlace()" [disabled]="f.invalid">
                 <i class="fa-solid fa-circle-plus me-1"></i>Crear Negocio
             </button>
-
+            <app-alert></app-alert>
         </form>
     </div>
 </div>
