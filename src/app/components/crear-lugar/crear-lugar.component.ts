@@ -4,10 +4,10 @@ import { PlaceCreateDTO } from '../../dto/place/place-create-dto';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Schedule } from '../../dto/clases/schedule';
-import { NegociosService } from '../../services/negocios.service';
 import { MapaService } from '../../services/mapa.service';
 import { PublicServiceService } from '../../services/controllers/public.service';
 import { error } from 'console';
+import { PlaceServiceService } from '../../services/controllers/place-service.service';
 
 @Component({
   selector: 'app-crear-lugar',
@@ -24,7 +24,7 @@ export class CrearLugarComponent implements OnInit {
   categories: string[];
 
   constructor(
-    private negocioService: NegociosService,
+    private placeService: PlaceServiceService,
     private mapService: MapaService,
     private publicService: PublicServiceService) {
     this.placeCreateDTO = new PlaceCreateDTO();
@@ -44,7 +44,7 @@ export class CrearLugarComponent implements OnInit {
 
   public createPlace() {
     this.placeCreateDTO.schedule = this.schedules;
-    this.negocioService.crear(this.placeCreateDTO);
+    this.placeService.createPlace(this.placeCreateDTO);
 
     console.log(this.placeCreateDTO);
   }

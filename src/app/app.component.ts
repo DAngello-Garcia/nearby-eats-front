@@ -17,17 +17,5 @@ import { LoginComponent } from './components/login/login.component';
 export class AppComponent {
   title = 'nearby-eats-front';
   footer = 'Universidad del Quindío - 2024-1'
-  isLogged = false;
-  email: string = "";
 
-  constructor(private tokenService: TokenService) { }
-  ngOnInit(): void {
-    this.isLogged = this.tokenService.isLogged();
-    if (this.isLogged) {
-      this.email = this.tokenService.getEmail();
-    }
-  }
-  public logout() {
-    this.tokenService.logout();
-  }
 }

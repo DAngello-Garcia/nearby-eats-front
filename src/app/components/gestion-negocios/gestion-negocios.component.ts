@@ -2,11 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
-import { NegociosService } from '../../services/negocios.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TokenService } from '../../services/token.service';
 import { PlaceServiceService } from '../../services/controllers/place-service.service';
 import { error } from 'console';
+import { DeletePlaceDTO } from '../../dto/place/delete-place-dto';
+import { CommentServiceService } from '../../services/controllers/comment-service.service';
 
 @Component({
   selector: 'app-gestion-negocios',
@@ -21,12 +22,13 @@ export class GestionNegociosComponent {
   negocios: ItemNegocioDTO[];
   seleccionados: ItemNegocioDTO[];
   textoBtnDelete: string;
+  deletePlaceDTO: DeletePlaceDTO | undefined
 
   constructor(
-    private negocioService: NegociosService,
     private dialog: MatDialog,
     private tokenService: TokenService,
-    private placeService: PlaceServiceService
+    private placeService: PlaceServiceService,
+    private commentService: CommentServiceService
   ) {
     this.negocios = [];
     this.seleccionados = [];
@@ -41,7 +43,6 @@ export class GestionNegociosComponent {
       next: (data) => {
         this.negocios = data.response;
       },
-
       error: (error) => {
         console.error(error);
       }
@@ -74,7 +75,8 @@ export class GestionNegociosComponent {
   public deletePlaces() {
 
     this.seleccionados.forEach(n => {
-      this.negocioService.eliminar(n.id);
+      this.deletePlaceDTO = new DeletePlaceDTO(n.id, this.tokenService.getId())
+      this.placeService.deletePlace(this.deletePlaceDTO);
       this.negocios = this.negocios.filter(negocio =>
         negocio.id !== n.id);
     });

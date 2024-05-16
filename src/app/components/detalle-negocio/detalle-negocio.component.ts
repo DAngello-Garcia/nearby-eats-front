@@ -17,12 +17,13 @@ import { MenssageDTO } from '../../dto/menssage-dto';
 export class DetalleNegocioComponent {
 
   codePlace: string = '';
-  negocio: MenssageDTO | undefined;
+  negocio: ItemNegocioDTO;
 
   constructor(
     private route: ActivatedRoute,
     private placeService: PlaceServiceService
   ) {
+    this.negocio = new ItemNegocioDTO()
     this.route.params.subscribe((params) => {
       this.codePlace = params['id'];
       this.getPlace();
@@ -30,8 +31,10 @@ export class DetalleNegocioComponent {
   }
 
   public getPlace() {
-    this.placeService.getPlace(this.codePlace).subscribe(res => {
-      this.negocio = res
-    });
+    this.placeService.getPlace(this.codePlace).subscribe({
+      next: data => {
+        this.negocio = data.response
+      }
+    })
   }
 }

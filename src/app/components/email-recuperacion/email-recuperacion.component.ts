@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import e from 'express';
+import { TokenService } from '../../services/token.service';
+import { UserServiceService } from '../../services/controllers/user-service.service';
 
 @Component({
   selector: 'app-email-recuperacion',
@@ -16,11 +18,11 @@ export class EmailRecuperacionComponent {
   loading: boolean = false;
 
 
-  constructor() {
+  constructor(private tokenService: TokenService, private userService: UserServiceService) {
   }
 
   public sendEmail() {
-    console.log(this.email);
+    this.userService.sendRecoveryEmail(this.email).subscribe()
   }
 
 }

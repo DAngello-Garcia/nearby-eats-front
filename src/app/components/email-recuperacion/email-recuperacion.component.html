@@ -4,7 +4,7 @@
         </h5>
     </div>
     <div class="card-body p-5">
-        <form #f="ngForm" (ngSubmit)="sendEmail()">
+        <form #f="ngForm">
             <h1>Busca tu dirección de correo electrónico</h1>
             <p>Introduce tu dirección de correo electrónico de recuperación</p>
             <div class="mb-3 row">
@@ -14,7 +14,7 @@
                     email.dirty ? 'is-invalid' : ''" type="text" name="email" [(ngModel)]="email" required />
                 </div>
             </div>
-            <button class="btn btn-primary" type="submit" [disabled]="f.invalid"><i
+            <button (click)="sendEmail()" class="btn btn-primary" type="submit" [disabled]="f.invalid"><i
                     class="fa-solid fa-circle-plus me-1"></i>Enviar
                 Correo</button>
         </form>

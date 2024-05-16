@@ -15,22 +15,22 @@ import { RolesGuard } from './guards/roles.service';
 export const routes: Routes = [
     { path: '', component: InicioComponent },
     { path: 'email-recuperacion', component: EmailRecuperacionComponent },
-    { path: 'cambiar-contrasenia', component: CambiarContraseniaComponent },
+    { path: 'cambiar-contrasenia/:token', component: CambiarContraseniaComponent },
     {
         path: 'actualizar-cuenta', component: ActualizarCuentaComponent, canActivate: [RolesGuard], data: {
-            expectedRole: ["CLIENTE"]
+            expectedRole: ["CLIENT"]
         }
     },
     {
         path: 'crear-lugar', component: CrearLugarComponent, canActivate: [RolesGuard], data: {
-            expectedRole: ["CLIENTE"]
+            expectedRole: ["CLIENT"]
         }
     },
     {
         path: "gestion-negocios", component: GestionNegociosComponent, canActivate: [RolesGuard],
-        data: { expectedRole: ["CLIENTE"] }
+        data: { expectedRole: ["CLIENT"] }
     },
-    { path: "detalle-negocio/:codigo", component: DetalleNegocioComponent },
+    { path: "detalle-negocio/:id", component: DetalleNegocioComponent },
     { path: "busqueda/:texto", component: BusquedaComponent },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'registro', component: RegistroComponent, canActivate: [LoginGuard] },
