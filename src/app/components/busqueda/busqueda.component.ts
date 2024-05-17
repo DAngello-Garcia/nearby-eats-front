@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MapaService } from '../../services/mapa.service';
 import { PlaceServiceService } from '../../services/controllers/place-service.service';
 import { MenssageDTO } from '../../dto/menssage-dto';
@@ -12,7 +12,7 @@ import { PublicServiceService } from '../../services/controllers/public.service'
 @Component({
   selector: 'app-busqueda',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './busqueda.component.html',
   styleUrl: './busqueda.component.css'
 })

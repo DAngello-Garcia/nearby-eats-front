@@ -28,7 +28,8 @@ export class CrearLugarComponent implements OnInit {
   schedules: Schedule[];
   categories: string[];
   phones: string[];
-    alert!: Alert;
+  alert!: Alert;
+  currentCategory: string
 
   constructor(
     private placeService: PlaceServiceService,
@@ -37,11 +38,12 @@ export class CrearLugarComponent implements OnInit {
     private imageService: ImageServiceService,
     private tokenService: TokenService) {
 
-      this.phones = [''];
-      this.placeCreateDTO = new PlaceCreateDTO();
-      this.categories = [];
-      this.schedules = [new Schedule('', '', '')];
-      this.uploadCategories();
+    this.phones = [''];
+    this.placeCreateDTO = new PlaceCreateDTO();
+    this.categories = [];
+    this.currentCategory = ''
+    this.schedules = [new Schedule('', '', '')];
+    this.uploadCategories();
   }
 
   ngOnInit(): void {
@@ -55,7 +57,7 @@ export class CrearLugarComponent implements OnInit {
 
   public createPlace() {
     this.placeService.createPlace(this.placeCreateDTO).subscribe({
-      next: (data) => { 
+      next: (data) => {
         this.placeCreateDTO.clientId = this.tokenService.getId();
         this.alert = new Alert(data.response, "sucess");
       },
@@ -88,7 +90,14 @@ export class CrearLugarComponent implements OnInit {
       error: (error) => {
         console.log("Error al cargar las categorias")
       }
-     })
+    })
+  }
+
+  addCategory() {
+    if (this.currentCategory && !this.placeCreateDTO.categories.includes(this.currentCategory)) {
+      this.placeCreateDTO.categories.push(this.currentCategory);
+      this.currentCategory = '';
+    }
   }
 
   public uploadImages() {
@@ -97,7 +106,7 @@ export class CrearLugarComponent implements OnInit {
 
       const formData = new FormData();
 
-      for(let i = 0; i < this.archivos.length; i++) {
+      for (let i = 0; i < this.archivos.length; i++) {
         formData.append('files', this.archivos[i])
       }
 
