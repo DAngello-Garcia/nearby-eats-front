@@ -22,6 +22,23 @@
         </ul>
         <label class="me-3">Hola {{email}}</label>
         <button type="button" (click)="logout()" class="btn btn-primary ">Logout</button>
+
+        <div class="action">
+            <div class="profile" (click)="menuToggle();">
+                <img src="mifoto.png">
+            </div>
+            <div class="menu">
+                <h3>Someone Famous <br><span>Website Designer</span></h3>
+                <ul>
+                    <li><img src="profile.png"><a routerLink="#">My profile</a></li>
+                    <li><img src="edit.png"><a routerLink="#">Edit profile</a></li>
+                    <li><img src="inbox.png"><a routerLink="#">Inbox</a></li>
+                    <li><img src="help.png"><a routerLink="#">Settings</a></li>
+                    <li><img src="help.png"><a routerLink="#">Help</a></li>
+                    <li><img src="logout.png"><a routerLink="#">Logout</a></li>
+                </ul>
+            </div>
+        </div>
         }
     </header>
 </div>

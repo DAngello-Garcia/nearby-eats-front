@@ -27,7 +27,8 @@ export class CrearLugarComponent implements OnInit {
   archivos!: FileList;
   schedules: Schedule[];
   categories: string[];
-  alert!: Alert;
+  phones: string[];
+    alert!: Alert;
 
   constructor(
     private placeService: PlaceServiceService,
@@ -36,10 +37,11 @@ export class CrearLugarComponent implements OnInit {
     private imageService: ImageServiceService,
     private tokenService: TokenService) {
 
-    this.placeCreateDTO = new PlaceCreateDTO();
-    this.categories = [];
-    this.schedules = [new Schedule('', '', '')];
-    this.uploadCategories();
+      this.phones = [''];
+      this.placeCreateDTO = new PlaceCreateDTO();
+      this.categories = [];
+      this.schedules = [new Schedule('', '', '')];
+      this.uploadCategories();
   }
 
   ngOnInit(): void {
@@ -65,6 +67,10 @@ export class CrearLugarComponent implements OnInit {
 
   public addSchedule() {
     this.schedules.push(new Schedule('', '', ''));
+  }
+
+  public addPhones() {
+    this.phones.push('');
   }
 
   public onFileChange(event: any) {
