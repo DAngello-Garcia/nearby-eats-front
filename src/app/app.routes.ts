@@ -11,6 +11,7 @@ import { DetalleNegocioComponent } from './components/detalle-negocio/detalle-ne
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { LoginGuard } from './guards/permiso.service';
 import { RolesGuard } from './guards/roles.service';
+import { DetalleClienteComponent } from './components/detalle-cliente/detalle-cliente.component';
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
@@ -34,5 +35,6 @@ export const routes: Routes = [
     { path: "busqueda/:texto", component: BusquedaComponent },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'registro', component: RegistroComponent, canActivate: [LoginGuard] },
+    { path: 'get-user/:id', component: DetalleClienteComponent},
     { path: "**", pathMatch: "full", redirectTo: "" }
 ];

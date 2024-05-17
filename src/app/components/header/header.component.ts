@@ -4,6 +4,7 @@ import { LoginComponent } from '../login/login.component';
 import { RouterLink } from '@angular/router';
 import { TokenService } from '../../services/token.service';
 import { UserServiceService } from '../../services/controllers/user-service.service';
+import { UserInformationDTO } from '../../dto/user/user-information-dto';
 
 @Component({
   selector: 'app-header',
@@ -19,10 +20,14 @@ export class HeaderComponent {
   email: string = "";
   profilePhoto: string ="";
   id: string = ""
+  client: UserInformationDTO;
+
 
   constructor(
     private tokenService: TokenService,
-    private userService: UserServiceService) { }
+    private userService: UserServiceService) {
+      this.client = new UserInformationDTO()
+     }
 
   ngOnInit(): void {
 
@@ -30,9 +35,11 @@ export class HeaderComponent {
     if (this.isLogged) {
       this.email = this.tokenService.getEmail();
       this.id = this.tokenService.getId();
+      this.getUser();
     }
-
   }
+
+
   public logout() {
     this.tokenService.logout();
   }
@@ -42,5 +49,13 @@ export class HeaderComponent {
     if (menuToggle) {
       menuToggle.classList.toggle('active');
     }
+  }
+
+  public getUser() {
+    this.userService.getUser(this.id).subscribe({
+      next: data => {
+        this.client = data.response
+      }
+    })
   }
 }

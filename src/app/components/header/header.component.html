@@ -15,27 +15,26 @@
             <button type="button" routerLink="/login" class="btn btn-outline-primary me-2">Login</button>
             <button type="button" routerLink="/registro" class="btn btn-primary">Registro</button>
         </div>
+
         }@else {
+
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="" routerLink="/crear-lugar" class="nav-link px-2">Gestión negocios</a></li>
+            <li><a href="" routerLink="" class="nav-link px-2">Gestión negocios</a></li>
             <li><a href="" routerLink="/actualizar-cuenta" class="nav-link px-2">Favoritos</a></li>
         </ul>
-        <label class="me-3">Hola {{email}}</label>
-        <button type="button" (click)="logout()" class="btn btn-primary ">Logout</button>
-
+        <label class="me-3">Hola {{client.nickname}}</label>
         <div class="action">
-            <div class="profile" (click)="menuToggle();">
-                <img src="mifoto.png">
+            <div class="profile" (click)="menuToggle();" (click)="getUser()">
+                <img src="{{client.profilePicture}}">
             </div>
             <div class="menu">
-                <h3>Someone Famous <br><span>Website Designer</span></h3>
+                <h3>{{client.firstName}} {{client.lastName}} <br><span>{{client.nickname}}</span></h3>
                 <ul>
-                    <li><img src="profile.png"><a routerLink="#">My profile</a></li>
-                    <li><img src="edit.png"><a routerLink="#">Edit profile</a></li>
-                    <li><img src="inbox.png"><a routerLink="#">Inbox</a></li>
-                    <li><img src="help.png"><a routerLink="#">Settings</a></li>
-                    <li><img src="help.png"><a routerLink="#">Help</a></li>
-                    <li><img src="logout.png"><a routerLink="#">Logout</a></li>
+                    <li><img src="profile.png"><a routerLink="/actualizar-cuenta">Editar cuenta</a></li>
+                    <li><img src="inbox.png"><a routerLink="/crear-lugar">Crear lugar</a></li>
+                    <li><img src="help.png"><a routerLink="/gestion-negocios">Ver Lugares Creados</a></li>
+                    <li><img src="help.png"><a routerLink="#">Ver Lugares Favoritos</a></li>
+                    <li><img src="logout.png"><a routerLink="#" (click)="logout()">Logout</a></li>
                 </ul>
             </div>
         </div>

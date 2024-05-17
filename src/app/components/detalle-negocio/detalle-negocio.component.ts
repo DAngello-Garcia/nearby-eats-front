@@ -35,6 +35,6 @@ export class DetalleNegocioComponent {
       next: data => {
         this.negocio = data.response
       }
-    })
+    });
   }
 }
