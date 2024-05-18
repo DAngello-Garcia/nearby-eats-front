@@ -93,7 +93,7 @@ export class CrearLugarComponent implements OnInit {
     })
   }
 
-  addCategory() {
+  public addCategory() {
     if (this.currentCategory && !this.placeCreateDTO.categories.includes(this.currentCategory)) {
       this.placeCreateDTO.categories.push(this.currentCategory);
       this.currentCategory = '';

@@ -13,6 +13,7 @@ import { UserServiceService } from '../../services/controllers/user-service.serv
   styleUrl: './detalle-cliente.component.css'
 })
 export class DetalleClienteComponent {
+[x: string]: any;
 
   codeClient: string = '';
   client: UserInformationDTO;

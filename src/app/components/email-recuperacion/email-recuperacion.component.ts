@@ -14,15 +14,16 @@ import { UserServiceService } from '../../services/controllers/user-service.serv
 })
 export class EmailRecuperacionComponent {
 
-  email: string = "";
+  correo: string;
   loading: boolean = false;
 
 
   constructor(private tokenService: TokenService, private userService: UserServiceService) {
+    this.correo = "";
   }
 
   public sendEmail() {
-    this.userService.sendRecoveryEmail(this.email).subscribe()
+    this.userService.sendRecoveryEmail(this.correo).subscribe()
   }
 
 }

@@ -33,7 +33,7 @@ body
 {
     position: absolute;
     top: 120px;
-    right: -10px;
+    right: 20px;
     padding: 10px 20px;
     background: #fff;
     width: 280px;
@@ -114,4 +114,13 @@ body
 .action .menu ul li:hover a
 {
     color: #ff5f94;
+}
+
+.action .menu{
+    z-index: 3;
+}
+
+.action .menu ul li a
+{
+    padding-left: 8px;
 }

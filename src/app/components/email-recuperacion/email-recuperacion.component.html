@@ -11,7 +11,7 @@
                 <label class="col-sm-2 col-form-label">Email: </label>
                 <div class="col-sm-10">
                     <input #email="ngModel" class="form-control" [ngClass]="email.invalid &&
-                    email.dirty ? 'is-invalid' : ''" type="text" name="email" [(ngModel)]="email" required />
+                    email.dirty ? 'is-invalid' : ''" type="text" name="email" [(ngModel)]="correo" required />
                 </div>
             </div>
             <button (click)="sendEmail()" class="btn btn-primary" type="submit" [disabled]="f.invalid"><i
