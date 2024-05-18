@@ -12,11 +12,13 @@ import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { LoginGuard } from './guards/permiso.service';
 import { RolesGuard } from './guards/roles.service';
 import { DetalleClienteComponent } from './components/detalle-cliente/detalle-cliente.component';
+import { MensajeConfirmacionEmailComponent } from './components/mensaje-confirmacion-email/mensaje-confirmacion-email.component';
+import { MensajeConfirmacionContraseniaComponent } from './components/mensaje-confirmacion-contrasenia/mensaje-confirmacion-contrasenia.component';
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
     { path: 'email-recuperacion', component: EmailRecuperacionComponent },
-    { path: 'cambiar-contrasenia/:token', component: CambiarContraseniaComponent },
+    { path: 'cambiar-contrasenia/:tokenemail', component: CambiarContraseniaComponent },
     {
         path: 'actualizar-cuenta', component: ActualizarCuentaComponent, canActivate: [RolesGuard], data: {
             expectedRole: ["CLIENT"]
@@ -36,5 +38,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'registro', component: RegistroComponent, canActivate: [LoginGuard] },
     { path: 'get-user/:id', component: DetalleClienteComponent},
+    { path: 'mensaje-email-recuperacion', component: MensajeConfirmacionEmailComponent},
+    { path: 'mensaje-contrasenia-exitosa', component: MensajeConfirmacionContraseniaComponent},
     { path: "**", pathMatch: "full", redirectTo: "" }
 ];

@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-header text-center pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-envelope me-3"></i>Confirmación de Envío de Correo Electrónico</h5>
+    </div>
+    <div class="card-body text-center p-5">
+        <div class="checkmark-circle">
+            <div class="background"></div>
+            <div class="checkmark draw"></div>
+        </div>
+        <h1 class="mt-4">¡Correo Enviado!</h1>
+        <p class="lead">Hemos enviado un correo electrónico de recuperación a <strong>{{ correo }}</strong>.</p>
+        <p>Por favor, revisa tu bandeja de entrada y sigue las instrucciones para recuperar tu cuenta.</p>
+        <a routerLink="/" class="btn btn-primary mt-3" (click)="removeEmailRecuperacion()"><i class="fa-solid fa-arrow-left me-1"></i>Volver a la página principal</a>
+    </div>
+</div>

@@ -4,11 +4,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import e from 'express';
 import { TokenService } from '../../services/token.service';
 import { UserServiceService } from '../../services/controllers/user-service.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-email-recuperacion',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './email-recuperacion.component.html',
   styleUrl: './email-recuperacion.component.css'
 })
@@ -24,6 +25,7 @@ export class EmailRecuperacionComponent {
 
   public sendEmail() {
     this.userService.sendRecoveryEmail(this.correo).subscribe()
+    window.sessionStorage.setItem("correo", this.correo);
   }
 
 }

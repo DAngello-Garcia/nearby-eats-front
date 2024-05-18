@@ -76,4 +76,11 @@ export class TokenService {
     return "";
   }
 
+  public deleteTokenChangePassword() {
+    window.sessionStorage.clear();
+  }
+
+  public reloadPage() {
+    window.location.reload();
+  }
 }

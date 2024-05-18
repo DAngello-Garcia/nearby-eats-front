@@ -34,7 +34,7 @@ export class UserServiceService {
   }
 
   public changePassword(userChangePassworDTO: UserChangePasswordDTO): Observable<MenssageDTO> {
-    return this.http.post<MenssageDTO>(`${this.userURL}/register-user`, userChangePassworDTO)
+    return this.http.post<MenssageDTO>(`${this.userURL}/change-password`, userChangePassworDTO)
   }
 
   public getAllUsers(): Observable<MenssageDTO> {

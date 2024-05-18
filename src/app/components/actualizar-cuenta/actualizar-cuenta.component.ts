@@ -9,13 +9,14 @@ import { ImageServiceService } from '../../services/controllers/image-service.se
 import { Alert } from '../../dto/clases/alert';
 import { UserServiceService } from '../../services/controllers/user-service.service';
 import { error } from 'console';
+import { AlertComponent } from "../alert/alert.component";
 
 @Component({
-  selector: 'app-actualizar-cuenta',
-  standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink],
-  templateUrl: './actualizar-cuenta.component.html',
-  styleUrl: './actualizar-cuenta.component.css'
+    selector: 'app-actualizar-cuenta',
+    standalone: true,
+    templateUrl: './actualizar-cuenta.component.html',
+    styleUrl: './actualizar-cuenta.component.css',
+    imports: [FormsModule, CommonModule, RouterLink, AlertComponent]
 })
 export class ActualizarCuentaComponent implements OnInit {
 
@@ -46,6 +47,7 @@ export class ActualizarCuentaComponent implements OnInit {
       this.userService.updateUserUSer(this.userUpdateDTO).subscribe({
         next: (data) => {
           this.alert = new Alert(data.response, "success");
+          window.location.reload();
         },
         error: (error) => {
           this.alert = new Alert(error.error.response, "danger")

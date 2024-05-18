@@ -35,7 +35,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Ciudad de Residencia: </label>
                 <div class="col-sm-10">
@@ -61,14 +61,23 @@
                         required />
                 </div>
             </div>
+
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Contraseña: </label>
-                <input type="password" name="password" [(ngModel)]="registerClientDTO.password" required />
+                    <label class="col-sm-2 col-form-label">Contraseña: </label>
+                    <div class="col-sm-10">
+                    <input type="password" name="password" class="form-control" 
+                    [(ngModel)]="registerClientDTO.password" required />
+                </div>
             </div>
+
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Repetir Contraseña</label>
-                <input type="password" name="confirmPassword" [(ngModel)]="registerClientDTO.confirmPassword" required>
+                <div class="col-sm-10">
+                    <input type="password" name="confirmPassword" class="form-control"
+                        [(ngModel)]="registerClientDTO.confirmPassword" required>
+                </div>
             </div>
+
             @if (!equalPassword()) { <div class="alert alert-danger" role="alert">Las contraseñas no
                 coinciden</div> }
             <button class="btn btn-primary" type="submit" [disabled]="f.invalid || !equalPassword()"
