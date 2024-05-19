@@ -1,24 +1,118 @@
-<p>{{negocio | json }}</p>
-
-<div class="card">
-    <div class="card-header ps-5 pt-4 pb-4">
-        <h5 class="mb-0"><i class="fa-solid fa-magnifying-glass-location me-2">
-            </i>{{negocio.name}}</h5>
+<div class="container mt-4 p-4" style="background-color: #f8f9fa">
+  <div class="row align-items-center mb-4">
+    <div class="col-6">
+      <h1>{{ negocio.name }}</h1>
     </div>
+    <div class="col-6 text-end">
+      <span class="badge bg-warning text-dark">{{ negocio.status }}</span>
+    </div>
+  </div>
 
-    <ul id="restaurant-list" class="list-group mt-4">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <img src="{{negocio.pictures}}" class="card-img" alt="{{negocio.name}}">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title"><a>{{negocio.name}}</a></h5>
-                    <h5><span class="badge bg-primary">{{negocio.categories}}</span></h5>
-                    <p class="card-text">{{negocio.description}}</p>
-                    <p class="card-text"><small class="text-muted">Calificación: {{negocio.score}}</small></p>
-                </div>
-            </div>
+  <div class="row mb-4">
+    <div class="col-12">
+      <p>{{ negocio.description }}</p>
+      <p>
+        <strong class="me-2">Categorías:</strong>
+        <span
+          *ngFor="let category of negocio.categories"
+          class="badge bg-primary me-2"
+          >{{ category }}</span
+        >
+      </p>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div id="map" style="height: 400px"></div>
+    </div>
+    <div class="col-md-6">
+      <div id="businessCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div
+            *ngFor="let picture of negocio.pictures; let i = index"
+            class="carousel-item"
+            [class.active]="i === 0"
+          >
+            <img
+              src="{{ picture }}"
+              class="d-block w-100"
+              alt="Business Image"
+              style="max-height: 400px"
+            />
+          </div>
         </div>
-    </ul>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#businessCarousel"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#businessCarousel"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <h4>Información de contacto</h4>
+      <p><strong>Teléfonos:</strong></p>
+      <ul>
+        <li *ngFor="let phone of negocio.phones">{{ phone }}</li>
+      </ul>
+      <p><strong>Horario:</strong></p>
+      <ul>
+        <li *ngFor="let schedule of negocio.schedule">
+          {{ schedule.weekday }}: {{ schedule.openingTime }} -
+          {{ schedule.closingTime }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <h4>Reseñas</h4>
+      <p><strong>Puntaje:</strong> {{ negocio.score }} / 5</p>
+      <div *ngFor="let review of getDummyReviews()">
+        <div class="card mb-3">
+          <div class="card-body d-flex">
+            <img
+              [src]="review.profileImage"
+              class="rounded-circle me-3"
+              alt="Profile Image"
+              width="50"
+              height="50"
+            />
+            <div>
+              <h5 class="card-title">{{ review.reviewer }}</h5>
+              <p class="card-text">
+                <span
+                  *ngFor="let star of getStars(review.rating)"
+                  class="text-warning"
+                  >&#9733;</span
+                >
+                <span
+                  *ngFor="let star of getStars(5 - review.rating)"
+                  class="text-muted"
+                  >&#9733;</span
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
