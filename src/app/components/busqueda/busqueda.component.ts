@@ -27,13 +27,13 @@ export class BusquedaComponent implements OnInit {
   pagedResults: ItemNegocioDTO[] = [];
   paginationArray: number[] = []
   categories: string[] = []
-  selectedCategory: string  = 'All'
+  selectedCategory: string = 'All'
 
   constructor(
     private route: ActivatedRoute,
     private negocioService: PlaceServiceService,
     private mapaService: MapaService,
-    private tokenService: TokenService, 
+    private tokenService: TokenService,
     private publicService: PublicServiceService) {
 
     this.resultados = [];
@@ -66,19 +66,6 @@ export class BusquedaComponent implements OnInit {
     this.mapaService.paintMarcador(this.resultados)
   }
 
-  public updatePagination() {
-    this.totalPages = Math.ceil(this.resultados.length / this.itemsPerPage);
-    this.paginationArray = Array.from({ length: this.totalPages}, (_, i) => i + 1);
-  }
-
-  public changePage(page: number): void {
-    if (page < 1 || page > this.totalPages) return;
-    this.currentPage = page;
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.pagedResults = this.resultados.slice(startIndex, endIndex);
-  }
-
   public fetchCategories() {
     this.publicService.getCategories().subscribe({
       next: (data) => {
@@ -91,11 +78,18 @@ export class BusquedaComponent implements OnInit {
   }
 
   public selectCategorySearch(category: string): void {
-    this.negocioService.getPlacesByCategory(category).subscribe({
-      next: data => {
-        this.resultados = data.response
-      }
-    });
+    this.selectedCategory = category;
+    if (category === 'All') {
+      this.searchByName();
+      } else {
+        this.negocioService.getPlacesByCategory(category).subscribe({
+          next: data => {
+            this.resultados = data.response;
+            this.updatePagination();
+          }
+        });
+      
+    }
   }
 
   private uploadCategories() {
@@ -106,7 +100,7 @@ export class BusquedaComponent implements OnInit {
       error: (error) => {
         console.log("Error al cargar las categorias")
       }
-     })
+    })
   }
 
   public searchByName() {
@@ -115,5 +109,21 @@ export class BusquedaComponent implements OnInit {
         this.resultados = data.response;
       }
     });
+  }
+
+  public updatePagination(): void {
+    this.totalItems = this.resultados.length;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.paginationArray = Array.from({length: this.totalPages} , (_, i) => i + 1);
+    this.changePage(this.currentPage);
+  }
+
+
+  public changePage(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    const startIndex = (page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedResults = this.resultados.slice(startIndex, endIndex);
+    this.currentPage = page;
   }
 }

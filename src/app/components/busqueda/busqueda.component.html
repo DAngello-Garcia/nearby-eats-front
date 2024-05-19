@@ -6,13 +6,19 @@
 
     <div class="card-body p-1">
         <div class="mb-3 d-flex justify-content-center">
-            <button class="btn btn-secondary me-2" (click)="searchByName()" >{{selectedCategory}}</button>
-            <button class="btn btn-secondary me-2" (click)="selectCategorySearch(categories[0])">{{categories[0]}}</button>
-            <button class="btn btn-secondary me-2" (click)="selectCategorySearch(categories[1])">{{categories[1]}}</button>
-            <button class="btn btn-secondary me-2" (click)="selectCategorySearch(categories[2])">{{categories[2]}}</button>
-            <button class="btn btn-secondary me-2" (click)="selectCategorySearch(categories[3])">{{categories[3]}}</button>
-            <button class="btn btn-secondary me-2" (click)="selectCategorySearch(categories[4])">{{categories[4]}}</button>
-            <button class="btn btn-secondary me-2" (click)="selectCategorySearch(categories[5])">{{categories[5]}}</button>
+            <button class="btn btn-secondary me-2" (click)="searchByName()">{{selectedCategory}}</button>
+            <button class="btn btn-secondary me-2"
+                (click)="selectCategorySearch(categories[0])">{{categories[0]}}</button>
+            <button class="btn btn-secondary me-2"
+                (click)="selectCategorySearch(categories[1])">{{categories[1]}}</button>
+            <button class="btn btn-secondary me-2"
+                (click)="selectCategorySearch(categories[2])">{{categories[2]}}</button>
+            <button class="btn btn-secondary me-2"
+                (click)="selectCategorySearch(categories[3])">{{categories[3]}}</button>
+            <button class="btn btn-secondary me-2"
+                (click)="selectCategorySearch(categories[4])">{{categories[4]}}</button>
+            <button class="btn btn-secondary me-2"
+                (click)="selectCategorySearch(categories[5])">{{categories[5]}}</button>
         </div>
     </div>
 
@@ -34,4 +40,22 @@
             </div>
         </div>
     </ul>
+
+    <nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" href="#" (click)="changePage(currentPage - 1)" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item" *ngFor="let page of paginationArray" [class.active]="page === currentPage">
+      <a class="page-link" href="#" (click)="changePage(page)">{{ page }}</a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" href="#" (click)="changePage(currentPage + 1)" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 </div>
