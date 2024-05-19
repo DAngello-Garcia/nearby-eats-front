@@ -1,4 +1,4 @@
-<button type="button" class="btn"><i class="fa-solid fa-star" style="color:red" ></i></button>
+<button type="button" class="btn"><i class="fa-solid fa-star" style="color:red"></i></button>
 <button type="button" class="btn"><i class="fa-regular fa-star"></i></button>
 <button type="button" class="btn"><i class="fa-regular fa-star"></i></button>
 <button type="button" class="btn"><i class="fa-regular fa-star"></i></button>
@@ -23,8 +23,8 @@
         </div>
 
         }@else {
-
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="" routerLink="/lista-revision" class="nav-link px-2">Revisión</a></li>
             <li><a href="" routerLink="" class="nav-link px-2">Gestión negocios</a></li>
             <li><a href="" routerLink="/actualizar-cuenta" class="nav-link px-2">Favoritos</a></li>
         </ul>
@@ -38,9 +38,11 @@
                 <ul>
                     <li><i class="fa-solid fa-user-pen"></i><a routerLink="/actualizar-cuenta"> Editar cuenta</a></li>
                     <li><i class="fa-regular fa-square-plus"></i><a routerLink="/crear-lugar">Crear lugar</a></li>
-                    <li><i class="fa-solid fa-folder-open"></i><a routerLink="/gestion-negocios">Ver Lugares Creados</a></li>
+                    <li><i class="fa-solid fa-folder-open"></i><a routerLink="/gestion-negocios">Ver Lugares Creados</a>
+                    </li>
                     <li><i class="fa-solid fa-heart"></i><a routerLink="#">Ver Lugares Favoritos</a></li>
-                    <li><i class="fa-solid fa-right-from-bracket"></i><a routerLink="#" (click)="logout()">Logout</a></li>
+                    <li><i class="fa-solid fa-right-from-bracket"></i><a routerLink="#" (click)="logout()">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>

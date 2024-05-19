@@ -46,6 +46,10 @@ export class PlaceServiceService {
     return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-user-id/${clientId}`);
   }
 
+  public getPlacesMod(status: string): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-status-mod/${status}`);
+  }
+
   public getPlacesByLocation(location: string): Observable<MenssageDTO> {
     return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-location/${location}`);
   }

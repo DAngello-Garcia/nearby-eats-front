@@ -5,6 +5,7 @@ import { PlaceReviewDTO } from '../../dto/place/place-review-dto';
 import { PlaceServiceService } from '../../services/controllers/place-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { PublicServiceService } from '../../services/controllers/public.service';
+import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 
 @Component({
   selector: 'app-revision',
@@ -16,16 +17,22 @@ import { PublicServiceService } from '../../services/controllers/public.service'
 export class RevisionComponent {
   placeReviewDTO: PlaceReviewDTO
   placeId: string
-  placeStatus: string[];
+  place!: ItemNegocioDTO;
+  placeStatus: string[] = []
 
   constructor(private placeService: PlaceServiceService, private publicService: PublicServiceService, private ruta: ActivatedRoute) {
-    this.placeReviewDTO = new PlaceReviewDTO()
+    this.placeReviewDTO = new PlaceReviewDTO('', '', '')
     this.placeId = ruta.snapshot.params['id']
-    this.placeStatus = []
     this.uploadPlaceStatus()
+    this.placeService.getPlace(this.placeId).subscribe({
+      next: data => {
+        this.place = data.response
+      }
+    })
   }
 
   public review() {
+    console.log(this.placeReviewDTO)
     this.placeReviewDTO.placeId = this.placeId
     this.placeService.reviewPlace(this.placeReviewDTO).subscribe({
       next: (data) => {

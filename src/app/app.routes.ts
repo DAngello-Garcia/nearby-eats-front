@@ -14,6 +14,8 @@ import { RolesGuard } from './guards/roles.service';
 import { DetalleClienteComponent } from './components/detalle-cliente/detalle-cliente.component';
 import { MensajeConfirmacionEmailComponent } from './components/mensaje-confirmacion-email/mensaje-confirmacion-email.component';
 import { MensajeConfirmacionContraseniaComponent } from './components/mensaje-confirmacion-contrasenia/mensaje-confirmacion-contrasenia.component';
+import { RevisionComponent } from './components/revision/revision.component';
+import { ListaRevisionComponent } from './components/lista-revision/lista-revision.component';
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
@@ -36,9 +38,19 @@ export const routes: Routes = [
     { path: "detalle-negocio/:id", component: DetalleNegocioComponent },
     { path: "busqueda/:texto", component: BusquedaComponent },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+    {
+        path: 'lista-revision', component: ListaRevisionComponent, canActivate: [RolesGuard], data: {
+            expectedRole: ["MODERATOR"]
+        }
+    },
+    {
+        path: 'revision/:id', component: RevisionComponent, canActivate: [RolesGuard], data: {
+            expectedRole: ["MODERATOR"]
+        }
+    },
     { path: 'registro', component: RegistroComponent, canActivate: [LoginGuard] },
-    { path: 'get-user/:id', component: DetalleClienteComponent},
-    { path: 'mensaje-email-recuperacion', component: MensajeConfirmacionEmailComponent},
-    { path: 'mensaje-contrasenia-exitosa', component: MensajeConfirmacionContraseniaComponent},
+    { path: 'get-user/:id', component: DetalleClienteComponent },
+    { path: 'mensaje-email-recuperacion', component: MensajeConfirmacionEmailComponent },
+    { path: 'mensaje-contrasenia-exitosa', component: MensajeConfirmacionContraseniaComponent },
     { path: "**", pathMatch: "full", redirectTo: "" }
 ];
