@@ -20,12 +20,20 @@ export class BusquedaComponent implements OnInit {
 
   textoBusqueda: string;
   resultados: ItemNegocioDTO[];
+  totalPages: number = 0;
+  currentPage: number = 1;
+  itemsPerPage: number = 6;
+  pagedResults: ItemNegocioDTO[] = [];
+  paginationArray: number[] = []
+  categories: string[] = []
+  selectedCategory: string  = 'All'
 
   constructor(
     private route: ActivatedRoute,
     private negocioService: PlaceServiceService,
     private mapaService: MapaService,
-    private tokenService: TokenService, private publicService: PublicServiceService) {
+    private tokenService: TokenService, 
+    private publicService: PublicServiceService) {
 
     this.resultados = [];
     this.textoBusqueda = "";
@@ -44,6 +52,7 @@ export class BusquedaComponent implements OnInit {
             this.resultados = data.response;
           }
         });
+        this.uploadCategories()
       }
 
     });
@@ -52,5 +61,56 @@ export class BusquedaComponent implements OnInit {
   ngOnInit(): void {
     this.mapaService.createMap();
     this.mapaService.paintMarcador(this.resultados)
+  }
+
+  public updatePagination() {
+    this.totalPages = Math.ceil(this.resultados.length / this.itemsPerPage);
+    this.paginationArray = Array.from({ length: this.totalPages}, (_, i) => i + 1);
+  }
+
+  public changePage(page: number): void {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedResults = this.resultados.slice(startIndex, endIndex);
+  }
+
+  public fetchCategories() {
+    this.publicService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data.response;
+      },
+      error: (error) => {
+        console.log('Error al cargar las categorias');
+      },
+    });
+  }
+
+  public selectCategorySearch(category: string): void {
+    this.negocioService.getPlacesByCategory(category).subscribe({
+      next: data => {
+        this.resultados = data.response
+      }
+    });
+  }
+
+  private uploadCategories() {
+    this.publicService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data.response;
+      },
+      error: (error) => {
+        console.log("Error al cargar las categorias")
+      }
+     })
+  }
+
+  public searchByName() {
+    this.publicService.getPlacesByName(this.textoBusqueda).subscribe({
+      next: data => {
+        this.resultados = data.response;
+      }
+    });
   }
 }

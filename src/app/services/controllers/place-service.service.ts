@@ -34,7 +34,7 @@ export class PlaceServiceService {
     return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/${placeId}`);
   }
 
-  public getPlacesByCategory(category: string, token: string): Observable<MenssageDTO> {
+  public getPlacesByCategory(category: string): Observable<MenssageDTO> {
     return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-category/${category}`);
   }
 
@@ -46,7 +46,7 @@ export class PlaceServiceService {
     return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-user-id/${clientId}`);
   }
 
-  public getPlacesByLocation(location: string, token: string): Observable<MenssageDTO> {
+  public getPlacesByLocation(location: string): Observable<MenssageDTO> {
     return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-location/${location}`);
   }
 

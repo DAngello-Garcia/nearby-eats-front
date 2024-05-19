@@ -35,6 +35,7 @@ export class RegistroComponent {
     this.registerClientDTO = new RegisterClientDTO();
     this.citys = [];
     this.uploadCitys();
+
   }
 
   public register() {
