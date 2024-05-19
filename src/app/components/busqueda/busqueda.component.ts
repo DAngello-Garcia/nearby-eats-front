@@ -20,9 +20,10 @@ export class BusquedaComponent implements OnInit {
 
   textoBusqueda: string;
   resultados: ItemNegocioDTO[];
-  totalPages: number = 0;
   currentPage: number = 1;
+  totalPages: number = 0;
   itemsPerPage: number = 6;
+  totalItems: number = 0;
   pagedResults: ItemNegocioDTO[] = [];
   paginationArray: number[] = []
   categories: string[] = []
@@ -44,12 +45,14 @@ export class BusquedaComponent implements OnInit {
         this.publicService.getPlacesByName(this.textoBusqueda).subscribe({
           next: data => {
             this.resultados = data.response;
+            this.selectCategorySearch(data.response.categories[0])
           }
         });
       } else {
         this.negocioService.getPlacesByName(this.textoBusqueda).subscribe({
           next: data => {
             this.resultados = data.response;
+            this.selectCategorySearch(data.response.categories[0])
           }
         });
         this.uploadCategories()
