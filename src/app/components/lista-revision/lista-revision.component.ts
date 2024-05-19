@@ -16,10 +16,35 @@ import { PublicServiceService } from '../../services/controllers/public.service'
 export class ListaRevisionComponent {
 
   resultados: ItemNegocioDTO[];
+  placeStatus: string[] = []
+  selectedCategory: string = 'PENDING'
 
   constructor(private placeService: PlaceServiceService, private publicService: PublicServiceService) {
     this.resultados = [];
+    this.uploadPlaceStatus()
+    this.placeService.getPlacesMod('PENDING').subscribe({
+      next: data => {
+        this.resultados = data.response;
+        this.selectCategorySearch(data.response.categories[0])
+      }
+    });
+  }
 
+  public selectCategorySearch(status: string): void {
+    this.selectedCategory = status;
+    if (status === 'PENDING') {
+      this.searchPending();
+    } else {
+      this.placeService.getPlacesByModerator(status).subscribe({
+        next: data => {
+          this.resultados = data.response;
+        }
+      });
+
+    }
+  }
+
+  public searchPending() {
     this.placeService.getPlacesMod('PENDING').subscribe({
       next: data => {
         this.resultados = data.response;
@@ -27,5 +52,15 @@ export class ListaRevisionComponent {
     });
   }
 
+  public uploadPlaceStatus() {
+    this.publicService.getPlacesStatus().subscribe({
+      next: (data) => {
+        this.placeStatus = data.response;
+      },
+      error: (error) => {
+        console.log("Error al cargar los status");
+      }
+    })
+  }
 
 }

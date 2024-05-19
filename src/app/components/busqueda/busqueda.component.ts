@@ -81,14 +81,14 @@ export class BusquedaComponent implements OnInit {
     this.selectedCategory = category;
     if (category === 'All') {
       this.searchByName();
-      } else {
-        this.negocioService.getPlacesByCategory(category).subscribe({
-          next: data => {
-            this.resultados = data.response;
-            this.updatePagination();
-          }
-        });
-      
+    } else {
+      this.negocioService.getPlacesByCategory(category).subscribe({
+        next: data => {
+          this.resultados = data.response;
+          this.updatePagination();
+        }
+      });
+
     }
   }
 
@@ -114,7 +114,7 @@ export class BusquedaComponent implements OnInit {
   public updatePagination(): void {
     this.totalItems = this.resultados.length;
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-    this.paginationArray = Array.from({length: this.totalPages} , (_, i) => i + 1);
+    this.paginationArray = Array.from({ length: this.totalPages }, (_, i) => i + 1);
     this.changePage(this.currentPage);
   }
 

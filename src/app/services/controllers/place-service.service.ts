@@ -50,6 +50,10 @@ export class PlaceServiceService {
     return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-status-mod/${status}`);
   }
 
+  public getPlacesByModerator(status: string): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-status-by-mod/${status}`);
+  }
+
   public getPlacesByLocation(location: string): Observable<MenssageDTO> {
     return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/by-location/${location}`);
   }
