@@ -9,9 +9,30 @@
                 <i class="fa-solid fa-plus me-1"></i> Crear Nuevo Negocio
             </button>
             <button type="button" class="btn btn-danger anim-e" [disabled]="seleccionados.length == 0"
-                (click)="deletePlaces()"><i class="fa-solid fa-trash me-1"></i> Eliminar
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash me-1"></i> Eliminar
                 {{textoBtnDelete}}
             </button>
+
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Aviso</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>Desea eliminar los objetos seleccionados</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" (click)="deletePlaces()"
+                                data-bs-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="table-responsive">
@@ -43,7 +64,7 @@
                             <p>{{item.categories}}</p>
                         </td>
                         <td>
-                            <img src="{{item.pictures}}" alt="{{item.pictures}}" class="img-fluid"
+                            <img src="{{item.pictures[0]}}" alt="{{item.pictures[0]}}" class="img-fluid"
                                 style="max-width: 100px;">
                         </td>
 
