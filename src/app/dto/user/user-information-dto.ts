@@ -1,4 +1,5 @@
-export class UserInformationDTO {
+export class 
+UserInformationDTO {
 
     constructor(
         public id: string = '',
@@ -7,6 +8,7 @@ export class UserInformationDTO {
         public email: string = '',
         public nickname: string = '',
         public city: string = '',
-        public profilePicture: string = ''
+        public profilePicture: string = '',
+        public favoritePlaces: string[] = []
     ) {}
 }

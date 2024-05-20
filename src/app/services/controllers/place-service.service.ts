@@ -73,4 +73,5 @@ export class PlaceServiceService {
   public deleteFavoritePlace(deleteFavoritePlaceDTO: FavoritePlaceDTO): Observable<MenssageDTO> {
     return this.http.get<MenssageDTO>(`${this.placeURL}/delete/favorite/place`, deleteFavoritePlaceDTO);
   }
+
 }

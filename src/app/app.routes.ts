@@ -16,6 +16,7 @@ import { MensajeConfirmacionEmailComponent } from './components/mensaje-confirma
 import { MensajeConfirmacionContraseniaComponent } from './components/mensaje-confirmacion-contrasenia/mensaje-confirmacion-contrasenia.component';
 import { RevisionComponent } from './components/revision/revision.component';
 import { ListaRevisionComponent } from './components/lista-revision/lista-revision.component';
+import { LugaresFavoritosComponent } from './components/lugares-favoritos/lugares-favoritos.component';
 
 export const routes: Routes = [
     { path: '', component: InicioComponent },
@@ -51,6 +52,11 @@ export const routes: Routes = [
     { path: 'registro', component: RegistroComponent, canActivate: [LoginGuard] },
     { path: 'get-user/:id', component: DetalleClienteComponent },
     { path: 'mensaje-email-recuperacion', component: MensajeConfirmacionEmailComponent },
-    { path: 'mensaje-contrasenia-exitosa', component: MensajeConfirmacionContraseniaComponent },
+    { path: 'mensaje-contrasenia-exitosa', component: MensajeConfirmacionContraseniaComponent }, 
+    {
+        path: 'ver-lugares-favoritos', component: LugaresFavoritosComponent, canActivate: [RolesGuard], data: {
+            expectedRole: ["CLIENT"]
+        }
+    },
     { path: "**", pathMatch: "full", redirectTo: "" }
 ];

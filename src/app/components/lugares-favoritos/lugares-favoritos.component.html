@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-magnifying-glass-location me-2">
+            </i>Mis Lugares Favoritos</h5>
+    </div>
+
+    <ul id="restaurant-list" class="list-group mt-4">
+        <div *ngFor="let favoritos of places" class="card text-center mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{{favoritos.pictures[0]}}" class="card-img" alt="{{favoritos.name}}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"><a
+                                routerLink="/detalle-negocio/{{favoritos.id}}">{{favoritos.name}}</a></h5>
+                        <h5><span class="badge bg-primary">{{favoritos.categories}}</span></h5>
+                        <p class="card-text">{{favoritos.description}}</p>
+                        <p class="card-text"><small class="text-muted">Calificación: {{favoritos.score}}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ul>
+</div>
