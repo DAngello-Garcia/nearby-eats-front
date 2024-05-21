@@ -5,13 +5,14 @@ import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PlaceServiceService } from '../../services/controllers/place-service.service';
 import { MapaService } from '../../services/mapa.service';
+import { ComentarioComponent } from "../comentario/comentario.component";
 
 @Component({
-  selector: 'app-detalle-negocio',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './detalle-negocio.component.html',
-  styleUrl: './detalle-negocio.component.css',
+    selector: 'app-detalle-negocio',
+    standalone: true,
+    templateUrl: './detalle-negocio.component.html',
+    styleUrl: './detalle-negocio.component.css',
+    imports: [CommonModule, FormsModule, ComentarioComponent]
 })
 export class DetalleNegocioComponent implements OnInit {
   codePlace: string = '';
@@ -40,29 +41,5 @@ export class DetalleNegocioComponent implements OnInit {
         this.mapaService.paintMarcador([this.negocio]);
       },
     });
-  }
-
-  getDummyReviews() {
-    return [
-      {
-        reviewer: 'John Doe',
-        rating: 4,
-        profileImage: 'https://via.placeholder.com/50',
-      },
-      {
-        reviewer: 'Jane Smith',
-        rating: 5,
-        profileImage: 'https://via.placeholder.com/50',
-      },
-      {
-        reviewer: 'Sam Brown',
-        rating: 3,
-        profileImage: 'https://via.placeholder.com/50',
-      },
-    ];
-  }
-
-  public getStars(rating: number): number[] {
-    return new Array(rating);
   }
 }

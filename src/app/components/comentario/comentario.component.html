@@ -7,3 +7,45 @@
     </div>
     <button type="submit" class="btn btn-primary">Comentar</button>
 </form>
+
+
+  <!-- <button type="button" class="btn"><i class="fa-solid fa-star" style="color:red"></i></button>
+<button type="button" class="btn"><i class="fa-regular fa-star"></i></button>
+<button type="button" class="btn"><i class="fa-regular fa-star"></i></button>
+<button type="button" class="btn"><i class="fa-regular fa-star"></i></button>
+<button type="button" class="btn"><i class="fa-regular fa-star"></i></button> -->
+
+<div class="row mt-4">
+    <div class="col-12">
+      <h4>Reseñas</h4>
+      <p><strong>Puntaje:</strong> {{ negocio.score }} / 5</p>
+      <div *ngFor="let review of getDummyReviews()">
+        <div class="card mb-3">
+          <div class="card-body d-flex">
+            <img
+              [src]="review.profileImage"
+              class="rounded-circle me-3"
+              alt="Profile Image"
+              width="50"
+              height="50"
+            />
+            <div>
+              <h5 class="card-title">{{ review.reviewer }}</h5>
+              <p class="card-text">
+                <span
+                  *ngFor="let star of getStars(review.rating)"
+                  class="text-warning"
+                  >&#9733;</span
+                >
+                <span
+                  *ngFor="let star of getStars(5 - review.rating)"
+                  class="text-muted"
+                  >&#9733;</span
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

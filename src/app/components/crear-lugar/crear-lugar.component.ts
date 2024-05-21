@@ -11,6 +11,7 @@ import { Alert } from '../../dto/clases/alert';
 import { ImageServiceService } from '../../services/controllers/image-service.service';
 import { AlertComponent } from '../alert/alert.component';
 import { TokenService } from '../../services/token.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-lugar',
@@ -79,6 +80,7 @@ export class CrearLugarComponent implements OnInit {
       },
       error: (error) => {
         console.log('Error al cargar las categorias');
+        Swal.fire('Error', 'Error al cargar las categorias', 'error');
       },
     });
   }
@@ -107,20 +109,20 @@ export class CrearLugarComponent implements OnInit {
           );
           this.placeCreateDTO.images = previousImages.concat(newImages);
 
-          this.alert = new Alert('Se ha subido la foto', 'success');
+          Swal.fire('Éxito', 'Se ha subido la foto', 'success');
         },
         error: (error) => {
-          this.alert = new Alert(error.error, 'danger');
+          Swal.fire('Error', error.error, 'error');
         },
       });
     } else {
-      this.alert = new Alert('Debe seleccionar una imagen y subirla', 'danger');
+      Swal.fire('Error', 'Debe seleccionar una imagen y subirla', 'error');
     }
   }
 
   public addCategory() {
     if (this.currentCategory == '') {
-      this.alert = new Alert('Debe seleccionar una categoria', 'danger');
+      Swal.fire('Error', 'Debe seleccionar una categoria', 'error');
       return;
     }
 
@@ -141,7 +143,7 @@ export class CrearLugarComponent implements OnInit {
 
   public addSchedule() {
     if (this.currentSchedule.weekday == '') {
-      this.alert = new Alert('Debe seleccionar un dia de la semana', 'danger');
+      Swal.fire('Error', 'Debe seleccionar un dia de la semana', 'error');
       return;
     }
 
@@ -162,15 +164,12 @@ export class CrearLugarComponent implements OnInit {
 
   public addPhone() {
     if (this.currentPhone == '') {
-      this.alert = new Alert('Debe ingresar un numero de telefono', 'danger');
+      Swal.fire('Error', 'Debe ingresar un numero de telefono', 'error');
       return;
     }
 
     if (this.placeCreateDTO.phones.includes(this.currentPhone)) {
-      this.alert = new Alert(
-        'El numero de telefono ya esta agregado',
-        'danger'
-      );
+      Swal.fire('Error', 'El numero de telefono ya esta agregado', 'error');
       return;
     }
     this.placeCreateDTO.phones.push(this.currentPhone);
@@ -188,10 +187,10 @@ export class CrearLugarComponent implements OnInit {
     console.log('this.placeCreateDTO', this.placeCreateDTO);
     this.placeService.createPlace(this.placeCreateDTO).subscribe({
       next: (data) => {
-        this.alert = new Alert(data.response, 'success');
+        Swal.fire('Se agrego el negocio con éxito', data.response, 'success');
       },
       error: (error) => {
-        this.alert = new Alert(error.error.response, 'danger');
+        Swal.fire('Error', error.error.response, 'error');
       },
     });
   }
