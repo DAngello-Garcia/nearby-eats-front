@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { TokenService } from '../../services/token.service';
 import { PublicServiceService } from '../../services/controllers/public.service';
 
+
 @Component({
   selector: 'app-busqueda',
   standalone: true,
@@ -28,6 +29,7 @@ export class BusquedaComponent implements OnInit {
   paginationArray: number[] = []
   categories: string[] = []
   selectedCategory: string = 'All'
+  todosNegocios: ItemNegocioDTO[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -41,21 +43,13 @@ export class BusquedaComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.textoBusqueda = params['texto'];
+
       if (!this.tokenService.getId()) {
-        this.publicService.getPlacesByName(this.textoBusqueda).subscribe({
-          next: data => {
-            this.resultados = data.response;
-            this.selectCategorySearch(data.response.categories[0])
-          }
-        });
+        this.searchByName();
+        this.uploadCategories();
       } else {
-        this.negocioService.getPlacesByName(this.textoBusqueda).subscribe({
-          next: data => {
-            this.resultados = data.response;
-            this.selectCategorySearch(data.response.categories[0])
-          }
-        });
-        this.uploadCategories()
+        this.searchByName();
+        this.uploadCategories();
       }
 
     });
@@ -63,7 +57,6 @@ export class BusquedaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mapaService.createMap();
-    this.mapaService.paintMarcador(this.resultados)
   }
 
   public fetchCategories() {
@@ -81,14 +74,14 @@ export class BusquedaComponent implements OnInit {
     this.selectedCategory = category;
     if (category === 'All') {
       this.searchByName();
+      this.resultados = this.todosNegocios;
     } else {
-      this.negocioService.getPlacesByCategory(category).subscribe({
-        next: data => {
-          this.resultados = data.response;
-          this.updatePagination();
-        }
-      });
 
+      if(this.todosNegocios.length == 0){
+        this.todosNegocios = this.resultados;
+      }
+
+      this.resultados = this.todosNegocios.filter( n => n.categories.indexOf(category) != -1 );
     }
   }
 
@@ -107,6 +100,7 @@ export class BusquedaComponent implements OnInit {
     this.publicService.getPlacesByName(this.textoBusqueda).subscribe({
       next: data => {
         this.resultados = data.response;
+        this.mapaService.paintMarcador(this.resultados)
       }
     });
   }

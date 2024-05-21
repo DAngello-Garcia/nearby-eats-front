@@ -43,8 +43,8 @@ export class MapaService {
     const marcadores = this.marcadores;
 
     return new Observable<any>(observer => {
+      
       mapGloabl.on('click', function (e: any) {
-
         marcadores.forEach(marcador => marcador.remove());
 
         const marcador = new mapboxgl.Marker()
@@ -61,7 +61,7 @@ export class MapaService {
 
     negocios.forEach(negocio => {
       new mapboxgl.Marker()
-        .setLngLat([negocio.location.coordinates[0], negocio.location.coordinates[1]])
+        .setLngLat([negocio.location.coordinates[1], negocio.location.coordinates[0]])
         .setPopup(new mapboxgl.Popup().setHTML(negocio.name))
         .addTo(this.map);
     });
