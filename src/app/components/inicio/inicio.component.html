@@ -1,11 +1,31 @@
+@if (isLogged && role === 'CLIENT') {
+
 <form role="search" (submit)="iraBusqueda(textoBusqueda.value)">
     <div class="input-group">
-        <input #textoBusqueda type="search" class="form-control" 
-        placeholder="Buscar..." aria-label="Search">
+        <input #textoBusqueda type="search" class="form-control" placeholder="Buscar..." aria-label="Search">
         <button type="button" class="btn btn-primary">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
     </div>
 </form>
-
 <div id="map"></div>
+
+} @else {
+    
+<div class="card ">
+    <div class="container center-content">
+        <h2>¿Qué te gustaría hacer hoy?</h2>
+        <div class="d-flex justify-content-center">
+            <div class="option-card mx-2">
+                <p>Revisar solicitudes pendientes</p>
+            </div>
+            <div class="option-card mx-2">
+                <p>Listado de lugares autorizados</p>
+            </div>
+            <div class="option-card mx-2">
+                <p>Listado de lugares rechazados</p>
+            </div>
+        </div>
+    </div>
+</div>
+}

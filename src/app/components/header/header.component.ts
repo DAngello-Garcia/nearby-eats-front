@@ -19,7 +19,8 @@ export class HeaderComponent {
   isLogged = false;
   email: string = "";
   profilePhoto: string ="";
-  id: string = ""
+  role: string = '';
+  id: string = "";
   client: UserInformationDTO;
 
 
@@ -35,6 +36,7 @@ export class HeaderComponent {
     if (this.isLogged) {
       this.email = this.tokenService.getEmail();
       this.id = this.tokenService.getId();
+      this.role = this.tokenService.getRole()
       this.getUser();
     }
   }

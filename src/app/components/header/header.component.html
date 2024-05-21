@@ -7,6 +7,7 @@
                 <span class="fs-4 ms-3 me-3">{{title}}</span>
             </a>
         </div>
+
         @if (!isLogged) {
         <div class="col">
             <button type="button" routerLink="/inicio" class="btn btn-outline-primary">Inicio</button>
@@ -16,7 +17,8 @@
             <button type="button" routerLink="/registro" class="btn btn-primary">Registro</button>
         </div>
 
-        }@else {
+        } @else if(isLogged && role === 'CLIENT') {
+
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="" routerLink="/lista-revision" class="nav-link px-2">Revisión</a></li>
             <li><a href="" routerLink="" class="nav-link px-2">Gestión negocios</a></li>
@@ -34,11 +36,18 @@
                     <li><i class="fa-regular fa-square-plus"></i><a routerLink="/crear-lugar">Crear lugar</a></li>
                     <li><i class="fa-solid fa-folder-open"></i><a routerLink="/gestion-negocios">Ver Lugares Creados</a>
                     </li>
-                    <li><i class="fa-solid fa-heart"></i><a routerLink="/ver-lugares-favoritos">Ver Lugares Favoritos</a></li>
+                    <li><i class="fa-solid fa-heart"></i><a routerLink="/ver-lugares-favoritos">Ver Lugares
+                            Favoritos</a></li>
                     <li><i class="fa-solid fa-right-from-bracket"></i><a routerLink="#" (click)="logout()">Logout</a>
                     </li>
                 </ul>
             </div>
+        </div>
+        } @else if (isLogged && role === 'MODERATOR') {
+        <div>
+            <label class="me-xxl-5 ">Hola {{client.nickname}}</label>
+            <button (click)="logout()" type="button" routerLink="/" class="btn btn-primary">Logout</button>
+
         </div>
         }
     </header>

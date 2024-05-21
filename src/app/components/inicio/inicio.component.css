@@ -4,3 +4,29 @@
     height: 600px;
     margin-top: 20px;
 }
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  .option-card {
+    border: 2px solid #d3d3d3;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    transition: transform 0.2s;
+  }
+  .option-card:hover {
+    transform: scale(1.05);
+  }
+  .option-card p {
+    margin: 0;
+  }
+
+.center-content h2 {
+  margin-top: -100px; /* Adjust this value as needed */
+}
