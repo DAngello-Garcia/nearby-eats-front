@@ -3,22 +3,26 @@ import { CommonModule } from '@angular/common';
 import { ItemNegocioDTO } from '../../../dto/place/item-negocio-dto';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { PlaceServiceService } from '../../../services/controllers/place-service.service';
 import { MapaService } from '../../../services/mapa.service';
-import { ComentarioComponent } from "../comentario/comentario.component";
+import { TokenService } from '../../../services/token.service';
+import { ComentarioComponent } from '../comentario/comentario.component';
 
 @Component({
-    selector: 'app-detalle-negocio',
-    standalone: true,
-    templateUrl: './detalle-negocio.component.html',
-    styleUrl: './detalle-negocio.component.css',
-    imports: [CommonModule, FormsModule, ComentarioComponent]
+  selector: 'app-detalle-negocio',
+  standalone: true,
+  templateUrl: './detalle-negocio.component.html',
+  styleUrl: './detalle-negocio.component.css',
+  imports: [CommonModule, FormsModule, ComentarioComponent, RouterModule],
 })
 export class DetalleNegocioComponent implements OnInit {
   codePlace: string = '';
   negocio: ItemNegocioDTO;
+  canEdit: boolean = false;
 
   constructor(
+    private tokenService: TokenService,
     private route: ActivatedRoute,
     private placeService: PlaceServiceService,
     private mapaService: MapaService
@@ -39,6 +43,7 @@ export class DetalleNegocioComponent implements OnInit {
       next: (data) => {
         this.negocio = data.response;
         this.mapaService.paintMarcador([this.negocio]);
+        this.canEdit = this.tokenService.getId() === this.negocio.createdBy;
       },
     });
   }

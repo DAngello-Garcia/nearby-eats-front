@@ -14,7 +14,7 @@ import { CommentServiceService } from '../../../services/controllers/comment-ser
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './gestion-negocios.component.html',
-  styleUrl: './gestion-negocios.component.css'
+  styleUrl: './gestion-negocios.component.css',
 })
 export class GestionNegociosComponent {
   @ViewChild('confirmModal') confirmModal: any;
@@ -22,10 +22,9 @@ export class GestionNegociosComponent {
   negocios: ItemNegocioDTO[];
   seleccionados: ItemNegocioDTO[];
   textoBtnDelete: string;
-  deletePlaceDTO: DeletePlaceDTO | undefined
+  deletePlaceDTO: DeletePlaceDTO | undefined;
 
   constructor(
-    private dialog: MatDialog,
     private tokenService: TokenService,
     private placeService: PlaceServiceService,
     private commentService: CommentServiceService
@@ -45,7 +44,7 @@ export class GestionNegociosComponent {
       },
       error: (error) => {
         console.error(error);
-      }
+      },
     });
   }
 
@@ -53,7 +52,7 @@ export class GestionNegociosComponent {
     if (estado) {
       this.seleccionados.push(producto);
     } else {
-      this.seleccionados.splice(this.seleccionados.indexOf(producto, 1))
+      this.seleccionados.splice(this.seleccionados.indexOf(producto, 1));
     }
     this.updateMessage();
   }
@@ -63,26 +62,24 @@ export class GestionNegociosComponent {
 
     if (size != 0) {
       if (size == 1) {
-        this.textoBtnDelete = "1 Elemento";
+        this.textoBtnDelete = '1 Elemento';
       } else {
-        this.textoBtnDelete = size + " Elementos";
+        this.textoBtnDelete = size + ' Elementos';
       }
     } else {
-      this.textoBtnDelete = "";
+      this.textoBtnDelete = '';
     }
   }
 
   public deletePlaces() {
-
-    this.seleccionados.forEach(n => {
+    this.seleccionados.forEach((n) => {
       this.deletePlaceDTO = new DeletePlaceDTO();
       this.placeService.deletePlace(this.deletePlaceDTO).subscribe({
-        next: data => {
-          this.negocios = data.response
-        }
+        next: (data) => {
+          this.negocios = data.response;
+        },
       });
-      this.negocios = this.negocios.filter(negocio =>
-        negocio.id !== n.id);
+      this.negocios = this.negocios.filter((negocio) => negocio.id !== n.id);
     });
 
     this.seleccionados = [];

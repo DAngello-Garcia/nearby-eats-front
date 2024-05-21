@@ -4,13 +4,20 @@
       <h1>{{ negocio.name }}</h1>
     </div>
     <div class="col-6 text-end">
-      <span class="badge bg-warning text-dark">{{ negocio.status }}</span>
+      <span class="badge bg-warning text-dark me-2">{{ negocio.status }}</span>
+      <button
+        *ngIf="canEdit"
+        class="btn btn-warning btn-sm me-2"
+        type="button"
+        routerLink="/editar-lugar/{{ negocio.id }}"
+      >
+        <i class="fa-solid fa-pencil me-2"></i> Editar
+      </button>
     </div>
   </div>
 
   <div class="row mb-4">
     <div class="col-12">
-      <p>{{ negocio.description }}</p>
       <p>
         <strong class="me-2">Categorías:</strong>
         <span
@@ -19,6 +26,7 @@
           >{{ category }}</span
         >
       </p>
+      <p>{{ negocio.description }}</p>
     </div>
   </div>
 
@@ -80,7 +88,6 @@
       </ul>
     </div>
   </div>
-
 
   <app-comentario></app-comentario>
 </div>

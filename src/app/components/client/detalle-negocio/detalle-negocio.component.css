@@ -8,8 +8,11 @@
   object-fit: cover;
 }
 
-.badge {
-  margin-right: 5px;
+.badge, .btn {
+  height: 38px; /* Ajusta este valor según sea necesario */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
