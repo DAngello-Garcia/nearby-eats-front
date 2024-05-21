@@ -21,7 +21,7 @@ export class ComentarioComponent {
 
   constructor(private commentService: CommentServiceService, private ruta: ActivatedRoute) {
     this.negocio = new ItemNegocioDTO();
-    this.commentDTO = 
+    this.commentDTO = new CommentDTO();
     this.placeId = ruta.snapshot.params['id']
   }
 

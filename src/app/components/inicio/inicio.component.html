@@ -1,31 +1,12 @@
-@if (isLogged && role === 'CLIENT') {
+@if (isLogged ) {
 
-<form role="search" (submit)="iraBusqueda(textoBusqueda.value)">
-    <div class="input-group">
-        <input #textoBusqueda type="search" class="form-control" placeholder="Buscar..." aria-label="Search">
-        <button type="button" class="btn btn-primary">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-    </div>
-</form>
-<div id="map"></div>
+    @if ( role === 'CLIENT') {
+        <app-inicio-mapa-busqueda ></app-inicio-mapa-busqueda>
+    }
+    @else if (role === 'MODERATOR') {
+        <app-inicio-moderador></app-inicio-moderador>
+    }
 
-} @else {
-    
-<div class="card ">
-    <div class="container center-content">
-        <h2>¿Qué te gustaría hacer hoy?</h2>
-        <div class="d-flex justify-content-center">
-            <div class="option-card mx-2">
-                <p>Revisar solicitudes pendientes</p>
-            </div>
-            <div class="option-card mx-2">
-                <p>Listado de lugares autorizados</p>
-            </div>
-            <div class="option-card mx-2">
-                <p>Listado de lugares rechazados</p>
-            </div>
-        </div>
-    </div>
-</div>
+} @else{
+    <app-inicio-mapa-busqueda ></app-inicio-mapa-busqueda>
 }

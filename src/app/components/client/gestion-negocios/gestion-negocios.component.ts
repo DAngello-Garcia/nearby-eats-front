@@ -74,12 +74,15 @@ export class GestionNegociosComponent {
   public deletePlaces() {
     this.seleccionados.forEach((n) => {
       this.deletePlaceDTO = new DeletePlaceDTO();
+      this.deletePlaceDTO.clientId = this.tokenService.getId();
+      this.deletePlaceDTO.placeId = n.id;
+
       this.placeService.deletePlace(this.deletePlaceDTO).subscribe({
         next: (data) => {
           this.negocios = data.response;
+          this.negocios = this.negocios.filter((negocio) => negocio.id !== n.id);
         },
       });
-      this.negocios = this.negocios.filter((negocio) => negocio.id !== n.id);
     });
 
     this.seleccionados = [];

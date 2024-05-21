@@ -18,7 +18,7 @@ export class HeaderComponent {
   title = 'Nearby Eats';
   isLogged = false;
   email: string = "";
-  profilePhoto: string ="";
+  profilePhoto: string = "";
   role: string = '';
   id: string = "";
   client: UserInformationDTO;
@@ -27,8 +27,8 @@ export class HeaderComponent {
   constructor(
     private tokenService: TokenService,
     private userService: UserServiceService) {
-      this.client = new UserInformationDTO()
-     }
+    this.client = new UserInformationDTO()
+  }
 
   ngOnInit(): void {
 
@@ -40,7 +40,6 @@ export class HeaderComponent {
       this.getUser();
     }
   }
-
 
   public logout() {
     this.tokenService.logout();
