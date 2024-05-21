@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
-import { PlaceServiceService } from '../../services/controllers/place-service.service';
-import { PublicServiceService } from '../../services/controllers/public.service';
+import { ItemNegocioDTO } from '../../../dto/place/item-negocio-dto';
+import { PlaceServiceService } from '../../../services/controllers/place-service.service';
+import { PublicServiceService } from '../../../services/controllers/public.service';
 
 @Component({
   selector: 'app-lista-revision',

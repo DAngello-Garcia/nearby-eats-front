@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TokenService } from '../../services/token.service';
+import { TokenService } from '../../../services/token.service';
 
 @Component({
   selector: 'app-inicio-moderador',

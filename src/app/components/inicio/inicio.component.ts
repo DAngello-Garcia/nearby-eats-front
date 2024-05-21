@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { TokenService } from '../../services/token.service';
 import { CommonModule } from '@angular/common';
 import { InicioMapaBusquedaComponent } from '../inicio-mapa-busqueda/inicio-mapa-busqueda.component';
-import { InicioModeradorComponent } from '../inicio-moderador/inicio-moderador.component';
+import { InicioModeradorComponent } from '../moderator/inicio-moderador/inicio-moderador.component';
 
 @Component({
   selector: 'app-inicio',
