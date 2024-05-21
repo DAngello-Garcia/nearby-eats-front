@@ -45,7 +45,7 @@
         </div>
         } @else if (isLogged && role === 'MODERATOR') {
         <div>
-            <label class="me-xxl-5 ">Hola {{client.nickname}}</label>
+            <label class="me-xxl-5 ">Hola {{client.firstName}}</label>
             <button (click)="logout()" type="button" routerLink="/" class="btn btn-primary">Logout</button>
 
         </div>

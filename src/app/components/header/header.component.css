@@ -27,6 +27,7 @@ body
     width: 50;
     height: 50;
     object-fit: cover;
+    display: block;
 }
 
 .action .menu
@@ -95,11 +96,13 @@ body
     margin-right: 10px;
     opacity: 0.5;
     transition: 0.5s;
+    display: block;
 }
 
 .action .menu ul li:hover img
 {
     opacity: 1;
+    display: block;
 }
 
 .action .menu ul li a
