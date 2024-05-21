@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UpdatePlaceDTO } from '../../dto/place/update-place-dto';
-import { MapaService } from '../../services/mapa.service';
-import { Schedule } from '../../dto/clases/schedule';
-import { PlaceServiceService } from '../../services/controllers/place-service.service';
-import { PublicServiceService } from '../../services/controllers/public.service';
+import { UpdatePlaceDTO } from '../../../dto/place/update-place-dto';
+import { MapaService } from '../../../services/mapa.service';
+import { Schedule } from '../../../dto/clases/schedule';
+import { PlaceServiceService } from '../../../services/controllers/place-service.service';
+import { PublicServiceService } from '../../../services/controllers/public.service';
 import e from 'express';
 import { error } from 'console';
 

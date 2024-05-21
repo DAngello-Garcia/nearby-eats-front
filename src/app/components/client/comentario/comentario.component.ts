@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommentDTO } from '../../dto/comment/comment-dto';
-import { CommentServiceService } from '../../services/controllers/comment-service.service';
+import { CommentDTO } from '../../../dto/comment/comment-dto';
+import { CommentServiceService } from '../../../services/controllers/comment-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
+import { ItemNegocioDTO } from '../../../dto/place/item-negocio-dto';
 
 @Component({
   selector: 'app-comentario',

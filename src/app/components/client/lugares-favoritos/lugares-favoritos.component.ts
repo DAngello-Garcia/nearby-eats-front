@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { UserInformationDTO } from '../../dto/user/user-information-dto';
-import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
-import { UserService } from '../../services/user.service';
-import { PlaceService } from '../../services/place.service';
+import { UserInformationDTO } from '../../../dto/user/user-information-dto';
+import { ItemNegocioDTO } from '../../../dto/place/item-negocio-dto';
 import { RouterLink } from '@angular/router';
-import { UserServiceService } from '../../services/controllers/user-service.service';
-import { PlaceServiceService } from '../../services/controllers/place-service.service';
+import { UserServiceService } from '../../../services/controllers/user-service.service';
+import { PlaceServiceService } from '../../../services/controllers/place-service.service';
 import { CommonModule } from '@angular/common';
-import { TokenService } from '../../services/token.service';
+import { TokenService } from '../../../services/token.service';
 import { forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { MapaService } from '../../../services/mapa.service';
 
 @Component({
   selector: 'app-lugares-favoritos',
@@ -28,7 +27,8 @@ export class LugaresFavoritosComponent implements OnInit {
   constructor(
     private userService: UserServiceService,
     private placeService: PlaceServiceService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private mapaService: MapaService
   ) {
       this.idUser = tokenService.getId();
       this.client = new UserInformationDTO();
@@ -38,7 +38,7 @@ export class LugaresFavoritosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-        
+    this.mapaService.createMap();
   }
 
   public getIdPlaceFavorite() {

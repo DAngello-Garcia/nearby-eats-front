@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
+import { ItemNegocioDTO } from '../../../dto/place/item-negocio-dto';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { PlaceServiceService } from '../../services/controllers/place-service.service';
-import { MapaService } from '../../services/mapa.service';
+import { PlaceServiceService } from '../../../services/controllers/place-service.service';
+import { MapaService } from '../../../services/mapa.service';
 import { ComentarioComponent } from "../comentario/comentario.component";
 
 @Component({

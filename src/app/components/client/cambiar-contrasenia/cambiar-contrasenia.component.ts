@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { UserChangePasswordDTO } from '../../dto/user/user-change-password-dto';
+import { UserChangePasswordDTO } from '../../../dto/user/user-change-password-dto';
 import { FormsModule } from '@angular/forms';
-import { TokenService } from '../../services/token.service';
-import { UserService } from '../../services/user.service';
-import { UserServiceService } from '../../services/controllers/user-service.service';
+import { TokenService } from '../../../services/token.service';
+import { UserService } from '../../../services/user.service';
+import { UserServiceService } from '../../../services/controllers/user-service.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({

@@ -8,6 +8,9 @@
             <button type="button" routerLink="/crear-lugar" class="btn btn-success me-2">
                 <i class="fa-solid fa-plus me-1"></i> Crear Nuevo Negocio
             </button>
+            <button type="button" routerLink="/crear-lugar" class="btn btn-warning  me-2">
+                <i class="fa-solid fa-pencil me-2"></i>Modificar Negocio
+            </button>
             <button type="button" class="btn btn-danger anim-e" [disabled]="seleccionados.length == 0"
                 data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash me-1"></i> Eliminar
                 {{textoBtnDelete}}

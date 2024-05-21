@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RegistroComponent } from '../registro/registro.component';
+import { RegistroComponent } from '../client/registro/registro.component';
 import { LoginComponent } from '../login/login.component';
 import { RouterLink } from '@angular/router';
 import { TokenService } from '../../services/token.service';

@@ -1,6 +1,6 @@
 import { Token } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from '../../services/token.service';
+import { TokenService } from '../../../services/token.service';
 import { RouterLink } from '@angular/router';
 
 @Component({

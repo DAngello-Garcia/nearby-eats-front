@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PlaceCreateDTO } from '../../dto/place/place-create-dto';
+import { PlaceCreateDTO } from '../../../dto/place/place-create-dto';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Schedule } from '../../dto/clases/schedule';
-import { MapaService } from '../../services/mapa.service';
-import { PublicServiceService } from '../../services/controllers/public.service';
-import { PlaceServiceService } from '../../services/controllers/place-service.service';
-import { Alert } from '../../dto/clases/alert';
-import { ImageServiceService } from '../../services/controllers/image-service.service';
-import { AlertComponent } from '../alert/alert.component';
-import { TokenService } from '../../services/token.service';
+import { Schedule } from '../../../dto/clases/schedule';
+import { MapaService } from '../../../services/mapa.service';
+import { PublicServiceService } from '../../../services/controllers/public.service';
+import { PlaceServiceService } from '../../../services/controllers/place-service.service';
+import { Alert } from '../../../dto/clases/alert';
+import { ImageServiceService } from '../../../services/controllers/image-service.service';
+import { AlertComponent } from '../../alert/alert.component';
+import { TokenService } from '../../../services/token.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,17 +21,15 @@ import Swal from 'sweetalert2';
   styleUrl: './crear-lugar.component.css',
 })
 export class CrearLugarComponent implements OnInit {
-  // FORM
+  
   placeCreateDTO: PlaceCreateDTO;
   files!: FileList;
   currentSchedule: Schedule;
   currentCategory: string;
   currentPhone: string;
 
-  // ALERT
   alert!: Alert;
 
-  // THE SELECT INPUT DATA
   categories: string[];
   weekdays: string[];
 

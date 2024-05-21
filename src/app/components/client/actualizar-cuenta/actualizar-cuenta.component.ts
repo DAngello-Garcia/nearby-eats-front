@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserUpdateDTO } from '../../dto/user/user-update-dto';
+import { UserUpdateDTO } from '../../../dto/user/user-update-dto';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { UserInformationDTO } from '../../dto/user/user-information-dto';
-import { ImageServiceService } from '../../services/controllers/image-service.service';
-import { Alert } from '../../dto/clases/alert';
-import { UserServiceService } from '../../services/controllers/user-service.service';
+import { UserService } from '../../../services/user.service';
+import { UserInformationDTO } from '../../../dto/user/user-information-dto';
+import { ImageServiceService } from '../../../services/controllers/image-service.service';
+import { Alert } from '../../../dto/clases/alert';
+import { UserServiceService } from '../../../services/controllers/user-service.service';
 import { error } from 'console';
-import { AlertComponent } from "../alert/alert.component";
+import { AlertComponent } from "../../alert/alert.component";
 
 @Component({
     selector: 'app-actualizar-cuenta',

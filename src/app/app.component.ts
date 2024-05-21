@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { DetalleNegocioComponent } from './components/detalle-negocio/detalle-negocio.component';
+import { DetalleNegocioComponent } from './components/client/detalle-negocio/detalle-negocio.component';
 import { TokenService } from './services/token.service';
 import { LoginComponent } from './components/login/login.component';
 import { NgxPaginationModule } from 'ngx-pagination';
