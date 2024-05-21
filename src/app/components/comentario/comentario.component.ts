@@ -21,7 +21,7 @@ export class ComentarioComponent {
 
   constructor(private commentService: CommentServiceService, private ruta: ActivatedRoute) {
     this.negocio = new ItemNegocioDTO();
-    this.commentDTO = new CommentDTO();
+    this.commentDTO = 
     this.placeId = ruta.snapshot.params['id']
   }
 
@@ -37,7 +37,7 @@ export class ComentarioComponent {
     });
   }
 
-  getDummyReviews() {
+/*   getDummyReviews() {
     return [
       {
         reviewer: 'John Doe',
@@ -59,5 +59,5 @@ export class ComentarioComponent {
 
   public getStars(rating: number): number[] {
     return new Array(rating);
-  }
+  } */
 }
