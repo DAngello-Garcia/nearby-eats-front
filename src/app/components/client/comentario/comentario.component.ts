@@ -5,6 +5,7 @@ import { CommentDTO } from '../../../dto/comment/comment-dto';
 import { CommentServiceService } from '../../../services/controllers/comment-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { ItemNegocioDTO } from '../../../dto/place/item-negocio-dto';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-comentario',
@@ -33,7 +34,7 @@ export class ComentarioComponent {
       },
       error: (error) => {
         console.log("Error al comentar");
-      }
+        Swal.fire('Error', 'No se puede comentar otra vez', 'error');      }
     });
   }
 
