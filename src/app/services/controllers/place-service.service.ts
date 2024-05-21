@@ -27,7 +27,7 @@ export class PlaceServiceService {
   }
 
   public deletePlace(deletePlaceDTO: DeletePlaceDTO): Observable<MenssageDTO> {
-    return this.http.delete<MenssageDTO>(`${this.placeURL}/delete-place`);
+    return this.http.request<MenssageDTO>("DELETE",`${this.placeURL}/delete-place`, { body: deletePlaceDTO});
   }
 
   public getPlace(placeId: string): Observable<MenssageDTO> {

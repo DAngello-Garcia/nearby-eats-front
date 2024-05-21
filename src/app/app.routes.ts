@@ -18,6 +18,7 @@ import { MensajeConfirmacionContraseniaComponent } from './components/client/men
 import { RevisionComponent } from './components/revision/revision.component';
 import { ListaRevisionComponent } from './components/lista-revision/lista-revision.component';
 import { LugaresFavoritosComponent } from './components/client/lugares-favoritos/lugares-favoritos.component';
+import { SolicitudesPendientesComponent } from './components/moderator/solicitudes-pendientes/solicitudes-pendientes.component';
 
 export const routes: Routes = [
   { path: '', component: InicioComponent },
@@ -91,6 +92,30 @@ export const routes: Routes = [
     canActivate: [RolesGuard],
     data: {
       expectedRole: ['CLIENT'],
+    },
+  },
+  {
+    path: 'solicitudes-pendientes',
+    component: SolicitudesPendientesComponent,
+    canActivate: [RolesGuard],
+    data: {
+      expectedRole: ['MODERATOR'],
+    },
+  },
+  {
+    path: 'ver-lugares-autorizados',
+    component: LugaresFavoritosComponent,
+    canActivate: [RolesGuard],
+    data: {
+      expectedRole: ['MODERATOR'],
+    },
+  },
+  {
+    path: 'ver-lugares-rechazados',
+    component: LugaresFavoritosComponent,
+    canActivate: [RolesGuard],
+    data: {
+      expectedRole: ['MODERATOR'],
     },
   },
   { path: '**', pathMatch: 'full', redirectTo: '' },

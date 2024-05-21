@@ -8,6 +8,7 @@ const TOKEN_KEY = "AuthToken";
   providedIn: 'root'
 })
 export class TokenService {
+  
 
   constructor(private router: Router) { }
 
@@ -72,6 +73,15 @@ export class TokenService {
     if (token) {
       const values = this.decodePayload(token);
       return values.role;
+    }
+    return "";
+  }
+
+  public getName(): string {
+    const token = this.getToken();
+    if (token) {
+      const values = this.decodePayload(token);
+      return values.name;
     }
     return "";
   }
