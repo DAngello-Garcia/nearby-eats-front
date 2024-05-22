@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Location } from '../dto/clases/location';
 import { Observable } from 'rxjs';
 import { ItemNegocioDTO } from '../dto/place/item-negocio-dto';
 
 declare var mapboxgl: any;
+import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
+
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,11 @@ export class MapaService {
         trackUserLocation: true
       })
     );
+
+    this.directions = new MapboxDirections({
+      accessToken: (mapboxgl as any).accessToken
+    });
+    this.map.addControl(this.directions, 'top-left');
   }
 
   public addMarcador(): Observable<any> {
@@ -43,7 +49,7 @@ export class MapaService {
     const marcadores = this.marcadores;
 
     return new Observable<any>(observer => {
-      
+
       mapGloabl.on('click', function (e: any) {
         marcadores.forEach(marcador => marcador.remove());
 
@@ -67,5 +73,9 @@ export class MapaService {
     });
   }
 
+  public setRoute(start: number[], end: number[]) {
+    this.directions.setOrigin(start);
+    this.directions.setDestination(end);
+  }
 }
 

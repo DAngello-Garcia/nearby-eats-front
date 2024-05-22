@@ -17,9 +17,12 @@ import { ComentarioComponent } from '../comentario/comentario.component';
   imports: [CommonModule, FormsModule, ComentarioComponent, RouterModule],
 })
 export class DetalleNegocioComponent implements OnInit {
+
   codePlace: string = '';
   negocio: ItemNegocioDTO;
   canEdit: boolean = false;
+  star: number[] = [];
+  end: number[] = []
 
   constructor(
     private tokenService: TokenService,
@@ -34,8 +37,14 @@ export class DetalleNegocioComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    this.mapaService.addMarcador().subscribe((marcador) => {
+      this.star[0] = marcador.lat;
+      this.star[1] = marcador.lng;
+    });
+    this.end = this.negocio.location.coordinates;
     this.mapaService.createMap();
+    this.mapaService.setRoute(this.star, this.end);
   }
 
   private getPlace() {
