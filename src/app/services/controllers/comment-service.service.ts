@@ -7,32 +7,42 @@ import { ReplyDTO } from '../../dto/comment/reply-dto';
 import { DeleteCommentDTO } from '../../dto/comment/delete-comment-dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentServiceService {
+  private commentURL = 'http://localhost:8080/api/comment';
 
-  private commentURL = "http://localhost:8080/api/comment";
-
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public createComment(commentDTO: CommentDTO): Observable<MenssageDTO> {
-    return this.http.post<MenssageDTO>(`${this.commentURL}/create-comment`, commentDTO);
+    return this.http.post<MenssageDTO>(
+      `${this.commentURL}/create-comment`,
+      commentDTO
+    );
   }
 
   public answerComment(replyCommentDTO: ReplyDTO): Observable<MenssageDTO> {
-    return this.http.post<MenssageDTO>(`${this.commentURL}/answer-comment`, replyCommentDTO);
+    return this.http.post<MenssageDTO>(
+      `${this.commentURL}/answer-comment`,
+      replyCommentDTO
+    );
   }
 
-  public deleteComment(deleteCommentDTO: DeleteCommentDTO): Observable<MenssageDTO> {
+  public deleteComment(
+    deleteCommentDTO: DeleteCommentDTO
+  ): Observable<MenssageDTO> {
     return this.http.delete<MenssageDTO>(`${this.commentURL}/delete-comment`);
   }
 
-  public getCommetsByPlace(placeId: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.commentURL}/get-comments-by-place/${placeId}`);
+  public getCommentsByPlace(placeId: string): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(
+      `${this.commentURL}/get-comments-by-place/${placeId}`
+    );
   }
 
   public getAvarageScoreByPlace(placeId: string): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.commentURL}/get-average-score-by-place/${placeId}`);
+    return this.http.get<MenssageDTO>(
+      `${this.commentURL}/get-average-score-by-place/${placeId}`
+    );
   }
 }

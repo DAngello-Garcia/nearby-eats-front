@@ -1,53 +1,197 @@
-<form (ngSubmit)="comentar()">
-    <div class="form-group">
-        <label for="comment">Comentario:</label>
-          <button type="button" class="btn"><i class="fa-solid fa-star" style="color:red"></i></button>
-          <button type="button" class="btn"><i class="fa-regular fa-star"></i></button>
-          <button type="button" class="btn"><i class="fa-regular fa-star"></i></button>
-          <button type="button" class="btn"><i class="fa-regular fa-star"></i></button>
-          <button type="button" class="btn"><i class="fa-regular fa-star"></i></button> 
-        <textarea class="form-control" #comment="ngModel" name="comment" [(ngModel)]="commentDTO.comment" rows="5"
-            required></textarea>
-
-            <br>
-        <input type="number" class="form-control" #score="ngModel" name="score" [(ngModel)]="commentDTO.score" required>
-    </div>
-    <br>
-    <button type="submit" class="btn btn-primary">Comentar</button>
-</form>
-
-
-<!-- <div class="row mt-4">
+<div class="container mt-4">
+  <div class="row">
     <div class="col-12">
-      <h4>Reseñas</h4>
-      <p><strong>Puntaje:</strong> {{ negocio.score }} / 5</p>
-      <div *ngFor="let review of getDummyReviews()">
-        <div class="card mb-3">
-          <div class="card-body d-flex">
-            <img
-              [src]="review.profileImage"
-              class="rounded-circle me-3"
-              alt="Profile Image"
-              width="50"
-              height="50"
-            />
-            <div>
-              <h5 class="card-title">{{ review.reviewer }}</h5>
-              <p class="card-text">
-                <span
-                  *ngFor="let star of getStars(review.rating)"
-                  class="text-warning"
-                  >&#9733;</span
-                >
-                <span
-                  *ngFor="let star of getStars(5 - review.rating)"
-                  class="text-muted"
-                  >&#9733;</span
-                >
-              </p>
-            </div>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold">Comentarios</h4>
+        <p class="text-muted">
+          <strong>Puntaje:</strong> {{ negocio.score }} / 5
+        </p>
+      </div>
+
+      <!-- Tarjeta para cuando no hay comentarios -->
+      <div *ngIf="comments.length === 0" class="card mb-3 shadow-sm">
+        <div class="card-body text-center">
+          <p class="mb-0">
+            Este lugar aún no tiene comentarios. ¡Sé el primero en comentar!
+          </p>
+        </div>
+      </div>
+
+      <!-- Lista de comentarios -->
+      <div *ngFor="let comment of comments" class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <p>{{ comment.text }}</p>
+          <p>
+            Calificación:
+            <span
+              *ngFor="let i of getStars(comment.score)"
+              [ngClass]="{
+                'text-success': i > 3,
+                'text-warning': i === 3,
+                'text-danger': i < 3
+              }"
+            >
+              <i class="fa fa-star"></i>
+            </span>
+          </p>
+          <div *ngIf="isOwner && !comment.reply">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#modalAnswerForm"
+              (click)="prepareResponse(comment.id)"
+            >
+              Responder
+            </button>
+          </div>
+          <div *ngIf="comment.reply" class="mt-3">
+            <p class="mb-1"><strong>Respuesta:</strong></p>
+            <div class="alert alert-secondary">{{ comment.reply.reply }}</div>
           </div>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
+
+  <div class="text-center mt-4">
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#modalForm"
+    >
+      Agregar comentario
+    </button>
+  </div>
+</div>
+
+<!-- Modal para responder un comentario-->
+<div
+  class="modal fade"
+  id="modalAnswerForm"
+  tabindex="-1"
+  aria-labelledby="modalFormLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalFormLabel">Responder comentario</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form (ngSubmit)="responder()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="comment" class="form-label">Respuesta:</label>
+            <textarea
+              class="form-control"
+              id="comment"
+              #comment="ngModel"
+              name="comment"
+              [(ngModel)]="replyDTO.text"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cerrar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!replyDTO.text"
+          >
+            Enviar Respuesta
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para crear un comentario-->
+<div
+  class="modal fade"
+  id="modalForm"
+  tabindex="-1"
+  aria-labelledby="modalFormLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalFormLabel">Agregar comentario</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form (ngSubmit)="comentar()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Calificación:</label>
+            <div class="d-flex justify-content-start">
+              <i
+                *ngFor="let star of [1, 2, 3, 4, 5]; let idx = index"
+                class="fa fa-star"
+                [ngClass]="{
+                  'text-success':
+                    commentDTO.score >= idx + 1 && commentDTO.score > 3,
+                  'text-warning':
+                    commentDTO.score >= idx + 1 && commentDTO.score === 3,
+                  'text-danger':
+                    commentDTO.score >= idx + 1 && commentDTO.score < 3,
+                  'text-muted': commentDTO.score < idx + 1
+                }"
+                (click)="setScore(idx + 1)"
+                style="cursor: pointer; margin-right: 5px"
+              >
+              </i>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="comment" class="form-label">Comentario:</label>
+            <textarea
+              class="form-control"
+              id="comment"
+              #comment="ngModel"
+              name="comment"
+              [(ngModel)]="commentDTO.comment"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cerrar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!commentDTO.comment || !commentDTO.score"
+          >
+            Enviar Comentario
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
