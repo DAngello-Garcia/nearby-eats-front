@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommentDTO } from '../../../dto/comment/comment-dto';
 import { TokenService } from '../../../services/token.service';
@@ -18,9 +18,9 @@ import { ReplyDTO } from '../../../dto/comment/reply-dto';
   templateUrl: './comentario.component.html',
   styleUrl: './comentario.component.css',
 })
-export class ComentarioComponent {
+export class ComentarioComponent implements OnInit {
   // Variables complementarias
-  placeId: string = '';
+  @Input() placeId: string = '';
   negocio: ItemNegocioDTO;
   userRole: string;
   isOwner: boolean = false;
@@ -35,17 +35,22 @@ export class ComentarioComponent {
     private tokenService: TokenService,
     private placeService: PlaceServiceService,
     private commentService: CommentServiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {
     this.negocio = new ItemNegocioDTO();
     this.commentDTO = new CommentDTO();
     this.replyDTO = new ReplyDTO();
     this.userRole = this.tokenService.getRole();
+  }
+
+  ngOnInit() {
     this.route.params.subscribe((params) => {
       this.placeId = params['id'];
-      this.getPlace();
-      this.getComments();
+      this.cdr.detectChanges(); // Forzar la detección de cambios
     });
+    this.getPlace();
+    this.getComments();
   }
 
   private getPlace() {
@@ -102,7 +107,7 @@ export class ComentarioComponent {
         return;
       }
     }
-
+    this.commentDTO.placeId = this.placeId
     // Crear el comentario
     this.commentService.createComment(this.commentDTO).subscribe({
       next: (data) => {
