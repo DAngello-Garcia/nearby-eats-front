@@ -4,7 +4,7 @@
 }
 
 .carousel-inner img {
-  max-height: 400px;
+  height: 400px;
   object-fit: cover;
 }
 
@@ -19,4 +19,21 @@
   background-color: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
+}
+
+.list-unstyled li {
+  padding-left: 1rem;
+  position: relative;
+}
+
+.list-unstyled li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #000;
 }

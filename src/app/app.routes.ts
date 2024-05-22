@@ -16,6 +16,7 @@ import { DetalleClienteComponent } from './components/client/detalle-cliente/det
 import { MensajeConfirmacionEmailComponent } from './components/client/mensaje-confirmacion-email/mensaje-confirmacion-email.component';
 import { MensajeConfirmacionContraseniaComponent } from './components/client/mensaje-confirmacion-contrasenia/mensaje-confirmacion-contrasenia.component';
 import { RevisionComponent } from './components/revision/revision.component';
+import { ListaRevisionComponent } from './components/moderator/lista-revision/lista-revision.component';
 import { LugaresFavoritosComponent } from './components/client/lugares-favoritos/lugares-favoritos.component';
 import { SolicitudesPendientesComponent } from './components/moderator/solicitudes-pendientes/solicitudes-pendientes.component';
 
