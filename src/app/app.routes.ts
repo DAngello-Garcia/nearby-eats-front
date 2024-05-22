@@ -16,7 +16,6 @@ import { DetalleClienteComponent } from './components/client/detalle-cliente/det
 import { MensajeConfirmacionEmailComponent } from './components/client/mensaje-confirmacion-email/mensaje-confirmacion-email.component';
 import { MensajeConfirmacionContraseniaComponent } from './components/client/mensaje-confirmacion-contrasenia/mensaje-confirmacion-contrasenia.component';
 import { RevisionComponent } from './components/revision/revision.component';
-import { ListaRevisionComponent } from './components/lista-revision/lista-revision.component';
 import { LugaresFavoritosComponent } from './components/client/lugares-favoritos/lugares-favoritos.component';
 import { SolicitudesPendientesComponent } from './components/moderator/solicitudes-pendientes/solicitudes-pendientes.component';
 
@@ -60,14 +59,6 @@ export const routes: Routes = [
   { path: 'detalle-negocio/:id', component: DetalleNegocioComponent },
   { path: 'busqueda/:texto', component: BusquedaComponent },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
-  {
-    path: 'lista-revision',
-    component: ListaRevisionComponent,
-    canActivate: [RolesGuard],
-    data: {
-      expectedRole: ['MODERATOR'],
-    },
-  },
   {
     path: 'revision/:id',
     component: RevisionComponent,

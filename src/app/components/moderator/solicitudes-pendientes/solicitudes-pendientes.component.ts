@@ -15,13 +15,12 @@ import { ItemNegocioDTO } from '../../../dto/place/item-negocio-dto';
 })
 export class SolicitudesPendientesComponent implements OnInit {
 
-  activeTab: string = 'pendientes';
   negocios: ItemNegocioDTO[] = [];
   status: string = 'PENDING';
 
   constructor(
     private placeService: PlaceServiceService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPlacesByMod();
@@ -36,7 +35,8 @@ export class SolicitudesPendientesComponent implements OnInit {
     })
   }
 
-  public setActiveTab(tab: string) {
-    this.activeTab = tab;
+  public setStatus(tab: string) {
+    this.status = tab;
+    this.getPlacesByMod()
   }
 }

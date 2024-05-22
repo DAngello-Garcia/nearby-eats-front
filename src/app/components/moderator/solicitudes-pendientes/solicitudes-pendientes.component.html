@@ -3,69 +3,84 @@
         <div class="text-center mb-4">
             <h2>¿Qué te gustaría hacer hoy?</h2>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-secondary " [class.active]="activeTab === 'pendientes'"
-                    (click)="setActiveTab('pendientes')">Solicitudes pendientes</button>
-                <button type="button" class="btn btn-secondary" [class.active]="activeTab === 'autorizados'"
-                    (click)="setActiveTab('autorizados')">Lugares autorizados</button>
-                <button type="button" class="btn btn-secondary" [class.active]="activeTab === 'rechazados'"
-                    (click)="setActiveTab('rechazados')">Lugares rechazados</button>
+                <button type="button" class="btn btn-secondary " [class.active]="status === 'PENDING'"
+                    (click)="setStatus('PENDING')">Solicitudes pendientes</button>
+                <button type="button" class="btn btn-secondary" [class.active]="status === 'APPROVED'"
+                    (click)="setStatus('APPROVED')">Lugares autorizados</button>
+                <button type="button" class="btn btn-secondary" [class.active]="status === 'REJECTED'"
+                    (click)="setStatus('REJECTED')">Lugares rechazados</button>
             </div>
         </div>
 
-        @if (activeTab === 'pendientes') {
+        @if (status === 'PENDING') {
 
+        @for (item of negocios; track item.name) {
         <div class="card mb-3">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="https://via.placeholder.com/300" class="card-img" alt="Hotel Mocawa Resort">
+                    <img src="{{item.pictures[0]}}" class="card-img" alt="{{item.name}}">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">Hotel Mocawa Resort</h5>
-                        <span class="badge badge-primary">Hotel</span>
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <span class="badge bg-primary">{{item.categories}}</span>
                         <p class="card-text">
-                            Ubicado en el Quindío, el Hotel Mocawa Resort está diseñado para que vivas una experiencia
-                            de viaje rodeado de los valles y las montañas de esta encantadora región.
-                            Inspírate con los colores de nuestra arquitectura colonial, respira aire puro rodeado de
-                            fauna y flora y descubre los encantos de la cultura cafetera, mientras disfrutas de todos
-                            los servicios del Resort.
+                            {{item.description}}
                         </p>
+                        <p class="card-text"><small class="text-muted">Calificación: {{item.score}}</small></p>
                         <div class="d-flex justify-content-around">
-                            <button class="btn btn-success">Autorizar</button>
-                            <button class="btn btn-danger">Rechazar</button>
-                            <button class="btn btn-warning">Ver más</button>
+                            <button class="btn btn-success" routerLink="/revision/{{item.id}}">Revisar</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        } @else if (activeTab === 'autorizados') {
+        }
+        } @else if (status === 'APPROVED') {
 
-            <div class="card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="https://via.placeholder.com/300" class="card-img" alt="Hotel Mocawa Resort">
+        @for (item of negocios; track item.name) {
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{{item.pictures[0]}}" class="card-img" alt="{{item.name}}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <span class="badge bg-primary">{{item.categories}}</span>
+                        <p class="card-text">
+                            {{item.description}}
+                        </p>
+                        <p class="card-text"><small class="text-muted">Calificación: {{item.score}}</small></p>
                     </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Hotel Mocawa Resort</h5>
-                            <span class="badge badge-primary">Hotel</span>
-                            <p class="card-text">
-                                Ubicado en el Quindío, el Hotel Mocawa Resort está diseñado para que vivas una experiencia
-                                de viaje rodeado de los valles y las montañas de esta encantadora región.
-                                Inspírate con los colores de nuestra arquitectura colonial, respira aire puro rodeado de
-                                fauna y flora y descubre los encantos de la cultura cafetera, mientras disfrutas de todos
-                                los servicios del Resort.
-                            </p>
-                            <div class="d-flex justify-content-around">
-                                <button class="btn btn-success">Autorizar</button>
-                                <button class="btn btn-danger">Rechazar</button>
-                                <button class="btn btn-warning">Ver más</button>
-                            </div>
+                </div>
+            </div>
+        </div>
+        }
+        } @else if (status === 'REJECTED') {
+
+        @for (item of negocios; track item.name) {
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{{item.pictures[0]}}" class="card-img" alt="{{item.name}}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <span class="badge bg-primary">{{item.categories}}</span>
+                        <p class="card-text">
+                            {{item.description}}
+                        </p>
+                        <p class="card-text"><small class="text-muted">Calificación: {{item.score}}</small></p>
+                        <div class="d-flex justify-content-around">
+                            <button class="btn btn-success" routerLink="/revision/{{item.id}}">Revisar</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        }
         }
     </div>
 </div>
