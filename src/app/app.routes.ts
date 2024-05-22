@@ -61,14 +61,6 @@ export const routes: Routes = [
   { path: 'busqueda/:texto', component: BusquedaComponent },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   {
-    path: 'lista-revision',
-    component: ListaRevisionComponent,
-    canActivate: [RolesGuard],
-    data: {
-      expectedRole: ['MODERATOR'],
-    },
-  },
-  {
     path: 'revision/:id',
     component: RevisionComponent,
     canActivate: [RolesGuard],
