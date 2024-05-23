@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PlaceCreateDTO } from '../../../dto/place/place-create-dto';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Schedule } from '../../../dto/clases/schedule';
 import { MapaService } from '../../../services/mapa.service';
@@ -12,6 +12,10 @@ import { ImageServiceService } from '../../../services/controllers/image-service
 import { AlertComponent } from '../../alert/alert.component';
 import { TokenService } from '../../../services/token.service';
 import Swal from 'sweetalert2';
+import { ItemNegocioDTO } from '../../../dto/place/item-negocio-dto';
+import { MenssageDTO } from '../../../dto/menssage-dto';
+import { Observable, map } from 'rxjs';
+import { UpdatePlaceDTO } from '../../../dto/place/update-place-dto';
 
 @Component({
   selector: 'app-actualizar-lugar',
@@ -21,12 +25,16 @@ import Swal from 'sweetalert2';
   styleUrl: './actualizar-lugar.component.css'
 })
 export class ActualizarLugarComponent implements OnInit {
-  
-  placeCreateDTO: PlaceCreateDTO;
+
+  updatePlaceDTO: UpdatePlaceDTO;
   files!: FileList;
   currentSchedule: Schedule;
   currentCategory: string;
   currentPhone: string;
+  // preloadedPlace$!: Observable<MenssageDTO>;
+  // preloadPlace: ItemNegocioDTO | undefined
+  codePlace: string = ''
+  preloadedPlace: ItemNegocioDTO
 
   alert!: Alert;
 
@@ -38,9 +46,14 @@ export class ActualizarLugarComponent implements OnInit {
     private tokenService: TokenService,
     private mapService: MapaService,
     private publicService: PublicServiceService,
-    private imageService: ImageServiceService
+    private imageService: ImageServiceService,
+    private route: ActivatedRoute
   ) {
-    this.placeCreateDTO = new PlaceCreateDTO();
+    this.preloadedPlace = new ItemNegocioDTO()
+    this.route.params.subscribe((params) => {
+      this.codePlace = params['id'];
+    });
+    this.updatePlaceDTO = new UpdatePlaceDTO();
     this.currentCategory = '';
     this.currentPhone = '';
     this.currentSchedule = new Schedule('', '', '');
@@ -51,11 +64,28 @@ export class ActualizarLugarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.preload()
     this.mapService.createMap();
-
     this.mapService.addMarcador().subscribe((marcador) => {
-      this.placeCreateDTO.location.coordinates[0] = marcador.lat;
-      this.placeCreateDTO.location.coordinates[1] = marcador.lng;
+      this.updatePlaceDTO.location.coordinates[0] = marcador.lat;
+      this.updatePlaceDTO.location.coordinates[1] = marcador.lng;
+    });
+  }
+
+  private preload() {
+    this.placeService.getPlace(this.codePlace).subscribe({
+      next: (data) => {
+        this.updatePlaceDTO = data.response;
+        this.preloadedPlace.categories = this.updatePlaceDTO.categories
+        this.preloadedPlace.createdBy = this.updatePlaceDTO.clientId
+        this.preloadedPlace.description = this.updatePlaceDTO.description
+        this.preloadedPlace.id = this.codePlace
+        this.preloadedPlace.location = this.updatePlaceDTO.location
+        this.preloadedPlace.name = this.updatePlaceDTO.name
+        this.preloadedPlace.phones = this.updatePlaceDTO.phones
+        this.preloadedPlace.schedule = this.updatePlaceDTO.schedule
+        this.mapService.paintMarcador([this.preloadedPlace]);
+      },
     });
   }
 
@@ -101,11 +131,11 @@ export class ActualizarLugarComponent implements OnInit {
 
       this.imageService.uploadImages(formData).subscribe({
         next: (data) => {
-          let previousImages = this.placeCreateDTO.images;
+          let previousImages = this.updatePlaceDTO.pictures;
           let newImages = data.response.map(
             (response: { url: any }) => response.url
           );
-          this.placeCreateDTO.images = previousImages.concat(newImages);
+          this.updatePlaceDTO.pictures = previousImages.concat(newImages);
 
           Swal.fire('Éxito', 'Se ha subido la foto', 'success');
         },
@@ -124,7 +154,7 @@ export class ActualizarLugarComponent implements OnInit {
       return;
     }
 
-    this.placeCreateDTO.categories.push(this.currentCategory);
+    this.updatePlaceDTO.categories.push(this.currentCategory);
 
     this.categories = this.categories.filter(
       (category) => category != this.currentCategory
@@ -134,7 +164,7 @@ export class ActualizarLugarComponent implements OnInit {
   }
 
   public removeCategory(category: string) {
-    this.placeCreateDTO.categories = this.placeCreateDTO.categories.filter(
+    this.updatePlaceDTO.categories = this.updatePlaceDTO.categories.filter(
       (c) => c != category
     );
   }
@@ -146,7 +176,7 @@ export class ActualizarLugarComponent implements OnInit {
     }
 
     // Agregar el horario actual y eliminar el weekDay
-    this.placeCreateDTO.schedule.push(this.currentSchedule);
+    this.updatePlaceDTO.schedule.push(this.currentSchedule);
     // Eliminar el weekday
     this.weekdays = this.weekdays.filter(
       (weekday) => weekday != this.currentSchedule.weekday
@@ -155,7 +185,7 @@ export class ActualizarLugarComponent implements OnInit {
   }
 
   public removeSchedule(schedule: Schedule) {
-    this.placeCreateDTO.schedule = this.placeCreateDTO.schedule.filter(
+    this.updatePlaceDTO.schedule = this.updatePlaceDTO.schedule.filter(
       (s) => s != schedule
     );
   }
@@ -166,24 +196,24 @@ export class ActualizarLugarComponent implements OnInit {
       return;
     }
 
-    if (this.placeCreateDTO.phones.includes(this.currentPhone)) {
+    if (this.updatePlaceDTO.phones.includes(this.currentPhone)) {
       Swal.fire('Error', 'El numero de telefono ya esta agregado', 'error');
       return;
     }
-    this.placeCreateDTO.phones.push(this.currentPhone);
+    this.updatePlaceDTO.phones.push(this.currentPhone);
     this.currentPhone = '';
   }
 
   public removePhone(phone: string) {
-    this.placeCreateDTO.phones = this.placeCreateDTO.phones.filter(
+    this.updatePlaceDTO.phones = this.updatePlaceDTO.phones.filter(
       (p) => p != phone
     );
   }
 
   public createPlace() {
-    this.placeCreateDTO.clientId = this.tokenService.getId();
-    console.log('this.placeCreateDTO', this.placeCreateDTO);
-    this.placeService.createPlace(this.placeCreateDTO).subscribe({
+    this.updatePlaceDTO.clientId = this.tokenService.getId();
+    this.updatePlaceDTO.placeId = this.codePlace
+    this.placeService.updatePlace(this.updatePlaceDTO).subscribe({
       next: (data) => {
         Swal.fire('Se agrego el negocio con éxito', data.response, 'success');
       },
@@ -193,5 +223,5 @@ export class ActualizarLugarComponent implements OnInit {
     });
   }
 
-  
+
 }

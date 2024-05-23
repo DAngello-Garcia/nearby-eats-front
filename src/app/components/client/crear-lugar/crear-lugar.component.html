@@ -10,28 +10,16 @@
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Nombre: </label>
         <div class="col-sm-10">
-          <input
-            name="name"
-            type="text"
-            placeholder="Ingresa el nombre del negocio..."
-            [(ngModel)]="placeCreateDTO.name"
-            class="form-control"
-            required
-          />
+          <input name="name" type="text" placeholder="Ingresa el nombre del negocio..."
+            [(ngModel)]="placeCreateDTO.name" class="form-control" required />
         </div>
       </div>
 
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Descripción: </label>
         <div class="col-sm-10">
-          <textarea
-            name="description"
-            type="text"
-            placeholder="Ingresa una descripción, datos importantes, etc..."
-            [(ngModel)]="placeCreateDTO.description"
-            class="form-control"
-            required
-          ></textarea>
+          <textarea name="description" type="text" placeholder="Ingresa una descripción, datos importantes, etc..."
+            [(ngModel)]="placeCreateDTO.description" class="form-control" required></textarea>
         </div>
       </div>
 
@@ -47,86 +35,43 @@
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Fotos: </label>
         <div class="col-sm-8">
-          <input
-            class="form-control"
-            type="file"
-            name="images"
-            (change)="onFileChange($event)"
-            multiple
-            required
-          />
+          <input class="form-control" type="file" name="images" (change)="onFileChange($event)" multiple required />
         </div>
         <div class="col-sm-2">
-          <button
-            type="button"
-            [disabled]="!files || files.length === 0"
-            class="btn btn-primary w-100"
-            (click)="uploadImages()"
-          >
+          <button type="button" [disabled]="!files || files.length === 0" class="btn btn-primary w-100"
+            (click)="uploadImages()">
             <i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir fotos
           </button>
         </div>
       </div>
 
-      <div *ngIf="placeCreateDTO.images.length > 0" class="mb-3 row">
+      <div *ngIf="placeCreateDTO.pictures.length > 0" class="mb-3 row">
         <div class="col-sm-10 offset-sm-2">
-          <div
-            id="carouselExampleIndicators"
-            class="carousel slide"
-            data-bs-ride="carousel"
-          >
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-              <button
-                *ngFor="let image of placeCreateDTO.images; let i = index"
-                type="button"
-                [attr.data-bs-target]="'#carouselExampleIndicators'"
-                [attr.data-bs-slide-to]="i"
-                [class.active]="i === 0"
-                aria-current="i === 0 ? 'true' : undefined"
-                aria-label="'Slide ' + (i + 1)"
-              ></button>
+              <button *ngFor="let image of placeCreateDTO.pictures; let i = index" type="button"
+                [attr.data-bs-target]="'#carouselExampleIndicators'" [attr.data-bs-slide-to]="i"
+                [class.active]="i === 0" aria-current="i === 0 ? 'true' : undefined"
+                aria-label="'Slide ' + (i + 1)"></button>
             </div>
             <div class="carousel-inner">
-              <div
-                *ngFor="let image of placeCreateDTO.images; let i = index"
-                class="carousel-item"
-                [class.active]="i === 0"
-              >
-                <div
-                  class="d-flex justify-content-center align-items-center"
-                  style="background-color: #f0f0f0; height: 300px"
-                >
-                  <img
-                    [src]="image"
-                    class="d-block"
-                    alt="Imagen seleccionada"
-                    style="max-height: 100%; max-width: 100%"
-                  />
+              <div *ngFor="let image of placeCreateDTO.pictures; let i = index" class="carousel-item"
+                [class.active]="i === 0">
+                <div class="d-flex justify-content-center align-items-center"
+                  style="background-color: #f0f0f0; height: 300px">
+                  <img [src]="image" class="d-block" alt="Imagen seleccionada"
+                    style="max-height: 100%; max-width: 100%" />
                 </div>
               </div>
             </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
           </div>
@@ -136,12 +81,7 @@
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Categorias: </label>
         <div class="col-sm-8">
-          <select
-            class="form-select"
-            name="categories"
-            required
-            [(ngModel)]="currentCategory"
-          >
+          <select class="form-select" name="categories" required [(ngModel)]="currentCategory">
             <option value="" selected>Selecciona una categoría...</option>
             <option *ngFor="let item of categories" [value]="item">
               {{ item }}
@@ -149,12 +89,7 @@
           </select>
         </div>
         <div class="col-sm-2">
-          <button
-            type="button"
-            [disabled]="!currentCategory"
-            class="btn btn-primary w-100"
-            (click)="addCategory()"
-          >
+          <button type="button" [disabled]="!currentCategory" class="btn btn-primary w-100" (click)="addCategory()">
             <i class="fa-solid fa-circle-plus me-2"></i>Agregar
           </button>
         </div>
@@ -163,17 +98,10 @@
       <div class="mb-3 row">
         <div class="col-sm-10 offset-sm-2">
           <div class="d-flex flex-wrap">
-            <span
-              *ngFor="let category of placeCreateDTO.categories; let i = index"
-              class="badge text-bg-primary me-2 mb-2"
-            >
+            <span *ngFor="let category of placeCreateDTO.categories; let i = index"
+              class="badge text-bg-primary me-2 mb-2">
               {{ category }}
-              <button
-                type="button"
-                class="btn-close"
-                aria-label="Close"
-                (click)="removeCategory(category)"
-              ></button>
+              <button type="button" class="btn-close" aria-label="Close" (click)="removeCategory(category)"></button>
             </span>
           </div>
         </div>
@@ -184,12 +112,7 @@
         <div class="col-sm-10">
           <div class="row mb-2">
             <div class="col-md-3">
-              <select
-                class="form-select"
-                name="day"
-                required
-                [(ngModel)]="currentSchedule.weekday"
-              >
+              <select class="form-select" name="day" required [(ngModel)]="currentSchedule.weekday">
                 <option value="" selected>Selecciona un día...</option>
                 <option *ngFor="let weekday of weekdays" [value]="weekday">
                   {{ weekday }}
@@ -198,38 +121,21 @@
             </div>
 
             <div class="col-md-3">
-              <input
-                class="form-control"
-                placeholder="09:00 am"
-                type="time"
-                name="openingTime"
-                [(ngModel)]="currentSchedule.openingTime"
-                required
-              />
+              <input class="form-control" placeholder="09:00 am" type="time" name="openingTime"
+                [(ngModel)]="currentSchedule.openingTime" required />
             </div>
 
             <div class="col-md-3">
-              <input
-                class="form-control"
-                placeholder="06:00 pm"
-                type="time"
-                name="closingTime"
-                [(ngModel)]="currentSchedule.closingTime"
-                required
-              />
+              <input class="form-control" placeholder="06:00 pm" type="time" name="closingTime"
+                [(ngModel)]="currentSchedule.closingTime" required />
             </div>
 
             <div class="col-md-3">
-              <button
-                type="button"
-                [disabled]="
+              <button type="button" [disabled]="
                   !currentSchedule.weekday ||
                   !currentSchedule.openingTime ||
                   !currentSchedule.closingTime
-                "
-                class="btn btn-primary w-100"
-                (click)="addSchedule()"
-              >
+                " class="btn btn-primary w-100" (click)="addSchedule()">
                 <i class="fa-solid fa-circle-plus me-1"></i>Agregar
               </button>
             </div>
@@ -240,18 +146,11 @@
       <div class="mb-3 row">
         <div class="col-sm-10 offset-sm-2">
           <div class="d-flex flex-wrap">
-            <span
-              *ngFor="let schedule of placeCreateDTO.schedule; let i = index"
-              class="badge text-bg-primary me-2 mb-2"
-            >
+            <span *ngFor="let schedule of placeCreateDTO.schedule; let i = index"
+              class="badge text-bg-primary me-2 mb-2">
               {{ schedule.weekday }}: {{ schedule.openingTime }} -
               {{ schedule.closingTime }}
-              <button
-                type="button"
-                class="btn-close"
-                aria-label="Close"
-                (click)="removeSchedule(schedule)"
-              ></button>
+              <button type="button" class="btn-close" aria-label="Close" (click)="removeSchedule(schedule)"></button>
             </span>
           </div>
         </div>
@@ -260,22 +159,11 @@
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Teléfonos: </label>
         <div class="col-sm-8">
-          <input
-            class="form-control"
-            type="number"
-            name="phone"
-            placeholder="Ingresa un télefono de contacto..."
-            required
-            [(ngModel)]="currentPhone"
-          />
+          <input class="form-control" type="number" name="phone" placeholder="Ingresa un télefono de contacto..."
+            required [(ngModel)]="currentPhone" />
         </div>
         <div class="col-sm-2">
-          <button
-            type="button"
-            [disabled]="!currentPhone"
-            class="btn btn-primary w-100"
-            (click)="addPhone()"
-          >
+          <button type="button" [disabled]="!currentPhone" class="btn btn-primary w-100" (click)="addPhone()">
             <i class="fa-solid fa-circle-plus me-2"></i>Agregar
           </button>
         </div>
@@ -284,27 +172,15 @@
       <div class="mb-3 row">
         <div class="col-sm-10 offset-sm-2">
           <div class="d-flex flex-wrap">
-            <span
-              *ngFor="let phone of placeCreateDTO.phones; let i = index"
-              class="badge text-bg-primary me-2 mb-2"
-            >
+            <span *ngFor="let phone of placeCreateDTO.phones; let i = index" class="badge text-bg-primary me-2 mb-2">
               {{ phone }}
-              <button
-                type="button"
-                class="btn-close"
-                aria-label="Close"
-                (click)="removePhone(phone)"
-              ></button>
+              <button type="button" class="btn-close" aria-label="Close" (click)="removePhone(phone)"></button>
             </span>
           </div>
         </div>
       </div>
 
-      <button
-        class="btn btn-primary w-100"
-        (click)="createPlace()"
-        [disabled]=""
-      >
+      <button class="btn btn-primary w-100" (click)="createPlace()" [disabled]="">
         <i class="fa-solid fa-circle-plus me-1"></i>Crear negocio
       </button>
       <app-alert />

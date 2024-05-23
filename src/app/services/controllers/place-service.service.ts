@@ -27,10 +27,10 @@ export class PlaceServiceService {
   }
 
   public deletePlace(deletePlaceDTO: DeletePlaceDTO): Observable<MenssageDTO> {
-    return this.http.request<MenssageDTO>("DELETE",`${this.placeURL}/delete-place`, { body: deletePlaceDTO});
+    return this.http.request<MenssageDTO>("DELETE", `${this.placeURL}/delete-place`, { body: deletePlaceDTO });
   }
 
-  public getPlace(placeId: string): Observable<MenssageDTO> {
+  public getPlace(placeId: string | null): Observable<MenssageDTO> {
     return this.http.get<MenssageDTO>(`${this.placeURL}/get-place/${placeId}`);
   }
 

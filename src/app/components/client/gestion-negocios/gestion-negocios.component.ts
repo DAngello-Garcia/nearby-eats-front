@@ -8,6 +8,7 @@ import { PlaceServiceService } from '../../../services/controllers/place-service
 import { error } from 'console';
 import { DeletePlaceDTO } from '../../../dto/place/delete-place-dto';
 import { CommentServiceService } from '../../../services/controllers/comment-service.service';
+import { UpdatePlaceDTO } from '../../../dto/place/update-place-dto';
 
 @Component({
   selector: 'app-gestion-negocios',
@@ -41,6 +42,11 @@ export class GestionNegociosComponent {
     this.placeService.getPlacesByClientId(idUser).subscribe({
       next: (data) => {
         this.negocios = data.response;
+        this.negocios.forEach((negocio) => {
+          const key = `${negocio.id}`; // Unique key for each item
+          const serializedNegocio = JSON.stringify(negocio); // Serialize the item
+          window.sessionStorage.setItem(key, serializedNegocio); // Store the item in sessionStorage
+        });
       },
       error: (error) => {
         console.error(error);

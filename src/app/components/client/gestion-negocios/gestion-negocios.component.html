@@ -8,9 +8,7 @@
             <button type="button" routerLink="/crear-lugar" class="btn btn-success me-2">
                 <i class="fa-solid fa-plus me-1"></i> Crear Nuevo Negocio
             </button>
-            <button type="button" routerLink="/editar-lugar" class="btn btn-warning  me-2">
-                <i class="fa-solid fa-pencil me-2"></i>Modificar Negocio
-            </button>
+
             <button type="button" class="btn btn-danger anim-e" [disabled]="seleccionados.length == 0"
                 data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash me-1"></i> Eliminar
                 {{textoBtnDelete}}
@@ -50,6 +48,7 @@
                         <th>Calificación promedio</th>
                         <th>Estado negocio</th>
                         <th>Detalle</th>
+                        <th>Modificar</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -83,7 +82,10 @@
                         <td>
                             <a routerLink="/detalle-negocio/{{item.id}}"><i class="fa-solid fa-circle-info me-2"></i>Ver
                                 detalle</a>
-
+                        </td>
+                        <td>
+                            <button routerLink="/editar-lugar/{{item.id}}" type="button" class="btn btn-warning  me-2">
+                                <i class="fa-solid fa-pencil me-2"></i>Modificar </button>
                         </td>
                     </tr>
                     }

@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header text-center">
         <h5 class="mb-0">
-            <i class="fa-solid fa-utensils me-3"></i>Crear un lugar
+            <i class="fa-solid fa-utensils me-3"></i>Actualizar un lugar
         </h5>
     </div>
 
@@ -11,7 +11,7 @@
                 <label class="col-sm-2 col-form-label">Nombre: </label>
                 <div class="col-sm-10">
                     <input name="name" type="text" placeholder="Ingresa el nombre del negocio..."
-                        [(ngModel)]="placeCreateDTO.name" class="form-control" required />
+                        [(ngModel)]="updatePlaceDTO.name" class="form-control" required />
                 </div>
             </div>
 
@@ -20,7 +20,7 @@
                 <div class="col-sm-10">
                     <textarea name="description" type="text"
                         placeholder="Ingresa una descripción, datos importantes, etc..."
-                        [(ngModel)]="placeCreateDTO.description" class="form-control" required></textarea>
+                        [(ngModel)]="updatePlaceDTO.description" class="form-control" required></textarea>
                 </div>
             </div>
 
@@ -47,17 +47,17 @@
                 </div>
             </div>
 
-            <div *ngIf="placeCreateDTO.images.length > 0" class="mb-3 row">
+            <div *ngIf="updatePlaceDTO.pictures.length > 0" class="mb-3 row">
                 <div class="col-sm-10 offset-sm-2">
                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
-                            <button *ngFor="let image of placeCreateDTO.images; let i = index" type="button"
+                            <button *ngFor="let image of updatePlaceDTO.pictures; let i = index" type="button"
                                 [attr.data-bs-target]="'#carouselExampleIndicators'" [attr.data-bs-slide-to]="i"
                                 [class.active]="i === 0" aria-current="i === 0 ? 'true' : undefined"
                                 aria-label="'Slide ' + (i + 1)"></button>
                         </div>
                         <div class="carousel-inner">
-                            <div *ngFor="let image of placeCreateDTO.images; let i = index" class="carousel-item"
+                            <div *ngFor="let image of updatePlaceDTO.pictures; let i = index" class="carousel-item"
                                 [class.active]="i === 0">
                                 <div class="d-flex justify-content-center align-items-center"
                                     style="background-color: #f0f0f0; height: 300px">
@@ -101,7 +101,7 @@
             <div class="mb-3 row">
                 <div class="col-sm-10 offset-sm-2">
                     <div class="d-flex flex-wrap">
-                        <span *ngFor="let category of placeCreateDTO.categories; let i = index"
+                        <span *ngFor="let category of updatePlaceDTO.categories; let i = index"
                             class="badge text-bg-primary me-2 mb-2">
                             {{ category }}
                             <button type="button" class="btn-close" aria-label="Close"
@@ -136,10 +136,10 @@
 
                         <div class="col-md-3">
                             <button type="button" [disabled]="
-                    !currentSchedule.weekday ||
-                    !currentSchedule.openingTime ||
-                    !currentSchedule.closingTime
-                  " class="btn btn-primary w-100" (click)="addSchedule()">
+                        !currentSchedule.weekday ||
+                        !currentSchedule.openingTime ||
+                        !currentSchedule.closingTime
+                      " class="btn btn-primary w-100" (click)="addSchedule()">
                                 <i class="fa-solid fa-circle-plus me-1"></i>Agregar
                             </button>
                         </div>
@@ -150,7 +150,7 @@
             <div class="mb-3 row">
                 <div class="col-sm-10 offset-sm-2">
                     <div class="d-flex flex-wrap">
-                        <span *ngFor="let schedule of placeCreateDTO.schedule; let i = index"
+                        <span *ngFor="let schedule of updatePlaceDTO.schedule; let i = index"
                             class="badge text-bg-primary me-2 mb-2">
                             {{ schedule.weekday }}: {{ schedule.openingTime }} -
                             {{ schedule.closingTime }}
@@ -177,7 +177,7 @@
             <div class="mb-3 row">
                 <div class="col-sm-10 offset-sm-2">
                     <div class="d-flex flex-wrap">
-                        <span *ngFor="let phone of placeCreateDTO.phones; let i = index"
+                        <span *ngFor="let phone of updatePlaceDTO.phones; let i = index"
                             class="badge text-bg-primary me-2 mb-2">
                             {{ phone }}
                             <button type="button" class="btn-close" aria-label="Close"
@@ -188,7 +188,7 @@
             </div>
 
             <button class="btn btn-primary w-100" (click)="createPlace()" [disabled]="">
-                <i class="fa-solid fa-circle-plus me-1"></i>Crear negocio
+                <i class="fa-solid fa-circle-plus me-1"></i>Actualizar negocio
             </button>
         </form>
     </div>

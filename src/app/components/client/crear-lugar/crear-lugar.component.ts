@@ -21,7 +21,7 @@ import Swal from 'sweetalert2';
   styleUrl: './crear-lugar.component.css',
 })
 export class CrearLugarComponent implements OnInit {
-  
+
   placeCreateDTO: PlaceCreateDTO;
   files!: FileList;
   currentSchedule: Schedule;
@@ -101,11 +101,11 @@ export class CrearLugarComponent implements OnInit {
 
       this.imageService.uploadImages(formData).subscribe({
         next: (data) => {
-          let previousImages = this.placeCreateDTO.images;
+          let previousImages = this.placeCreateDTO.pictures;
           let newImages = data.response.map(
             (response: { url: any }) => response.url
           );
-          this.placeCreateDTO.images = previousImages.concat(newImages);
+          this.placeCreateDTO.pictures = previousImages.concat(newImages);
 
           Swal.fire('Éxito', 'Se ha subido la foto', 'success');
         },

@@ -18,6 +18,7 @@ import { MensajeConfirmacionContraseniaComponent } from './components/client/men
 import { RevisionComponent } from './components/revision/revision.component';
 import { LugaresFavoritosComponent } from './components/client/lugares-favoritos/lugares-favoritos.component';
 import { SolicitudesPendientesComponent } from './components/moderator/solicitudes-pendientes/solicitudes-pendientes.component';
+import { updatePlaceResolverResolver } from './resolver/update-place-resolver.resolver';
 
 export const routes: Routes = [
   { path: '', component: InicioComponent },
@@ -45,6 +46,9 @@ export const routes: Routes = [
   {
     path: 'editar-lugar/:id',
     component: ActualizarLugarComponent,
+    // resolve: {
+    //   id: updatePlaceResolverResolver
+    // },
     canActivate: [RolesGuard],
     data: {
       expectedRole: ['CLIENT'],
