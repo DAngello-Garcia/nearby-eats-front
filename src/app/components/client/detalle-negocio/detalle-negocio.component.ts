@@ -9,6 +9,7 @@ import { MapaService } from '../../../services/mapa.service';
 import { TokenService } from '../../../services/token.service';
 import { ComentarioComponent } from '../comentario/comentario.component';
 import { FavoritePlaceDTO } from '../../../dto/place/favorite-place-dto';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle-negocio',
@@ -42,17 +43,17 @@ export class DetalleNegocioComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { 
-    this.mapaService.createMap( );
+  ngOnInit(): void {
+    this.mapaService.createMap();
     this.mapaService.agregarDirections();
     this.mapaService.getCurrentPosition().subscribe({
       next: data => {
-        this.star = [  data.longitude, data.latitude ];
-        this.mapaService.paintMarcadorUser( this.star );
+        this.star = [data.longitude, data.latitude];
+        this.mapaService.paintMarcadorUser(this.star);
         this.getPlace();
       }
     });
-  
+
   }
 
   private getPlace() {
@@ -61,10 +62,10 @@ export class DetalleNegocioComponent implements OnInit {
         this.negocio = data.response;
         this.canEdit = this.tokenService.getId() === this.negocio.createdBy;
 
-        this.end = [ this.negocio.location.coordinates[1], this.negocio.location.coordinates[0] ];
-        this.mapaService.paintMarcadorUser( this.end );
+        this.end = [this.negocio.location.coordinates[1], this.negocio.location.coordinates[0]];
+        this.mapaService.paintMarcadorUser(this.end);
 
-        if(this.star.length != 0){
+        if (this.star.length != 0) {
           this.mapaService.setRoute(this.star, this.end);
         }
 
@@ -83,21 +84,28 @@ export class DetalleNegocioComponent implements OnInit {
 
   public addFavorite() {
     this.placeService.saveFavoritePlace(this.codePlace).subscribe({
-      next: data => {
+      next: (data) => {
         this.favoritePlaceDTO = data.response;
         this.isFavorited = true;
-      }
-    })
-  }
-
-  public deleteFavorite() {
-    this.placeService.deleteFavoritePlace(this.codePlace).subscribe({
-      next: data => {
-        this.favoritePlaceDTO = data.response;
-        this.isFavorited = false;
+      },
+      error: (error) => {
+        console.log('Error al guardar en favoritos');
+        Swal.fire('Error', 'No se puede agregar otra vez a favoritos', 'error');
       }
     });
   }
 
   
+  public deleteFavorite() {
+    this.placeService.deleteFavoritePlace(this.codePlace).subscribe({
+      next: data => {
+        this.favoritePlaceDTO = data.response;
+        this.isFavorited = false;
+      },
+      error: (error) => {
+        console.log('Error al eliminar el lugar en favorito');
+        Swal.fire('Error', 'No se puede eliminar de favoritos este lugar ', 'error');
+      }
+    });
+  }
 }

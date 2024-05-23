@@ -9,6 +9,8 @@ import { TokenService } from '../../../services/token.service';
 import { forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { MapaService } from '../../../services/mapa.service';
+import { FavoritePlaceDTO } from '../../../dto/place/favorite-place-dto';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lugares-favoritos',
@@ -20,9 +22,10 @@ import { MapaService } from '../../../services/mapa.service';
 export class LugaresFavoritosComponent implements OnInit {
 
   client: UserInformationDTO;
+  favoritePlaceDTO: FavoritePlaceDTO;
   places: ItemNegocioDTO[] = [];
-  idUser: string = ''
-  
+  idUser: string = '';
+  idPlace: string = '';
 
   constructor(
     private userService: UserServiceService,
@@ -32,6 +35,7 @@ export class LugaresFavoritosComponent implements OnInit {
   ) {
       this.idUser = tokenService.getId();
       this.client = new UserInformationDTO();
+      this.favoritePlaceDTO =  new FavoritePlaceDTO();
       this.getIdPlaceFavorite();
       this.getPlacesFavorite();
 
@@ -71,4 +75,6 @@ export class LugaresFavoritosComponent implements OnInit {
       });
     }
    }
+
+
 }

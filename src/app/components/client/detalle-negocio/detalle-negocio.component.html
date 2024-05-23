@@ -5,10 +5,15 @@
     </div>
     <div class="col-md-6 text-end">
       <span class="me-2">
+        @if (!isFavorited) {
         <i class="fa-regular fa-heart"
-        [class.favorited]="isFavorited"
-        (click)="toggleFavorite()"></i>
+        (click)="addFavorite()"></i>
+        } @else {
+        <i class="fa-solid fa-heart"
+        (click)="deleteFavorite()" ></i>
+        }
       </span>
+      
       <button *ngIf="canEdit" class="btn btn-outline-warning btn-sm me-2" type="button"
         routerLink="/editar-lugar/{{ negocio.id }}">
         <i class="fa-solid fa-pencil me-2"></i> Editar

@@ -108,11 +108,14 @@ fa-heart {
   transition: color 0.3s, transform 0.3s;
 }
 
-.fa-heart:hover {
-  color: red;
-  transform: scale(1.1);
+.me-2 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.fa-heart.favorited {
-  color: red;
+.fa-heart {
+  cursor: pointer;
+  font-size: 24px; 
 }
+
