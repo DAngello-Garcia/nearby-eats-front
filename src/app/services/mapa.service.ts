@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ItemNegocioDTO } from '../dto/place/item-negocio-dto';
+import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 
 declare var mapboxgl: any;
-import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
+
+//import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 
 
 @Injectable({
@@ -37,10 +39,6 @@ export class MapaService {
       })
     );
 
-    this.directions = new MapboxDirections({
-      accessToken: (mapboxgl as any).accessToken
-    });
-    this.map.addControl(this.directions, 'top-left');
   }
 
   public addMarcador(): Observable<any> {
@@ -73,9 +71,46 @@ export class MapaService {
     });
   }
 
-  public setRoute(start: number[], end: number[]) {
-    this.directions.setOrigin(start);
-    this.directions.setDestination(end);
+  public paintMarcadorUser(ubicacion: number[]) {
+      new mapboxgl.Marker()
+        .setLngLat([ubicacion[0], ubicacion[1]])
+        .addTo(this.map);
   }
+
+  public setRoute(start: number[], end: number[]) {
+
+    const directions:any = this.directions;
+
+    this.map.on("load", () => {
+      directions.setOrigin(start);
+      directions.setDestination(end);
+    });
+  }
+
+  public agregarDirections(){
+
+    this.directions = new MapboxDirections({
+      accessToken: (mapboxgl as any).accessToken,
+      unit: "metric"
+    });
+
+    this.map.addControl(this.directions, 'top-left');
+
+  }
+
+
+  public getCurrentPosition(): Observable<any> {
+
+    return new Observable<any>(observer => {
+
+      if ("geolocation" in navigator) { 
+        navigator.geolocation.getCurrentPosition(position => { 
+          observer.next(position.coords);
+        });
+      }
+      });
+
+    }
+
 }
 
