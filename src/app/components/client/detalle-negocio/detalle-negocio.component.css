@@ -100,3 +100,19 @@
   border-radius: 50%;
   background-color: #000;
 }
+
+fa-heart {
+  font-size: 1.5rem;
+  transform: scale(5);
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.fa-heart:hover {
+  color: red;
+  transform: scale(1.1);
+}
+
+.fa-heart.favorited {
+  color: red;
+}

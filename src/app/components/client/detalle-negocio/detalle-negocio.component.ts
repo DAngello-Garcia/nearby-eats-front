@@ -8,6 +8,7 @@ import { PlaceServiceService } from '../../../services/controllers/place-service
 import { MapaService } from '../../../services/mapa.service';
 import { TokenService } from '../../../services/token.service';
 import { ComentarioComponent } from '../comentario/comentario.component';
+import { FavoritePlaceDTO } from '../../../dto/place/favorite-place-dto';
 
 @Component({
   selector: 'app-detalle-negocio',
@@ -24,6 +25,9 @@ export class DetalleNegocioComponent implements OnInit {
   star: number[] = [];
   end: number[] = []
 
+  isFavorited: boolean = false;
+  favoritePlaceDTO: FavoritePlaceDTO;
+
   constructor(
     private tokenService: TokenService,
     private route: ActivatedRoute,
@@ -31,6 +35,8 @@ export class DetalleNegocioComponent implements OnInit {
     private mapaService: MapaService
   ) {
     this.negocio = new ItemNegocioDTO();
+    this.favoritePlaceDTO = new FavoritePlaceDTO();
+    this.tokenService.getId();
     this.route.params.subscribe((params) => {
       this.codePlace = params['id'];
     });
@@ -65,4 +71,33 @@ export class DetalleNegocioComponent implements OnInit {
       },
     });
   }
+
+  public toggleFavorite() {
+
+    if (this.isFavorited) {
+      this.deleteFavorite();
+    } else {
+      this.addFavorite();
+    }
+  }
+
+  public addFavorite() {
+    this.placeService.saveFavoritePlace(this.codePlace).subscribe({
+      next: data => {
+        this.favoritePlaceDTO = data.response;
+        this.isFavorited = true;
+      }
+    })
+  }
+
+  public deleteFavorite() {
+    this.placeService.deleteFavoritePlace(this.codePlace).subscribe({
+      next: data => {
+        this.favoritePlaceDTO = data.response;
+        this.isFavorited = false;
+      }
+    });
+  }
+
+  
 }

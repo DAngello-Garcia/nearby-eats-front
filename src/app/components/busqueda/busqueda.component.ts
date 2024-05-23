@@ -77,11 +77,11 @@ export class BusquedaComponent implements OnInit {
       this.resultados = this.todosNegocios;
     } else {
 
-      if(this.todosNegocios.length == 0){
+      if (this.todosNegocios.length == 0) {
         this.todosNegocios = this.resultados;
       }
 
-      this.resultados = this.todosNegocios.filter( n => n.categories.indexOf(category) != -1 );
+      this.resultados = this.todosNegocios.filter(n => n.categories.indexOf(category) != -1);
     }
   }
 
@@ -99,10 +99,19 @@ export class BusquedaComponent implements OnInit {
   public searchByName() {
     this.publicService.getPlacesByName(this.textoBusqueda).subscribe({
       next: data => {
-        this.resultados = data.response;
-        this.mapaService.paintMarcador(this.resultados)
+        if (data.response.status === 'APPROVED') {
+          this.resultados = data.response;
+          this.mapaService.paintMarcador(this.resultados)
+        }
       }
     });
+
+    this.negocioService.getPlacesByCategory(this.textoBusqueda).subscribe({
+      next: data => {
+        this.resultados = data.response;
+        this.mapaService.paintMarcador(this.resultados);
+      }
+    })
   }
 
   public updatePagination(): void {
