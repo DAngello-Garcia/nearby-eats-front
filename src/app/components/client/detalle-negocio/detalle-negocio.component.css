@@ -3,6 +3,69 @@
   height: 400px;
 }
 
+/* Estilos personalizados para el contenedor de direcciones */
+.mapboxgl-ctrl-directions {
+  max-width: 400px;
+  margin: 10px;
+}
+
+.mapbox-directions-route-summary {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.mapbox-directions-route-details {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Personalización de la lista de pasos de la ruta */
+.mapbox-directions-step {
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.mapbox-directions-step:last-child {
+  border-bottom: none;
+}
+
+.mapbox-directions-step .mapbox-directions-icon {
+  font-size: 18px;
+  color: #007cbf;
+}
+
+.mapbox-directions-step .mapbox-directions-instruction {
+  font-size: 14px;
+  color: #333;
+}
+
+.mapbox-directions-step .mapbox-directions-distance {
+  font-size: 12px;
+  color: #777;
+}
+
+/* Mejorar la visibilidad de los controles */
+.mapboxgl-ctrl-group button {
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.mapboxgl-ctrl-group button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Mejorar la visibilidad del botón de geolocalización */
+.mapboxgl-ctrl-geolocate {
+  background-color: #007cbf;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.mapboxgl-ctrl-geolocate:hover {
+  background-color: #005f8f;
+}
+
 .carousel-inner img {
   height: 400px;
   object-fit: cover;

@@ -33,26 +33,35 @@ export class DetalleNegocioComponent implements OnInit {
     this.negocio = new ItemNegocioDTO();
     this.route.params.subscribe((params) => {
       this.codePlace = params['id'];
-      this.getPlace();
     });
   }
 
   ngOnInit(): void { 
-    this.mapaService.addMarcador().subscribe((marcador) => {
-      this.star[0] = marcador.lat;
-      this.star[1] = marcador.lng;
+    this.mapaService.createMap( );
+    this.mapaService.agregarDirections();
+    this.mapaService.getCurrentPosition().subscribe({
+      next: data => {
+        this.star = [  data.longitude, data.latitude ];
+        this.mapaService.paintMarcadorUser( this.star );
+        this.getPlace();
+      }
     });
-    this.end = this.negocio.location.coordinates;
-    this.mapaService.createMap();
-    this.mapaService.setRoute(this.star, this.end);
+  
   }
 
   private getPlace() {
     this.placeService.getPlace(this.codePlace).subscribe({
       next: (data) => {
         this.negocio = data.response;
-        this.mapaService.paintMarcador([this.negocio]);
         this.canEdit = this.tokenService.getId() === this.negocio.createdBy;
+
+        this.end = [ this.negocio.location.coordinates[1], this.negocio.location.coordinates[0] ];
+        this.mapaService.paintMarcadorUser( this.end );
+
+        if(this.star.length != 0){
+          this.mapaService.setRoute(this.star, this.end);
+        }
+
       },
     });
   }
