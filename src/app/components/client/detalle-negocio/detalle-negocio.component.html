@@ -27,6 +27,15 @@
         <strong class="me-2">Categorías:</strong>
         <span *ngFor="let category of negocio.categories" class="badge bg-primary me-2">{{ category }}</span>
       </p>
+      @if(isOpen){
+      <p>
+        <span class="badge bg-primary me-2"> Abierto</span>
+      </p>
+      } @else {
+      <p>
+        <span class="badge bg-danger me-2"> Cerrado</span>
+      </p>
+      }
       <p class="text-muted">{{ negocio.description }}</p>
     </div>
   </div>

@@ -7,6 +7,8 @@ import { PlaceServiceService } from '../../../services/controllers/place-service
 import { MapaService } from '../../../services/mapa.service';
 import { TokenService } from '../../../services/token.service';
 import { ComentarioComponent } from '../comentario/comentario.component';
+import { Subscription, interval } from 'rxjs';
+import { PublicServiceService } from '../../../services/controllers/public.service';
 import { FavoritePlaceDTO } from '../../../dto/place/favorite-place-dto';
 import Swal from 'sweetalert2';
 
@@ -25,15 +27,17 @@ export class DetalleNegocioComponent implements OnInit {
   canEdit: boolean = false;
   star: number[] = [];
   end: number[] = []
-
-  isFavorited: boolean = false;
   favoritePlaceDTO: FavoritePlaceDTO;
+  isFavorited: any;
+  isOpen: boolean | null = null
+  private subscription: Subscription | undefined
 
   constructor(
     private tokenService: TokenService,
     private route: ActivatedRoute,
     private placeService: PlaceServiceService,
     private mapaService: MapaService,
+    private publicService: PublicServiceService
   ) {
     this.negocio = new ItemNegocioDTO();
     this.favoritePlaceDTO = new FavoritePlaceDTO();
@@ -53,10 +57,21 @@ export class DetalleNegocioComponent implements OnInit {
         this.getPlace();
       }
     });
+    this.subscription = interval(60000) // Verificar cada minuto
+      .subscribe(() => this.checkIfOpen(this.codePlace));
+    this.checkIfOpen(this.codePlace)
+  }
 
-    const isFavoritedStored = localStorage.getItem('isFavorited_' + this.codePlace);
-    this.isFavorited = isFavoritedStored === 'true';
+  checkIfOpen(id: string) {
+    this.publicService.isOpen(id).subscribe(isOpen => {
+      this.isOpen = isOpen;
+    });
+  }
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   private getPlace() {
@@ -99,7 +114,7 @@ export class DetalleNegocioComponent implements OnInit {
     });
   }
 
-  
+
   public deleteFavorite() {
     this.placeService.deleteFavoritePlace(this.codePlace).subscribe({
       next: data => {
