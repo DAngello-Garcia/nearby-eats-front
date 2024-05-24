@@ -63,7 +63,7 @@ export class PlaceServiceService {
   }
 
   public recommendPlaces(userId: string): Observable<MenssageDTO> {
-    return this.http.post<MenssageDTO>(`${this.placeURL}/recomend-places/${userId}`, userId);
+    return this.http.get<MenssageDTO>(`${this.placeURL}/recommend-places/${userId}`);
   }
 
   public saveFavoritePlace(placeId: string ): Observable<MenssageDTO> {
