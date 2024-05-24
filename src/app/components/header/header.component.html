@@ -20,26 +20,23 @@
         } @else if(isLogged && role === 'CLIENT') {
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="" routerLink="/lista-revision" class="nav-link px-2">Revisión</a></li>
             <li><a href="" routerLink="/gestion-negocios" class="nav-link px-2">Gestión negocios</a></li>
-            <li><a href="" routerLink="/actualizar-cuenta" class="nav-link px-2">Favoritos</a></li>
+            <li><a href="" routerLink="/ver-lugares-recomendados" class="nav-link px-2">Recomendados</a></li>
         </ul>
         <label class="me-3">Hola {{client.nickname}}</label>
         <div class="action">
-            <div class="profile" (click)="menuToggle();">
-                <img src="{{client.profilePicture}}">
+            <div class="profile d-flex align-items-center justify-content-center" (click)="menuToggle();">
+                <img src="{{client.profilePicture}}" class="rounded-circle" alt="imag-perfil" style="width: 60px; height: 60px;">
             </div>
+            
             <div class="menu">
                 <h3>{{client.firstName}} {{client.lastName}} <br><span>{{client.nickname}}</span></h3>
                 <ul>
-                    <li><i class="fa-solid fa-user-pen"></i><a routerLink="/actualizar-cuenta"> Editar cuenta</a></li>
-                    <li><i class="fa-regular fa-square-plus"></i><a routerLink="/crear-lugar">Crear lugar</a></li>
-                    <li><i class="fa-solid fa-folder-open"></i><a routerLink="/gestion-negocios">Ver Lugares Creados</a>
-                    </li>
-                    <li><i class="fa-solid fa-heart"></i><a routerLink="/ver-lugares-favoritos">Ver Lugares
-                            Favoritos</a></li>
-                    <li><i class="fa-solid fa-right-from-bracket"></i><a routerLink="#" (click)="logout()">Logout</a>
-                    </li>
+                    <li><i class="fa-solid fa-user-pen"></i><a routerLink="/actualizar-cuenta" (click)="closeMenu()"> Editar cuenta</a></li>
+                    <li><i class="fa-regular fa-square-plus"></i><a routerLink="/crear-lugar" (click)="closeMenu()">Crear lugar</a></li>
+                    <li><i class="fa-solid fa-folder-open"></i><a routerLink="/gestion-negocios" (click)="closeMenu()">Ver Lugares Creados</a></li>
+                    <li><i class="fa-solid fa-heart"></i><a routerLink="/ver-lugares-favoritos" (click)="closeMenu()">Ver Lugares Favoritos</a></li>
+                    <li><i class="fa-solid fa-right-from-bracket"></i><a routerLink="#" (click)="logout(); closeMenu()">Logout</a></li>                    
                 </ul>
             </div>
         </div>

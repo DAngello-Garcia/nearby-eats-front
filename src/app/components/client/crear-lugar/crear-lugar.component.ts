@@ -79,7 +79,7 @@ export class CrearLugarComponent implements OnInit {
       error: (error) => {
         console.log('Error al cargar las categorias');
         Swal.fire('Error', 'Error al cargar las categorias', 'error');
-      },
+      }
     });
   }
 

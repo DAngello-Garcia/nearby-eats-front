@@ -3,7 +3,6 @@ import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MapaService } from '../../services/mapa.service';
 import { PlaceServiceService } from '../../services/controllers/place-service.service';
-import { MenssageDTO } from '../../dto/menssage-dto';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TokenService } from '../../services/token.service';
@@ -21,6 +20,7 @@ export class BusquedaComponent implements OnInit {
 
   textoBusqueda: string;
   resultados: ItemNegocioDTO[];
+  resultadosCategory: ItemNegocioDTO[]
   currentPage: number = 1;
   totalPages: number = 0;
   itemsPerPage: number = 6;
@@ -39,6 +39,7 @@ export class BusquedaComponent implements OnInit {
     private publicService: PublicServiceService) {
 
     this.resultados = [];
+    this.resultadosCategory = [];
     this.textoBusqueda = "";
 
     this.route.params.subscribe(params => {
@@ -49,6 +50,7 @@ export class BusquedaComponent implements OnInit {
         this.uploadCategories();
       } else {
         this.searchByName();
+        this.searchByCategory();
         this.uploadCategories();
       }
 
@@ -65,24 +67,9 @@ export class BusquedaComponent implements OnInit {
         this.categories = data.response;
       },
       error: (error) => {
-        console.log('Error al cargar las categorias');
+        console.log('Error al cargar las categorias' + error);
       },
     });
-  }
-
-  public selectCategorySearch(category: string): void {
-    this.selectedCategory = category;
-    if (category === 'All') {
-      this.searchByName();
-      this.resultados = this.todosNegocios;
-    } else {
-
-      if(this.todosNegocios.length == 0){
-        this.todosNegocios = this.resultados;
-      }
-
-      this.resultados = this.todosNegocios.filter( n => n.categories.indexOf(category) != -1 );
-    }
   }
 
   private uploadCategories() {
@@ -91,7 +78,7 @@ export class BusquedaComponent implements OnInit {
         this.categories = data.response;
       },
       error: (error) => {
-        console.log("Error al cargar las categorias")
+        console.log("Error al cargar las categorias" + error)
       }
     })
   }
@@ -99,10 +86,36 @@ export class BusquedaComponent implements OnInit {
   public searchByName() {
     this.publicService.getPlacesByName(this.textoBusqueda).subscribe({
       next: data => {
-        this.resultados = data.response;
-        this.mapaService.paintMarcador(this.resultados)
-      }
+          this.resultados = data.response;
+          this.mapaService.paintMarcador(this.resultados)
+        }
     });
+  }
+
+  public searchByCategory() {
+    this.negocioService.getPlacesByCategory(this.textoBusqueda).subscribe({
+      next: data => {
+        this.resultadosCategory = data.response;
+        this.mapaService.paintMarcador(this.resultados);
+      }
+    })
+  }
+
+
+  
+  public selectCategorySearch(category: string): void {
+    this.selectedCategory = category;
+    if (category === 'All') {
+      this.searchByName();
+      this.resultados = this.todosNegocios;
+    } else {
+
+      if (this.todosNegocios.length == 0) {
+        this.todosNegocios = this.resultados;
+      }
+
+      this.resultados = this.todosNegocios.filter(n => n.categories.indexOf(category) != -1);
+    }
   }
 
   public updatePagination(): void {
@@ -119,5 +132,23 @@ export class BusquedaComponent implements OnInit {
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedResults = this.resultados.slice(startIndex, endIndex);
     this.currentPage = page;
+  }
+
+  private filterNearbyBusinesses() {
+    this.mapaService.getCurrentPosition().subscribe(userCoords => {
+      const userLat = userCoords.latitude;
+      const userLng = userCoords.longitude;
+
+      const nearbyNegocios = this.resultados.filter(negocio => {
+        const negocioLat = negocio.location.coordinates[0];
+        const negocioLng = negocio.location.coordinates[1];
+        const distance = this.mapaService.calculateDistance(userLat, userLng, negocioLat, negocioLng);
+        return distance <= 50; // Filtra negocios dentro de 50 km
+      });
+
+      this.resultados = nearbyNegocios;
+      this.mapaService.paintMarcador(this.resultados);
+      this.updatePagination();
+    });
   }
 }

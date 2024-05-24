@@ -19,6 +19,7 @@ import { RevisionComponent } from './components/revision/revision.component';
 import { LugaresFavoritosComponent } from './components/client/lugares-favoritos/lugares-favoritos.component';
 import { SolicitudesPendientesComponent } from './components/moderator/solicitudes-pendientes/solicitudes-pendientes.component';
 import { updatePlaceResolverResolver } from './resolver/update-place-resolver.resolver';
+import { LugaresRecomendadosComponent } from './components/client/lugares-recomendados/lugares-recomendados.component';
 
 export const routes: Routes = [
   { path: '', component: InicioComponent },
@@ -84,6 +85,14 @@ export const routes: Routes = [
   {
     path: 'ver-lugares-favoritos',
     component: LugaresFavoritosComponent,
+    canActivate: [RolesGuard],
+    data: {
+      expectedRole: ['CLIENT'],
+    },
+  },
+  {
+    path: 'ver-lugares-recomendados',
+    component: LugaresRecomendadosComponent,
     canActivate: [RolesGuard],
     data: {
       expectedRole: ['CLIENT'],

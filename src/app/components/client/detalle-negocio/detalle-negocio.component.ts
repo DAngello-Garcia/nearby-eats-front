@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemNegocioDTO } from '../../../dto/place/item-negocio-dto';
-import { ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { PlaceServiceService } from '../../../services/controllers/place-service.service';
 import { MapaService } from '../../../services/mapa.service';
 import { TokenService } from '../../../services/token.service';
 import { ComentarioComponent } from '../comentario/comentario.component';
 import { Subscription, interval } from 'rxjs';
 import { PublicServiceService } from '../../../services/controllers/public.service';
+import { FavoritePlaceDTO } from '../../../dto/place/favorite-place-dto';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-detalle-negocio',
@@ -25,17 +27,16 @@ export class DetalleNegocioComponent implements OnInit {
   canEdit: boolean = false;
   star: number[] = [];
   end: number[] = []
-  isOpen: boolean | null = null
-  private subscription: Subscription | undefined
 
   constructor(
     private tokenService: TokenService,
     private route: ActivatedRoute,
     private placeService: PlaceServiceService,
-    private mapaService: MapaService,
-    private publicService: PublicServiceService
+    private mapaService: MapaService
   ) {
     this.negocio = new ItemNegocioDTO();
+    this.favoritePlaceDTO = new FavoritePlaceDTO();
+    this.tokenService.getId();
     this.route.params.subscribe((params) => {
       this.codePlace = params['id'];
     });
@@ -52,21 +53,6 @@ export class DetalleNegocioComponent implements OnInit {
       }
     });
 
-    this.subscription = interval(60000) // Verificar cada minuto
-      .subscribe(() => this.checkIfOpen(this.codePlace));
-    this.checkIfOpen(this.codePlace)
-  }
-
-  checkIfOpen(id: string) {
-    this.publicService.isOpen(id).subscribe(isOpen => {
-      this.isOpen = isOpen;
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
   }
 
   private getPlace() {
@@ -83,6 +69,44 @@ export class DetalleNegocioComponent implements OnInit {
         }
 
       },
+    });
+  }
+
+  public toggleFavorite() {
+
+    if (this.isFavorited) {
+      this.deleteFavorite();
+    } else {
+      this.addFavorite();
+    }
+  }
+
+  public addFavorite() {
+    this.placeService.saveFavoritePlace(this.codePlace).subscribe({
+      next: (data) => {
+        this.favoritePlaceDTO = data.response;
+        this.isFavorited = true;
+        localStorage.setItem('isFavorited_' + this.codePlace, 'true');
+      },
+      error: (error) => {
+        console.log('Error al guardar en favoritos');
+        Swal.fire('Error', 'No se puede agregar otra vez a favoritos', 'error');
+      }
+    });
+  }
+
+
+  public deleteFavorite() {
+    this.placeService.deleteFavoritePlace(this.codePlace).subscribe({
+      next: data => {
+        this.favoritePlaceDTO = data.response;
+        this.isFavorited = false;
+        localStorage.removeItem('isFavorited_' + this.codePlace);
+      },
+      error: (error) => {
+        console.log('Error al eliminar el lugar en favorito', error);
+        Swal.fire('Error', 'No se puede eliminar de favoritos este lugar ', 'error');
+      }
     });
   }
 }

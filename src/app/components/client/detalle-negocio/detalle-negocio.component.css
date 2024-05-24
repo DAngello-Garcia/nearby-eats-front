@@ -100,3 +100,22 @@
   border-radius: 50%;
   background-color: #000;
 }
+
+fa-heart {
+  font-size: 1.5rem;
+  transform: scale(5);
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.me-2 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fa-heart {
+  cursor: pointer;
+  font-size: 24px; 
+}
+

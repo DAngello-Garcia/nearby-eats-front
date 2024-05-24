@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header ps-5 pt-4 pb-4">
+    <div class="card-header ps-5 pt-4 pb-4 text-center ">
         <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Actualizar cuenta</h5>
     </div>
 
@@ -23,19 +23,47 @@
                 </div>
             </div>
 
-         
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Foto: </label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="file" name="profilePicture" (change)="onFileChange($event)">
+                <label class="col-sm-2 col-form-label">Fotos: </label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="file" name="profilePicture" (change)="onFileChange($event)" />
                 </div>
-                <div class="col-sm-2 ">
-                    <button type="submit" [disabled]="archivos == null" class="btn btn-primary "
+                <div class="col-sm-2">
+                    <button type="button" [disabled]="!archivos || archivos.length === 0" class="btn btn-primary w-100"
                         (click)="uploadImage()">
-                        <i class="fa-solid fa-cloud-arrow-up me-2 "></i> Subir Foto
+                        <i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir fotos
                     </button>
                 </div>
             </div>
+
+            @if (userUpdateDTO.profilePicture.length > 0) {
+            <div class="mb-3 row">
+                <div class="col-sm-10 offset-sm-2">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators"></div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item">
+                                <div class="d-flex justify-content-center align-items-center"
+                                    style="background-color: #f0f0f0; height: 300px">
+                                    <img class="d-block" alt="Imagen seleccionada"
+                                        style="max-height: 100%; max-width: 100%" />
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            }
 
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Ciudad de Residencia: </label>
@@ -51,19 +79,21 @@
                 <label class="col-sm-2 col-form-label">Correo electrónico: </label>
                 <div class="col-sm-10">
                     <input #email="ngModel" class="form-control" [ngClass]="email.invalid &&
-                    email.dirty ? 'is-invalid' : ''" type="text" name="email" placeholder="example@correo.com" [(ngModel)]="userUpdateDTO.email">
+                    email.dirty ? 'is-invalid' : ''" type="text" name="email" placeholder="example@correo.com"
+                        [(ngModel)]="userUpdateDTO.email">
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <button (click)="updateAccount()" class="btn btn-primary" type="submit" [disabled]="f.invalid">
-                    <i class="fa-solid fa-circle-plus me-1"></i>Actualizar cuenta
-                </button>
-
-                <hr>
-    
-                <button class="btn btn-primary" routerLink="/">Cancelar</button>
+            <div class="col-md-3 d-flex flex-column align-items-center">
+                <div class="d-flex justify-content-center w-100">
+                    <button (click)="updateAccount()" class="btn btn-primary me-2 align-items-center" type="submit" [disabled]="f.invalid">
+                        <i class="fa-solid fa-circle-plus me-1"></i> Actualizar cuenta
+                    </button>
+                    <button class="btn btn-secondary align-items-center" routerLink="/">Cancelar</button>
+                </div>
             </div>
+            
+            
         </form>
         <app-alert></app-alert>
     </div>

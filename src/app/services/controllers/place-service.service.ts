@@ -63,15 +63,15 @@ export class PlaceServiceService {
   }
 
   public recommendPlaces(userId: string): Observable<MenssageDTO> {
-    return this.http.post<MenssageDTO>(`${this.placeURL}/recomend-places/${userId}`, userId);
+    return this.http.get<MenssageDTO>(`${this.placeURL}/recommend-places/${userId}`);
   }
 
-  public saveFavoritePlace(favoritePlaceDTO: FavoritePlaceDTO): Observable<MenssageDTO> {
-    return this.http.patch<MenssageDTO>(`${this.placeURL}/save/favorite/place`, favoritePlaceDTO);
+  public saveFavoritePlace(placeId: string ): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(`${this.placeURL}/save/favorite/place/${placeId}`);
   }
 
-  public deleteFavoritePlace(deleteFavoritePlaceDTO: FavoritePlaceDTO): Observable<MenssageDTO> {
-    return this.http.get<MenssageDTO>(`${this.placeURL}/delete/favorite/place`, deleteFavoritePlaceDTO);
+  public deleteFavoritePlace(placeId: string): Observable<MenssageDTO> {
+    return this.http.get<MenssageDTO>(`${this.placeURL}/delete/favorite/place/${placeId}`);
   }
 
 }

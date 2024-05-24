@@ -13,7 +13,7 @@ export class PublicServiceService {
 
   constructor(private http: HttpClient) { }
 
-  public getPlacesByCategory(categorys: string[]): Observable<MenssageDTO> {
+  public getPlacesByCategory(categorys: string): Observable<MenssageDTO> {
     return this.http.get<MenssageDTO>(`${this.publicURL}/get-place/by-category/${categorys}`);
   }
 
