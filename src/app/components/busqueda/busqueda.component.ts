@@ -61,7 +61,7 @@ export class BusquedaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mapaService.createMap();
-    this.subscription = interval(60000) // Verificar cada minuto
+    this.subscription = interval(3000) // Verificar cada minuto
       .subscribe(() => this.resultados.forEach(r => { this.checkIfOpen(r.id) }));
     this.resultados.forEach(r => { this.checkIfOpen(r.id) })
   }

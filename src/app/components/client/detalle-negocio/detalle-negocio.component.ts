@@ -60,7 +60,7 @@ export class DetalleNegocioComponent implements OnInit {
         this.getPlace();
       }
     });
-    this.subscription = interval(60000) // Verificar cada minuto
+    this.subscription = interval(3000) // Verificar cada minuto
       .subscribe(() => this.checkIfOpen(this.codePlace));
     this.checkIfOpen(this.codePlace)
   }

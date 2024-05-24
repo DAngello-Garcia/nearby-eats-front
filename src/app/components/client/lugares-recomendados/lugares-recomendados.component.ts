@@ -31,7 +31,7 @@ export class LugaresRecomendadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlacesRecommend();
-    this.subscription = interval(60000) // Verificar cada minuto
+    this.subscription = interval(3000) // Verificar cada minuto
       .subscribe(() => this.placeResponseDTO.forEach(r => { this.checkIfOpen(r.id) }));
     this.placeResponseDTO.forEach(r => { this.checkIfOpen(r.id) })
   }
