@@ -3,7 +3,6 @@ import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MapaService } from '../../services/mapa.service';
 import { PlaceServiceService } from '../../services/controllers/place-service.service';
-import { MenssageDTO } from '../../dto/menssage-dto';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TokenService } from '../../services/token.service';
@@ -65,7 +64,7 @@ export class BusquedaComponent implements OnInit {
         this.categories = data.response;
       },
       error: (error) => {
-        console.log('Error al cargar las categorias');
+        console.log('Error al cargar las categorias' + error);
       },
     });
   }
@@ -91,7 +90,7 @@ export class BusquedaComponent implements OnInit {
         this.categories = data.response;
       },
       error: (error) => {
-        console.log("Error al cargar las categorias")
+        console.log("Error al cargar las categorias" + error)
       }
     })
   }

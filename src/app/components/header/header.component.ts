@@ -52,6 +52,13 @@ export class HeaderComponent {
     }
   }
 
+  public closeMenu() {
+    const menu = document.querySelector('.menu');
+    if (menu && menu.classList.contains('active')) {
+      menu.classList.remove('active');
+    }
+  }
+
   public getUser() {
     this.userService.getUser(this.id).subscribe({
       next: data => {
