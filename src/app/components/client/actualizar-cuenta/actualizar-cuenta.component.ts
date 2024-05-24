@@ -73,17 +73,28 @@ export class ActualizarCuentaComponent implements OnInit {
           window.location.reload();
         },
         error: (error) => {
-          this.alert = new Alert(error.error.response, "danger")
+          Swal.fire('Error', error.error, 'error');   
         }
       });
       
     } else {
       console.log("Debe cargar una foto");
+      Swal.fire('Error', 'Debe seleccionar una imagen y subirla', 'error');
     }
   }
 
   private uploadCitys() {
-    this.citys = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena"];
+    this.citys = [
+      "Bogotá", 
+      "Medellín", 
+      "Cali", 
+      "Barranquilla",
+      "Cartagena", 
+      "Armenia", 
+      "Pereira", 
+      "Manizales", 
+      "Ibagué"
+    ];
   }
 
   public onFileChange(event: any) {
@@ -94,9 +105,7 @@ export class ActualizarCuentaComponent implements OnInit {
     }
   }
 
-  
   public uploadImage() {
-
     if (this.archivos != null && this.archivos.length > 0) {
 
       const formData = new FormData();

@@ -129,4 +129,22 @@ export class BusquedaComponent implements OnInit {
     this.pagedResults = this.resultados.slice(startIndex, endIndex);
     this.currentPage = page;
   }
+
+  private filterNearbyBusinesses() {
+    this.mapaService.getCurrentPosition().subscribe(userCoords => {
+      const userLat = userCoords.latitude;
+      const userLng = userCoords.longitude;
+
+      const nearbyNegocios = this.resultados.filter(negocio => {
+        const negocioLat = negocio.location.coordinates[0];
+        const negocioLng = negocio.location.coordinates[1];
+        const distance = this.mapaService.calculateDistance(userLat, userLng, negocioLat, negocioLng);
+        return distance <= 50; // Filtra negocios dentro de 50 km
+      });
+
+      this.resultados = nearbyNegocios;
+      this.mapaService.paintMarcador(this.resultados);
+      this.updatePagination();
+    });
+  }
 }

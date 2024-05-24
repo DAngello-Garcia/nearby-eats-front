@@ -13,7 +13,7 @@ declare var mapboxgl: any;
 export class MapaService {
 
   map: any;
-  style: string = 'mapbox://styles/mapbox/streets-v11';
+  style: string = 'mapbox://styles/mapbox/standard';
   directions: any;
   marcadores: any[];
 
@@ -71,14 +71,14 @@ export class MapaService {
   }
 
   public paintMarcadorUser(ubicacion: number[]) {
-      new mapboxgl.Marker()
-        .setLngLat([ubicacion[0], ubicacion[1]])
-        .addTo(this.map);
+    new mapboxgl.Marker()
+      .setLngLat([ubicacion[0], ubicacion[1]])
+      .addTo(this.map);
   }
 
   public setRoute(start: number[], end: number[]) {
 
-    const directions:any = this.directions;
+    const directions: any = this.directions;
 
     this.map.on("load", () => {
       directions.setOrigin(start);
@@ -86,7 +86,7 @@ export class MapaService {
     });
   }
 
-  public agregarDirections(){
+  public agregarDirections() {
 
     this.directions = new MapboxDirections({
       accessToken: (mapboxgl as any).accessToken,
@@ -94,7 +94,6 @@ export class MapaService {
     });
 
     this.map.addControl(this.directions, 'top-left');
-
   }
 
 
@@ -102,14 +101,31 @@ export class MapaService {
 
     return new Observable<any>(observer => {
 
-      if ("geolocation" in navigator) { 
-        navigator.geolocation.getCurrentPosition(position => { 
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(position => {
           observer.next(position.coords);
         });
       }
-      });
+    });
+  }
 
-    }
+  public calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const R = 6371; // Radio de la Tierra en km
+    const dLat = this.deg2rad(lat2 - lat1);
+    const dLon = this.deg2rad(lon2 - lon1);
+    const a = 
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+      Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    ; 
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+    const distance = R * c; // Distancia en km
+    return distance;
+  }
 
+  // Convierte grados a radianes
+  private deg2rad(deg: number): number {
+    return deg * (Math.PI / 180);
+  }
 }
 
