@@ -7,3 +7,14 @@
     max-height: 150px;
     object-fit: cover;
   }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.button-container button {
+    flex: 0 1 auto;
+}

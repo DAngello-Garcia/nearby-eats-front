@@ -31,8 +31,7 @@ export class ActualizarLugarComponent implements OnInit {
   currentSchedule: Schedule;
   currentCategory: string;
   currentPhone: string;
-  // preloadedPlace$!: Observable<MenssageDTO>;
-  // preloadPlace: ItemNegocioDTO | undefined
+  
   codePlace: string = ''
   preloadedPlace: ItemNegocioDTO
 
@@ -175,9 +174,7 @@ export class ActualizarLugarComponent implements OnInit {
       return;
     }
 
-    // Agregar el horario actual y eliminar el weekDay
     this.updatePlaceDTO.schedule.push(this.currentSchedule);
-    // Eliminar el weekday
     this.weekdays = this.weekdays.filter(
       (weekday) => weekday != this.currentSchedule.weekday
     );

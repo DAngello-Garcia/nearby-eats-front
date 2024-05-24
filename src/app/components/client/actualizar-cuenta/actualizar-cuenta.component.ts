@@ -10,6 +10,8 @@ import { Alert } from '../../../dto/clases/alert';
 import { UserServiceService } from '../../../services/controllers/user-service.service';
 import { error } from 'console';
 import { AlertComponent } from "../../alert/alert.component";
+import { TokenService } from '../../../services/token.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-actualizar-cuenta',
@@ -26,19 +28,40 @@ export class ActualizarCuentaComponent implements OnInit {
   client: UserInformationDTO;
   alert!: Alert
 
+  preloadUser: UserInformationDTO;
+  idUser: string = '';
+
   constructor(
     private userDataService: UserService,
     private imageService: ImageServiceService,
-    private userService: UserServiceService ) {
-    this.client = new UserInformationDTO();
-    this.userUpdateDTO = new UserUpdateDTO();
-    this.citys = [];
+    private userService: UserServiceService,
+    private tokenService: TokenService ) {
+
+      this.preloadUser = new UserInformationDTO();
+      this.client = new UserInformationDTO();
+      this.userUpdateDTO = new UserUpdateDTO();
+      this.citys = [];
+      this.idUser = tokenService.getId();
   }
 
   ngOnInit(): void {
+    this.preload();
     this.uploadCitys();
     this.userDataService.getUser();
 
+  }
+
+  private preload() {
+    this.userService.getUser(this.idUser).subscribe({
+      next: data => {
+        this.userUpdateDTO = data.response;
+        this.preloadUser.city = this.userUpdateDTO.city
+        this.preloadUser.email = this.userUpdateDTO.email
+        this.preloadUser.firstName = this.userUpdateDTO.firstName
+        this.preloadUser.lastName = this.userUpdateDTO.lastName
+        this.preloadUser.profilePicture = this.userUpdateDTO.profilePicture
+      }
+    })
   }
 
   public updateAccount() {
@@ -65,8 +88,9 @@ export class ActualizarCuentaComponent implements OnInit {
 
   public onFileChange(event: any) {
     if (event.target.files.length > 0) {
+      const files = event.target.files;
+      console.log('this.files', files);
       this.archivos = event.target.files;
-      this.userUpdateDTO.profilePicture = this.archivos[0].name;
     }
   }
 
@@ -81,15 +105,15 @@ export class ActualizarCuentaComponent implements OnInit {
       this.imageService.uploadImage(formData).subscribe({
         next: data => {
           this.userUpdateDTO.profilePicture = data.response.url;
-          this.alert = new Alert("Se ha subido la foto", "success");
+          Swal.fire('Éxito', 'Se ha subido la foto', 'success');
         },
         error: error => {
-          this.alert = new Alert(error.error, "danger");
+          Swal.fire('Error', error.error, 'error');
         }
       });
 
     } else {
-      this.alert = new Alert("Debe seleccionar una imagen y subirla", "danger");
+      Swal.fire('Error', 'Debe seleccionar una imagen y subirla', 'error');
     }
   }
 }
