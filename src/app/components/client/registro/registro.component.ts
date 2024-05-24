@@ -3,14 +3,12 @@ import { RegisterClientDTO } from '../../../dto/user/register-client-dto';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PublicServiceService } from '../../../services/controllers/public.service';
-import { AuthService } from '../../../services/controllers/auth.service';
 import { UserServiceService } from '../../../services/controllers/user-service.service';
 import { AlertComponent } from '../../alert/alert.component';
 import { Alert } from '../../../dto/clases/alert';
-import { Location } from '../../../dto/clases/location';
-import { TokenService } from '../../../services/token.service';
 import { ImageServiceService } from '../../../services/controllers/image-service.service';
-import { error } from 'console';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -29,7 +27,7 @@ export class RegistroComponent {
   constructor(
     private publicService: PublicServiceService,
     private userService: UserServiceService,
-    private tokenService: TokenService,
+    private router: Router,
     private imageService: ImageServiceService) {
 
     this.registerClientDTO = new RegisterClientDTO();
@@ -43,15 +41,31 @@ export class RegistroComponent {
 
       this.userService.registerUser(this.registerClientDTO).subscribe({
         next: (data) => {
-          this.alert = new Alert(data.response, "success");
+
+          Swal.fire({
+            title: '¡Se registró el usuario con éxito!',
+            text: data.response,
+            icon: 'success',
+            timer: 3000,
+            showConfirmButton: false,
+            timerProgressBar: true
+          });
+
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 3000); 
         },
         error: (error) => {
-          this.alert = new Alert(error.error.response, "danger")
+          Swal.fire('Error en el registro', error.response, 'error');
         }
       });
 
     } else {
-      this.alert = new Alert("Debe subir una imagen", "danger");
+      Swal.fire({
+        icon: "error",
+        title: "Campo requerido", 
+        text: "Debe subir una imagen",
+      });
     }
   }
 
@@ -66,7 +80,7 @@ export class RegistroComponent {
         this.citys = data.response;
       },
       error: (error) => {
-        console.log("Error al cargar las ciudades");
+        console.log("Error al cargar las ciudades" + error);
       }
     })
   }
@@ -88,15 +102,19 @@ export class RegistroComponent {
       this.imageService.uploadImage(formData).subscribe({
         next: data => {
           this.registerClientDTO.profilePicture = data.response.url;
-          this.alert = new Alert("Se ha subido la foto", "success");
+          Swal.fire('Se subió la foto correctamente', data.response, 'success');
         },
         error: error => {
-          this.alert = new Alert(error.error, "danger");
+          Swal.fire('No se pudo subir la foto', error.response, 'error');
         }
       });
 
     } else {
-      this.alert = new Alert("Debe seleccionar una imagen y subirla", "danger");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Debe seleccionar una imagen para subirla",
+      });
     }
   }
 }

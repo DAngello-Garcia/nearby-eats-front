@@ -1,16 +1,12 @@
-<div class="card ">
-    <h3 class="d-flex justify-content mt-5 me-5">Hola, {{name}}!</h3>
-    <p class="d-flex justify-content mt-1 me-5">UniLocal te da la bienvenida a su plataforma de gestión. ¿Qué acción
-        deseas realizar hoy para mantener nuestra comunidad local vibrante y activa?</p>
-    <div class="container center-content">
-        <div class="d-flex justify-content-center">
-            <h2>¿Qué te gustaría hacer hoy?</h2>
-        </div>
-        <div class="d-flex justify-content-center">
-            <button class="btn btn-outline-primary me-2" routerLink="/solicitudes-pendientes">Revisar solicitudes
-                pendientes</button>
-            <button class="btn btn-outline-primary me-2">Listado de lugares autorizados</button>
-            <button class="btn btn-outline-primary me-2">Listado de lugares rechazados</button>
-        </div>
+  <div class="card text-center">
+    <div class="card-header">
+        Bienvenido, {{name}}!
     </div>
-</div>
+    <div class="card-body">
+      <h5 class="card-title">Gestión</h5>
+      <p class="card-text">¿Qué acción deseas realizar hoy para mantener nuestra comunidad local vibrante y activa?</p>
+      <div class="justify">
+        <button class=" btn btn-primary" routerLink="/solicitudes-pendientes">Revisar Solicitudes</button>
+      </div>
+    </div>
+  </div>

@@ -3,14 +3,15 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PlaceReviewDTO } from '../../dto/place/place-review-dto';
 import { PlaceServiceService } from '../../services/controllers/place-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PublicServiceService } from '../../services/controllers/public.service';
 import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-revision',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './revision.component.html',
   styleUrl: './revision.component.css'
 })
@@ -37,9 +38,11 @@ export class RevisionComponent {
     this.placeService.reviewPlace(this.placeReviewDTO).subscribe({
       next: (data) => {
         console.log("Revisión creado");
+        Swal.fire('Se creó la revisión', data.response, 'success');
       },
       error: (error) => {
-        console.log("Error al revisar");
+        console.log("Error al revisar" + error);
+        Swal.fire('Error al crear la revisión', error.response, 'error');
       }
     });
   }
@@ -50,7 +53,7 @@ export class RevisionComponent {
         this.placeStatus = data.response;
       },
       error: (error) => {
-        console.log("Error al cargar los status");
+        console.log("Error al cargar los status" + error);
       }
     })
   }
