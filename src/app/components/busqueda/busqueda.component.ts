@@ -20,6 +20,7 @@ export class BusquedaComponent implements OnInit {
 
   textoBusqueda: string;
   resultados: ItemNegocioDTO[];
+  resultadosCategory: ItemNegocioDTO[]
   currentPage: number = 1;
   totalPages: number = 0;
   itemsPerPage: number = 6;
@@ -38,6 +39,7 @@ export class BusquedaComponent implements OnInit {
     private publicService: PublicServiceService) {
 
     this.resultados = [];
+    this.resultadosCategory = [];
     this.textoBusqueda = "";
 
     this.route.params.subscribe(params => {
@@ -48,6 +50,7 @@ export class BusquedaComponent implements OnInit {
         this.uploadCategories();
       } else {
         this.searchByName();
+        this.searchByCategory();
         this.uploadCategories();
       }
 
@@ -69,21 +72,6 @@ export class BusquedaComponent implements OnInit {
     });
   }
 
-  public selectCategorySearch(category: string): void {
-    this.selectedCategory = category;
-    if (category === 'All') {
-      this.searchByName();
-      this.resultados = this.todosNegocios;
-    } else {
-
-      if (this.todosNegocios.length == 0) {
-        this.todosNegocios = this.resultados;
-      }
-
-      this.resultados = this.todosNegocios.filter(n => n.categories.indexOf(category) != -1);
-    }
-  }
-
   private uploadCategories() {
     this.publicService.getCategories().subscribe({
       next: (data) => {
@@ -98,19 +86,36 @@ export class BusquedaComponent implements OnInit {
   public searchByName() {
     this.publicService.getPlacesByName(this.textoBusqueda).subscribe({
       next: data => {
-        if (data.response.status === 'APPROVED') {
           this.resultados = data.response;
           this.mapaService.paintMarcador(this.resultados)
         }
-      }
     });
+  }
 
+  public searchByCategory() {
     this.negocioService.getPlacesByCategory(this.textoBusqueda).subscribe({
       next: data => {
-        this.resultados = data.response;
+        this.resultadosCategory = data.response;
         this.mapaService.paintMarcador(this.resultados);
       }
     })
+  }
+
+
+  
+  public selectCategorySearch(category: string): void {
+    this.selectedCategory = category;
+    if (category === 'All') {
+      this.searchByName();
+      this.resultados = this.todosNegocios;
+    } else {
+
+      if (this.todosNegocios.length == 0) {
+        this.todosNegocios = this.resultados;
+      }
+
+      this.resultados = this.todosNegocios.filter(n => n.categories.indexOf(category) != -1);
+    }
   }
 
   public updatePagination(): void {

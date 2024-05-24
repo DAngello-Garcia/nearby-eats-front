@@ -42,6 +42,26 @@
                 </div>
             </div>
         </ng-container>
+        
+        <ng-container *ngFor="let restaurant of resultadosCategory">
+            <div *ngIf="restaurant.status === 'APPROVED'" class="card text-center mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{{restaurant.pictures[0]}}" class="card-img" alt="{{restaurant.name}}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5><a [routerLink]="'/detalle-negocio/' + restaurant.id">{{restaurant.name}}</a></h5>
+    
+                            <h5><span class="badge bg-primary">{{restaurant.categories}}</span></h5>
+                            <p class="card-text">{{restaurant.description}}</p>
+                            <p class="card-text"><small class="text-muted">Calificación: {{restaurant.score}}</small></p>
+                            <p class="card-text"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
     </ul>
     
 

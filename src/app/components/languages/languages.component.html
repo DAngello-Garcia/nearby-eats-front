@@ -1,1 +1,6 @@
-<p>languages works!</p>
+<div class="languages-switcher">
+    <button *ngFor="let lang of languahes" (click)="changeLanguage(lang)">
+      {{lang}}
+    </button>
+  </div>
+  
