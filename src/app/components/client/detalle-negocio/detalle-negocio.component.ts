@@ -68,6 +68,7 @@ export class DetalleNegocioComponent implements OnInit {
   checkIfOpen(id: string) {
     this.publicService.isOpen(id).subscribe(isOpen => {
       this.isOpen = isOpen;
+      this.negocio.isOpen = isOpen
     });
   }
 

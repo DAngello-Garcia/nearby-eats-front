@@ -15,6 +15,7 @@ export class PlaceResponseDTO {
         public revisionHistory: Review[] = [],
         public createBy: string = '',
         public status: string = '',
-        public score: number = 0
-    ) {}
+        public score: number = 0,
+        public isOpen: boolean = false
+    ) { }
 }

@@ -61,13 +61,13 @@ export class CrearLugarComponent implements OnInit {
 
   private fetchWeekdays() {
     this.weekdays = [
-      'Lunes',
-      'Martes',
-      'Miercoles',
-      'Jueves',
-      'Viernes',
-      'Sabado',
-      'Domingo',
+      'MONDAY',
+      'TUESDAY',
+      'WEDNESDAY',
+      'THURSDAY',
+      'FRIDAY',
+      'SATURDAY',
+      'SUNDAY',
     ];
   }
 
