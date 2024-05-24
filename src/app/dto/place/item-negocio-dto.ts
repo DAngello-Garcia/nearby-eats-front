@@ -15,6 +15,7 @@ export class ItemNegocioDTO {
     public review: Review[] = [],
     public createdBy: string = '',
     public status: string = '',
-    public score: number = 0
-  ) {}
+    public score: number = 0,
+    public isOpen: boolean = false,
+  ) { }
 }

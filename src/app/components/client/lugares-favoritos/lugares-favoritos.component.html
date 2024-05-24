@@ -14,6 +14,15 @@
                         <h5 class="card-title"><a routerLink="/detalle-negocio/{{favoritos.id}}">{{favoritos.name}}</a>
                         </h5>
                         <h5><span class="badge bg-primary">{{favoritos.categories}}</span></h5>
+                        @if(favoritos.isOpen){
+                        <h5>
+                            <span class="badge bg-primary me-2"> Abierto</span>
+                        </h5>
+                        } @else {
+                        <h5>
+                            <span class="badge bg-danger me-2"> Cerrado</span>
+                        </h5>
+                        }
                         <p class="card-text">{{favoritos.description}}</p>
                         <p class="card-text"><small class="text-muted">Calificación: {{favoritos.score}}</small></p>
                     </div>

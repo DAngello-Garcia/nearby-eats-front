@@ -31,7 +31,7 @@ export class ActualizarLugarComponent implements OnInit {
   currentSchedule: Schedule;
   currentCategory: string;
   currentPhone: string;
-  
+
   codePlace: string = ''
   preloadedPlace: ItemNegocioDTO
 
@@ -90,13 +90,13 @@ export class ActualizarLugarComponent implements OnInit {
 
   private fetchWeekdays() {
     this.weekdays = [
-      'Lunes',
-      'Martes',
-      'Miercoles',
-      'Jueves',
-      'Viernes',
-      'Sabado',
-      'Domingo',
+      'MONDAY',
+      'TUESDAY',
+      'WEDNESDAY',
+      'THURSDAY',
+      'FRIDAY',
+      'SATURDAY',
+      'SUNDAY',
     ];
   }
 
