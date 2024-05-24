@@ -6,11 +6,12 @@ import { UserServiceService } from '../../../services/controllers/user-service.s
 import { PlaceServiceService } from '../../../services/controllers/place-service.service';
 import { CommonModule } from '@angular/common';
 import { TokenService } from '../../../services/token.service';
-import { forkJoin } from 'rxjs';
+import { Subscription, forkJoin, interval } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { MapaService } from '../../../services/mapa.service';
 import { FavoritePlaceDTO } from '../../../dto/place/favorite-place-dto';
 import Swal from 'sweetalert2';
+import { PublicServiceService } from '../../../services/controllers/public.service';
 
 @Component({
   selector: 'app-lugares-favoritos',
@@ -26,23 +27,40 @@ export class LugaresFavoritosComponent implements OnInit {
   places: ItemNegocioDTO[] = [];
   idUser: string = '';
   idPlace: string = '';
+  private subscription: Subscription | undefined
 
   constructor(
     private userService: UserServiceService,
     private placeService: PlaceServiceService,
     private tokenService: TokenService,
-    private mapaService: MapaService
+    private mapaService: MapaService,
+    private publicService: PublicServiceService
   ) {
-      this.idUser = tokenService.getId();
-      this.client = new UserInformationDTO();
-      this.favoritePlaceDTO =  new FavoritePlaceDTO();
-      this.getIdPlaceFavorite();
-      this.getPlacesFavorite();
+    this.idUser = tokenService.getId();
+    this.client = new UserInformationDTO();
+    this.favoritePlaceDTO = new FavoritePlaceDTO();
+    this.getIdPlaceFavorite();
+    this.getPlacesFavorite();
 
   }
 
   ngOnInit(): void {
     this.mapaService.createMap();
+    this.subscription = interval(60000) // Verificar cada minuto
+      .subscribe(() => this.places.forEach(r => { this.checkIfOpen(r.id) }));
+    this.places.forEach(r => { this.checkIfOpen(r.id) })
+  }
+
+  checkIfOpen(id: string) {
+    this.publicService.isOpen(id).subscribe(isOpen => {
+      this.places.forEach(r => { r.id === id ? r.isOpen = isOpen : r.isOpen })
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   public getIdPlaceFavorite() {
@@ -74,6 +92,6 @@ export class LugaresFavoritosComponent implements OnInit {
         }
       });
     }
-   }
+  }
 
 }

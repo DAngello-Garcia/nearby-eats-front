@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TokenService } from '../../services/token.service';
 import { PublicServiceService } from '../../services/controllers/public.service';
+import { Subscription, interval } from 'rxjs';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class BusquedaComponent implements OnInit {
   categories: string[] = []
   selectedCategory: string = 'All'
   todosNegocios: ItemNegocioDTO[] = [];
+  private subscription: Subscription | undefined
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +61,21 @@ export class BusquedaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mapaService.createMap();
+    this.subscription = interval(60000) // Verificar cada minuto
+      .subscribe(() => this.resultados.forEach(r => { this.checkIfOpen(r.id) }));
+    this.resultados.forEach(r => { this.checkIfOpen(r.id) })
+  }
+
+  checkIfOpen(id: string) {
+    this.publicService.isOpen(id).subscribe(isOpen => {
+      this.resultados.forEach(r => { r.id === id ? r.isOpen = isOpen : r.isOpen })
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   public fetchCategories() {
@@ -86,9 +103,9 @@ export class BusquedaComponent implements OnInit {
   public searchByName() {
     this.publicService.getPlacesByName(this.textoBusqueda).subscribe({
       next: data => {
-          this.resultados = data.response;
-          this.mapaService.paintMarcador(this.resultados)
-        }
+        this.resultados = data.response;
+        this.mapaService.paintMarcador(this.resultados)
+      }
     });
   }
 
@@ -102,7 +119,7 @@ export class BusquedaComponent implements OnInit {
   }
 
 
-  
+
   public selectCategorySearch(category: string): void {
     this.selectedCategory = category;
     if (category === 'All') {
