@@ -27,12 +27,17 @@ export class DetalleNegocioComponent implements OnInit {
   canEdit: boolean = false;
   star: number[] = [];
   end: number[] = []
+  favoritePlaceDTO: FavoritePlaceDTO;
+  isFavorited: any;
+  isOpen: boolean | null = null
+  private subscription: Subscription | undefined
 
   constructor(
     private tokenService: TokenService,
     private route: ActivatedRoute,
     private placeService: PlaceServiceService,
-    private mapaService: MapaService
+    private mapaService: MapaService,
+    private publicService: PublicServiceService
   ) {
     this.negocio = new ItemNegocioDTO();
     this.favoritePlaceDTO = new FavoritePlaceDTO();
@@ -52,7 +57,21 @@ export class DetalleNegocioComponent implements OnInit {
         this.getPlace();
       }
     });
+    this.subscription = interval(60000) // Verificar cada minuto
+      .subscribe(() => this.checkIfOpen(this.codePlace));
+    this.checkIfOpen(this.codePlace)
+  }
 
+  checkIfOpen(id: string) {
+    this.publicService.isOpen(id).subscribe(isOpen => {
+      this.isOpen = isOpen;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   private getPlace() {
