@@ -45,6 +45,9 @@ export class DetalleNegocioComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.codePlace = params['id'];
     });
+
+    const isFavoritedStored = localStorage.getItem('isFavorited_' + this.codePlace);
+    this.isFavorited = isFavoritedStored === 'true';
   }
 
   ngOnInit(): void {
