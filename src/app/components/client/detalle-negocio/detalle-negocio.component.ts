@@ -8,6 +8,8 @@ import { PlaceServiceService } from '../../../services/controllers/place-service
 import { MapaService } from '../../../services/mapa.service';
 import { TokenService } from '../../../services/token.service';
 import { ComentarioComponent } from '../comentario/comentario.component';
+import { Subscription, interval } from 'rxjs';
+import { PublicServiceService } from '../../../services/controllers/public.service';
 
 @Component({
   selector: 'app-detalle-negocio',
@@ -23,12 +25,15 @@ export class DetalleNegocioComponent implements OnInit {
   canEdit: boolean = false;
   star: number[] = [];
   end: number[] = []
+  isOpen: boolean | null = null
+  private subscription: Subscription | undefined
 
   constructor(
     private tokenService: TokenService,
     private route: ActivatedRoute,
     private placeService: PlaceServiceService,
-    private mapaService: MapaService
+    private mapaService: MapaService,
+    private publicService: PublicServiceService
   ) {
     this.negocio = new ItemNegocioDTO();
     this.route.params.subscribe((params) => {
@@ -36,17 +41,32 @@ export class DetalleNegocioComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { 
-    this.mapaService.createMap( );
+  ngOnInit(): void {
+    this.mapaService.createMap();
     this.mapaService.agregarDirections();
     this.mapaService.getCurrentPosition().subscribe({
       next: data => {
-        this.star = [  data.longitude, data.latitude ];
-        this.mapaService.paintMarcadorUser( this.star );
+        this.star = [data.longitude, data.latitude];
+        this.mapaService.paintMarcadorUser(this.star);
         this.getPlace();
       }
     });
-  
+
+    this.subscription = interval(60000) // Verificar cada minuto
+      .subscribe(() => this.checkIfOpen(this.codePlace));
+    this.checkIfOpen(this.codePlace)
+  }
+
+  checkIfOpen(id: string) {
+    this.publicService.isOpen(id).subscribe(isOpen => {
+      this.isOpen = isOpen;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   private getPlace() {
@@ -55,10 +75,10 @@ export class DetalleNegocioComponent implements OnInit {
         this.negocio = data.response;
         this.canEdit = this.tokenService.getId() === this.negocio.createdBy;
 
-        this.end = [ this.negocio.location.coordinates[1], this.negocio.location.coordinates[0] ];
-        this.mapaService.paintMarcadorUser( this.end );
+        this.end = [this.negocio.location.coordinates[1], this.negocio.location.coordinates[0]];
+        this.mapaService.paintMarcadorUser(this.end);
 
-        if(this.star.length != 0){
+        if (this.star.length != 0) {
           this.mapaService.setRoute(this.star, this.end);
         }
 

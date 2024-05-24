@@ -37,4 +37,8 @@ export class PublicServiceService {
     return this.http.get<MenssageDTO>(`${this.publicURL}/get-categories`);
   }
 
+  public isOpen(id: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.publicURL}/${id}/isOpen`);
+  }
+
 }
