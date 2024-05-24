@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PlaceReviewDTO } from '../../dto/place/place-review-dto';
 import { PlaceServiceService } from '../../services/controllers/place-service.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { PublicServiceService } from '../../services/controllers/public.service';
 import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 import Swal from 'sweetalert2';
@@ -21,7 +21,11 @@ export class RevisionComponent {
   place!: ItemNegocioDTO;
   placeStatus: string[] = []
 
-  constructor(private placeService: PlaceServiceService, private publicService: PublicServiceService, private ruta: ActivatedRoute) {
+  constructor(
+    private placeService: PlaceServiceService,
+    private publicService: PublicServiceService,
+    private ruta: ActivatedRoute,
+    private route: Router) {
     this.placeReviewDTO = new PlaceReviewDTO('', '', '')
     this.placeId = ruta.snapshot.params['id']
     this.uploadPlaceStatus()
@@ -38,7 +42,18 @@ export class RevisionComponent {
     this.placeService.reviewPlace(this.placeReviewDTO).subscribe({
       next: (data) => {
         console.log("Revisión creado");
-        Swal.fire('Se creó la revisión', data.response, 'success');
+        Swal.fire({
+          title: 'Se agrego el negocio con éxito', 
+          text: data.response, 
+          icon : 'success',
+          timer: 3000,
+          showConfirmButton: false,
+          timerProgressBar: true
+        });
+
+        setTimeout(() => {
+          this.route.navigate(['/']);
+        }, 3000)
       },
       error: (error) => {
         console.log("Error al revisar" + error);

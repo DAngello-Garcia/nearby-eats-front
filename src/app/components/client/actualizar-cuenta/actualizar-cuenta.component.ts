@@ -12,6 +12,8 @@ import { error } from 'console';
 import { AlertComponent } from "../../alert/alert.component";
 import { TokenService } from '../../../services/token.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 
 @Component({
     selector: 'app-actualizar-cuenta',
@@ -35,7 +37,8 @@ export class ActualizarCuentaComponent implements OnInit {
     private userDataService: UserService,
     private imageService: ImageServiceService,
     private userService: UserServiceService,
-    private tokenService: TokenService ) {
+    private tokenService: TokenService,
+    private route: Router ) {
 
       this.preloadUser = new UserInformationDTO();
       this.client = new UserInformationDTO();
@@ -69,8 +72,18 @@ export class ActualizarCuentaComponent implements OnInit {
 
       this.userService.updateUserUSer(this.userUpdateDTO).subscribe({
         next: (data) => {
-          this.alert = new Alert(data.response, "success");
-          window.location.reload();
+          Swal.fire({
+            title: 'Se modifico la cuenta con éxito', 
+            text: data.response, 
+            icon : 'success',
+            timer: 3000,
+            showConfirmButton: false,
+            timerProgressBar: true
+          });
+  
+          setTimeout(() => {
+            this.route.navigate(['/'])
+          }, 3000)
         },
         error: (error) => {
           Swal.fire('Error', error.error, 'error');   

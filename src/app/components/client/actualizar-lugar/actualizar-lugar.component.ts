@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PlaceCreateDTO } from '../../../dto/place/place-create-dto';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Schedule } from '../../../dto/clases/schedule';
 import { MapaService } from '../../../services/mapa.service';
@@ -46,7 +46,8 @@ export class ActualizarLugarComponent implements OnInit {
     private mapService: MapaService,
     private publicService: PublicServiceService,
     private imageService: ImageServiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.preloadedPlace = new ItemNegocioDTO()
     this.route.params.subscribe((params) => {
@@ -212,7 +213,18 @@ export class ActualizarLugarComponent implements OnInit {
     this.updatePlaceDTO.placeId = this.codePlace
     this.placeService.updatePlace(this.updatePlaceDTO).subscribe({
       next: (data) => {
-        Swal.fire('Se agrego el negocio con éxito', data.response, 'success');
+        Swal.fire({
+          title: 'Se Actualizó el Negocio con Éxito',
+          text: data.response,
+          icon: 'success',
+          timer: 3000,
+          showConfirmButton: false,
+          timerProgressBar: true
+        });
+
+        setTimeout(() => {
+          this.router.navigate(['/'])
+        }, 3000);
       },
       error: (error) => {
         Swal.fire('Error', error.error.response, 'error');

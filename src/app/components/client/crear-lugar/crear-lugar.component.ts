@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PlaceCreateDTO } from '../../../dto/place/place-create-dto';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Schedule } from '../../../dto/clases/schedule';
 import { MapaService } from '../../../services/mapa.service';
@@ -38,7 +38,8 @@ export class CrearLugarComponent implements OnInit {
     private tokenService: TokenService,
     private mapService: MapaService,
     private publicService: PublicServiceService,
-    private imageService: ImageServiceService
+    private imageService: ImageServiceService,
+    private router: Router
   ) {
     this.placeCreateDTO = new PlaceCreateDTO();
     this.currentCategory = '';
@@ -185,7 +186,18 @@ export class CrearLugarComponent implements OnInit {
     console.log('this.placeCreateDTO', this.placeCreateDTO);
     this.placeService.createPlace(this.placeCreateDTO).subscribe({
       next: (data) => {
-        Swal.fire('Se agrego el negocio con éxito', data.response, 'success');
+        Swal.fire({
+          title: 'Se agrego el negocio con éxito', 
+          text: data.response, 
+          icon : 'success',
+          timer: 3000,
+          showConfirmButton: false,
+          timerProgressBar: true
+        });
+
+        setTimeout(() => {
+          this.router.navigate(['/'])
+        })
       },
       error: (error) => {
         Swal.fire('Error', error.error.response, 'error');
