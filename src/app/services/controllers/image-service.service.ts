@@ -9,7 +9,7 @@ import { ImageDTO } from '../../dto/image/image-dto';
 })
 export class ImageServiceService {
 
-  private imageURL = "http://localhost:8080/api/images";
+  private imageURL = "https://nearbyeats.onrender.com/api/images";
 
 
   constructor(private http: HttpClient) { }

@@ -9,7 +9,7 @@ import { Location } from '../../dto/clases/location';
 })
 export class PublicServiceService {
 
-  private publicURL = "http://localhost:8080/api/public";
+  private publicURL = "https://nearbyeats.onrender.com/api/public";
 
   constructor(private http: HttpClient) { }
 

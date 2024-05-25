@@ -14,7 +14,7 @@ import { ItemNegocioDTO } from '../../dto/place/item-negocio-dto';
 })
 export class PlaceServiceService {
 
-  private placeURL = "http://localhost:8080/api/place";
+  private placeURL = "https://nearbyeats.onrender.com/api/place";
 
   constructor(private http: HttpClient) { }
 
