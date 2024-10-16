@@ -13,7 +13,7 @@ import { UserInformationDTO } from '../../dto/user/user-information-dto';
 })
 export class UserServiceService {
 
-  private userURL = "http://localhost:8080/api/user";
+  private userURL = "https://nearbyeats-1.onrender.com/api/user";
 
   constructor(private http: HttpClient) { }
 

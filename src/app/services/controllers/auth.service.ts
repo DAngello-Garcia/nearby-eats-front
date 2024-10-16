@@ -11,7 +11,7 @@ import { LoginDTO } from '../../dto/user/login-dto';
 })
 export class AuthService {
 
-  private authURL = "https://nearbyeats.onrender.com/api/auth";
+  private authURL = "https://nearbyeats-1.onrender.com/api/auth";
 
   constructor(private http: HttpClient) { }
 

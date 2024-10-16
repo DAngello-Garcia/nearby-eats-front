@@ -10,7 +10,7 @@ import { DeleteCommentDTO } from '../../dto/comment/delete-comment-dto';
   providedIn: 'root',
 })
 export class CommentServiceService {
-  private commentURL = 'https://nearbyeats.onrender.com/api/comment';
+  private commentURL = 'https://nearbyeats-1.onrender.com/api/comment';
 
   constructor(private http: HttpClient) {}
 
